@@ -36,7 +36,7 @@
   font-family: Georgia, 'Times New Roman', serif;
   font-weight: 800;
   line-height: 1.1;
-  color: #0b3a6e;
+  color: #111111;
 }
 
 .nav-tagline {

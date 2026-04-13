@@ -9,7 +9,7 @@ import NavBar from './components/navbar.vue'
     <main class="page-content">
       <section class="hero">
         <p class="eyebrow">Remittances | Diaspora Bonds | Structured Finance</p>
-        <h1>Strategic, Advisory, and Analytical Services on Global Development Finance</h1>
+        <h1>Strategy, Advice, and Analytics on Global Development Finance</h1>
         <p class="hero-copy">
           Ratha Global supports governments, financial institutions, and fintech leaders
           with deep expertise in remittances, diaspora financing, sovereign ratings,
