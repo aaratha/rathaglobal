@@ -3,7 +3,6 @@
     <div class="nav-content">
       <div>
         <p class="nav-kicker">Ratha Global</p>
-        <p class="nav-tagline">Advisory in global finance, migration, and remittances</p>
       </div>
 
       <a href="#contact" class="nav-button">Contact</a>
@@ -33,9 +32,11 @@
 
 .nav-kicker {
   margin: 0;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #11212d;
+  font-size: 1.55rem;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #0b3a6e;
 }
 
 .nav-tagline {
@@ -66,12 +67,12 @@
 
 @media (max-width: 640px) {
   .nav-content {
-    width: min(100% - 1rem, 1100px);
+    width: min(100% - 1.5rem, 1100px);
     align-items: center;
   }
 
   .nav-kicker {
-    font-size: 1rem;
+    font-size: 1.3rem;
   }
 
   .nav-button {

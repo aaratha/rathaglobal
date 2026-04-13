@@ -8,8 +8,8 @@ import NavBar from './components/navbar.vue'
 
     <main class="page-content">
       <section class="hero">
-        <p class="eyebrow">Global Capital for Human Development</p>
-        <h1>Strategic advice on migration, remittances, and cross-border finance.</h1>
+        <p class="eyebrow">Remittances | Diaspora Bonds | Structured Finance</p>
+        <h1>Strategic, Advisory, and Analytical Services on Global Development Finance</h1>
         <p class="hero-copy">
           Ratha Global supports governments, financial institutions, and fintech leaders
           with deep expertise in remittances, diaspora financing, sovereign ratings,
@@ -21,7 +21,7 @@ import NavBar from './components/navbar.vue'
         <article class="card card-wide">
           <h2>Who we are</h2>
           <p>
-            Ratha Global was founded by Dilip Ratha. He advises governments,
+            Ratha Global was founded by <a target="_blank" href="https://www.linkedin.com/in/dilipratha/">Dilip Ratha</a>. He advises governments,
             supranational institutions, banks, and fintechs on remittances,
             cross-border payments, migration, diaspora financing (diaspora bonds and
             remittance bonds), sovereign ratings, structured finance, and investment
@@ -118,7 +118,7 @@ import NavBar from './components/navbar.vue'
 <style>
 :root {
   color-scheme: light;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
   background:
     radial-gradient(circle at top, rgba(196, 169, 116, 0.28), transparent 30%),
     linear-gradient(180deg, #f7f2e8 0%, #fffdf8 35%, #f3eee2 100%);
@@ -155,14 +155,14 @@ a {
 
 .hero {
   padding: 1.75rem 0 2.5rem;
-  max-width: 760px;
+  max-width: 860px;
 }
 
 .eyebrow {
   margin: 0 0 0.75rem;
-  font-size: 0.85rem;
+  font-size: 1.1rem;
   letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
   color: #8a6a2f;
   font-weight: 700;
 }
@@ -171,6 +171,7 @@ a {
   margin: 0;
   font-size: clamp(2.5rem, 6vw, 4.6rem);
   line-height: 0.98;
+  font-family: Georgia, 'Times New Roman', serif;
   color: #11212d;
 }
 
@@ -205,13 +206,14 @@ a {
 .card h2 {
   margin: 0 0 1rem;
   font-size: 1.45rem;
+  font-family: Georgia, 'Times New Roman', serif;
   color: #11212d;
 }
 
 .card p,
 .card li,
 .contact-card a {
-  font-size: 1rem;
+  font-size: 1.08rem;
   line-height: 1.75;
   color: #425466;
 }
@@ -251,14 +253,15 @@ a {
 }
 
 @media (max-width: 900px) {
+  .hero {
+    max-width: 640px;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
   .card,
   .card-wide {
     grid-column: span 12;
-  }
-
-  .hero {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
   }
 }
 
@@ -269,7 +272,8 @@ a {
   }
 
   .hero {
-    padding: 1.25rem 0.75rem 1.5rem;
+    max-width: none;
+    padding: 1.25rem 1rem 1.5rem;
   }
 
   .card {
