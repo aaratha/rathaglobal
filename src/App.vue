@@ -44,11 +44,11 @@ import NavBar from './components/navbar.vue'
 
           <p>
             After working at the World Bank Group for over 30 years, he founded
-            Rathanomics*, to continue his work and help fill any institutional gaps.
+            Ratha Global, to continue his work and help fill any institutional gaps.
           </p>
 
           <p>
-            A frequent keynote speaker, his TED Talk has been viewed over 1.5 million
+              A frequent keynote speaker, his <a target="_blank" href="https://www.ted.com/talks/dilip_ratha_the_hidden_force_in_global_economics_sending_money_home">TED Talk</a> has been viewed over 1.5 million
             times and has inspired 20+ fintech startups. He remains committed to
             lowering the cost of cross-border remittances and mentoring the next
             generation of innovators.
@@ -89,7 +89,7 @@ import NavBar from './components/navbar.vue'
               </a>
             </li>
             <li>
-              <a href="http://go.ted.com/CnGd" target="_blank" rel="noopener">
+              <a href="https://www.ted.com/talks/dilip_ratha_the_hidden_force_in_global_economics_sending_money_home" target="_blank" rel="noopener">
                 TED Talk
               </a>
             </li>
@@ -232,8 +232,8 @@ a {
 }
 
 .link-list {
-  list-style: none;
-  padding: 0;
+  list-style: disc;
+  padding-left: 1.2rem;
 }
 
 .link-list li + li {
