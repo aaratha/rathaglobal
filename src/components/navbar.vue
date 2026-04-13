@@ -1,40 +1,86 @@
 <template>
-    <div className="main">
-        <h1>Ratha Global</h1>
-        <a href="https://www.rathaglobal.com/" className="navButton" target="_blank" rel="noopener">Visit Ratha Global</a>
+  <header class="nav-shell">
+    <div class="nav-content">
+      <div>
+        <p class="nav-kicker">Ratha Global</p>
+        <p class="nav-tagline">Advisory in global finance, migration, and remittances</p>
+      </div>
+
+      <a href="#contact" class="nav-button">Contact</a>
     </div>
+  </header>
 </template>
 
-
 <style scoped>
+.nav-shell {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(14px);
+  background: rgba(255, 250, 242, 0.78);
+  border-bottom: 1px solid rgba(129, 104, 56, 0.12);
+}
 
- .main {
-     display: flex;
-    flex-direction: row;
-    padding: 0;
-    text-align: center;
-    font-size: 24px;
-    color: #333;
-    justify-content: space-between;
-    border-bottom: 1px solid #000;
-    padding: 1em;
-    padding-bottom: 0.5em;
-    padding-top: 0.5em;
- }
+.nav-content {
+  width: min(1100px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
 
- .navButton {
-     padding: 10px 20px;
-     background-color: #007BFF;
-     color: white;
-     border: none;
-     border-radius: 4px;
-     cursor: pointer;
-     align-self: center;
-     justify-content: center;
- }
+.nav-kicker {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #11212d;
+}
 
- .main h1 {
-     margin: 0;
- }
+.nav-tagline {
+  margin: 0.2rem 0 0;
+  font-size: 0.95rem;
+  color: #5b6875;
+}
 
+.nav-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.2rem;
+  border-radius: 999px;
+  background: #11212d;
+  color: #fdf9f1;
+  text-decoration: none;
+  font-weight: 700;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.nav-button:hover {
+  background: #8a6a2f;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+  .nav-content {
+    width: min(100% - 1rem, 1100px);
+    align-items: center;
+  }
+
+  .nav-kicker {
+    font-size: 1rem;
+  }
+
+  .nav-button {
+    padding: 0.7rem 1rem;
+    white-space: nowrap;
+  }
+
+  .nav-tagline {
+    font-size: 0.85rem;
+  }
+}
 </style>
