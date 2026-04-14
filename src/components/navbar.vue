@@ -38,7 +38,7 @@
 .brand-block {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
+  gap: 0.65rem;
 }
 
 .brand-logo {
@@ -50,11 +50,11 @@
 
 .nav-kicker {
   margin: 0;
-  font-size: 1.55rem;
+  font-size: 1.8rem;
   font-family: Georgia, 'Times New Roman', serif;
-  font-weight: 800;
+  font-weight: 900;
   line-height: 1.1;
-  color: #184e74;
+  color: #111111;
 }
 
 .nav-tagline {
@@ -69,17 +69,20 @@
   justify-content: center;
   padding: 0.8rem 1.2rem;
   border-radius: 999px;
-  background: #184e74;
-  color: #fdf9f1;
+  border: 2.5px solid #111111;
+  background: transparent;
+  color: #111111;
   text-decoration: none;
   font-weight: 700;
   transition:
     transform 0.2s ease,
-    background-color 0.2s ease;
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .nav-button:hover {
-  background: #8a6a2f;
+  background: #111111;
+  color: #fdf9f1;
   transform: translateY(-1px);
 }
 
@@ -95,7 +98,7 @@
   }
 
   .nav-kicker {
-    font-size: 1.3rem;
+    font-size: 1.45rem;
   }
 
   .nav-button {
