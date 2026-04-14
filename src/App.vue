@@ -180,7 +180,7 @@ a {
   max-width: 680px;
   font-size: 1.1rem;
   line-height: 1.8;
-  color: #425466;
+  color: #4a4a4a;
 }
 
 .content-grid {
@@ -215,7 +215,7 @@ a {
 .contact-card a {
   font-size: 1.08rem;
   line-height: 1.75;
-  color: #425466;
+  color: #4a4a4a;
 }
 
 .card p {
