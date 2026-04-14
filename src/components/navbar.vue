@@ -1,7 +1,12 @@
 <template>
   <header class="nav-shell">
     <div class="nav-content">
-      <div>
+      <div class="brand-block">
+        <img
+          class="brand-logo"
+          src="/ratha_global_rounded.png"
+          alt="Ratha Global logo"
+        >
         <p class="nav-kicker">Ratha Global</p>
       </div>
 
@@ -21,13 +26,26 @@
 }
 
 .nav-content {
-  width: min(1100px, calc(100% - 2rem));
+  width: min(1280px, calc(100% - 2.25rem));
   margin: 0 auto;
-  padding: 1rem 0;
+  padding: 0.8rem 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+}
+
+.brand-block {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.brand-logo {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  flex: 0 0 auto;
 }
 
 .nav-kicker {
@@ -36,7 +54,7 @@
   font-family: Georgia, 'Times New Roman', serif;
   font-weight: 800;
   line-height: 1.1;
-  color: #111111;
+  color: #184e74;
 }
 
 .nav-tagline {
@@ -51,7 +69,7 @@
   justify-content: center;
   padding: 0.8rem 1.2rem;
   border-radius: 999px;
-  background: #11212d;
+  background: #184e74;
   color: #fdf9f1;
   text-decoration: none;
   font-weight: 700;
@@ -67,8 +85,13 @@
 
 @media (max-width: 640px) {
   .nav-content {
-    width: min(100% - 1.5rem, 1100px);
+    width: min(100% - 1.25rem, 1280px);
     align-items: center;
+  }
+
+  .brand-logo {
+    width: 42px;
+    height: 42px;
   }
 
   .nav-kicker {
@@ -78,10 +101,6 @@
   .nav-button {
     padding: 0.7rem 1rem;
     white-space: nowrap;
-  }
-
-  .nav-tagline {
-    font-size: 0.85rem;
   }
 }
 </style>

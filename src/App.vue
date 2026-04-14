@@ -154,7 +154,7 @@ a {
 }
 
 .hero {
-  padding: 1.75rem 0 2.5rem;
+  padding: 1.75rem 1.25rem 2.5rem;
   max-width: 860px;
 }
 
@@ -163,7 +163,7 @@ a {
   font-size: 1.1rem;
   letter-spacing: 0.18em;
   font-family: 'Helvetica Neue', Arial, sans-serif;
-  color: #8a6a2f;
+  color: #184e74;
   font-weight: 700;
 }
 
