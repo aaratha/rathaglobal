@@ -4,7 +4,7 @@
       <div class="brand-block">
         <img
           class="brand-logo"
-          src="/ratha_global_rounded.png"
+          src="/ratha_global_bg.png"
           alt="Ratha Global logo"
         >
         <p class="nav-kicker">Ratha global</p>
