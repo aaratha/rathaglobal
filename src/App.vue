@@ -83,17 +83,17 @@ import NavBar from './components/navbar.vue'
         <article class="card">
           <h2>Selected links</h2>
           <ul class="link-list">
-            <li>
-              <a href="https://nyti.ms/2moxI2P" target="_blank" rel="noopener">
-                New York Times article
-              </a>
-            </li>
-            <li>
+           <li>
               <a href="https://www.ted.com/talks/dilip_ratha_the_hidden_force_in_global_economics_sending_money_home" target="_blank" rel="noopener">
                 TED Talk
               </a>
             </li>
             <li>
+              <a href="https://nyti.ms/2moxI2P" target="_blank" rel="noopener">
+                New York Times article
+              </a>
+            </li>
+             <li>
               <a
                 href="https://scholar.google.com/citations?user=9Y4tm18AAAAJ&hl=en"
                 target="_blank"
