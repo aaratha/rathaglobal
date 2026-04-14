@@ -51,8 +51,8 @@
 .nav-kicker {
   margin: 0;
   font-size: 1.8rem;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-weight: 900;
+  font-family: Garamond, Baskerville, 'Times New Roman', serif;
+  font-weight: 500;
   line-height: 1.1;
   color: #111111;
 }
