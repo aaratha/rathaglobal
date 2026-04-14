@@ -44,20 +44,20 @@ import NavBar from './components/navbar.vue'
 
           <p>
             After working at the World Bank Group for over 30 years, he founded
-            Ratha Global, to continue his work and help fill any institutional gaps.
+            Ratha Global, to continue this work and help fill any institutional gaps.
           </p>
 
           <p>
               A frequent keynote speaker, his <a target="_blank" href="https://www.ted.com/talks/dilip_ratha_the_hidden_force_in_global_economics_sending_money_home">TED Talk</a> has been viewed over 1.5 million
             times and has inspired 20+ fintech startups. He remains committed to
-            lowering the cost of cross-border remittances and mentoring the next
+            lowering the cost of cross-border remittances and advising the next
             generation of innovators.
           </p>
         </article>
 
         <article class="card">
           <h2>Services</h2>
-          <p>Advisory and analytic services on:</p>
+          <p>Strategic, advisory, and analytic services on:</p>
           <ul>
             <li>Remittances</li>
             <li>Cross-Border Payments</li>
