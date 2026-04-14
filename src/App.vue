@@ -169,7 +169,7 @@ a {
 
 .hero h1 {
   margin: 0;
-  font-size: clamp(2.5rem, 6vw, 4.6rem);
+  font-size: clamp(2.35rem, 5.6vw, 4.3rem);
   line-height: 0.98;
   font-family: Georgia, 'Times New Roman', serif;
   color: #11212d;

@@ -7,7 +7,7 @@
           src="/ratha_global_bg.png"
           alt="Ratha Global logo"
         >
-        <p class="nav-kicker">Ratha global</p>
+        <p class="nav-kicker">Ratha Global</p>
       </div>
 
       <a href="#contact" class="nav-button">Contact</a>
