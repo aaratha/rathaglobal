@@ -1,12 +1,61 @@
 <script setup lang="ts">
+import { onMounted, onUnmounted, ref } from 'vue'
 import NavBar from './components/navbar.vue'
+
+const pageContent = ref<HTMLElement | null>(null)
+
+let animationFrame = 0
+let mediaQuery: MediaQueryList | null = null
+
+const updateFlagsOffset = () => {
+  animationFrame = 0
+
+  if (!pageContent.value) {
+    return
+  }
+
+  if (mediaQuery?.matches) {
+    pageContent.value.style.setProperty('--flags-offset', '0px')
+    return
+  }
+
+  const { top } = pageContent.value.getBoundingClientRect()
+  const scrollOffset = Math.min(Math.max(-top * 0.3, 0), 120)
+  pageContent.value.style.setProperty('--flags-offset', `${scrollOffset.toFixed(1)}px`)
+}
+
+const requestFlagsUpdate = () => {
+  if (animationFrame !== 0) {
+    return
+  }
+
+  animationFrame = window.requestAnimationFrame(updateFlagsOffset)
+}
+
+onMounted(() => {
+  mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+  requestFlagsUpdate()
+  window.addEventListener('scroll', requestFlagsUpdate, { passive: true })
+  window.addEventListener('resize', requestFlagsUpdate)
+  mediaQuery.addEventListener('change', requestFlagsUpdate)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', requestFlagsUpdate)
+  window.removeEventListener('resize', requestFlagsUpdate)
+  mediaQuery?.removeEventListener('change', requestFlagsUpdate)
+
+  if (animationFrame !== 0) {
+    window.cancelAnimationFrame(animationFrame)
+  }
+})
 </script>
 
 <template>
   <div class="page-shell">
     <NavBar />
 
-    <main class="page-content">
+    <main ref="pageContent" class="page-content">
       <section class="hero">
         <p class="eyebrow">Remittances | Diaspora Bonds | Structured Finance</p>
         <h1>Strategy, Advice, and Analytics on Global Development Finance</h1>
@@ -120,7 +169,7 @@ import NavBar from './components/navbar.vue'
   color-scheme: light;
   font-family: 'Helvetica Neue', Arial, sans-serif;
   background:
-    radial-gradient(circle at top, rgba(196, 169, 116, 0.28), transparent 30%),
+    radial-gradient(ellipse 140% 56% at 50% 0%, rgba(196, 169, 116, 0.22), transparent 68%),
     linear-gradient(180deg, #f7f2e8 0%, #fffdf8 35%, #f3eee2 100%);
   color: #1f2933;
 }
@@ -148,9 +197,45 @@ a {
 }
 
 .page-content {
+  --flags-offset: 0px;
+  position: relative;
+  isolation: isolate;
   width: min(1100px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 0.75rem 0 4rem;
+}
+
+.page-content::before {
+  content: '';
+  position: absolute;
+  inset: 0 min(50% - 50vw, -3rem) auto;
+  height: min(78rem, 100%);
+  background: top center / calc(100% + 10rem) auto no-repeat url('/flags_grid.png');
+  opacity: 0.08;
+  filter: grayscale(1) blur(1.5px);
+  pointer-events: none;
+  z-index: 0;
+  transform: translate3d(0, var(--flags-offset), 0);
+  will-change: transform;
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.48) 34%,
+    rgba(0, 0, 0, 0.14) 66%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.48) 34%,
+    rgba(0, 0, 0, 0.14) 66%,
+    transparent 100%
+  );
+}
+
+.page-content > * {
+  position: relative;
+  z-index: 1;
 }
 
 .hero {
@@ -278,6 +363,13 @@ a {
 
   .card {
     padding: 1.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-content::before {
+    transform: none;
+    will-change: auto;
   }
 }
 </style>
