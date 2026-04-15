@@ -1,14 +1,14 @@
 <template>
   <header class="nav-shell">
     <div class="nav-content">
-      <div class="brand-block">
+      <a href="/" class="brand-block" aria-label="Ratha Global home">
         <img
           class="brand-logo"
           src="/ratha_global_bg.png"
           alt="Ratha Global logo"
         >
         <p class="nav-kicker">Ratha Global</p>
-      </div>
+      </a>
 
       <a href="#contact" class="nav-button">Contact</a>
     </div>
@@ -28,7 +28,7 @@
 .nav-content {
   width: min(1280px, calc(100% - 2.25rem));
   margin: 0 auto;
-  padding: 0.8rem 0;
+  padding: 0.55rem 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -39,6 +39,32 @@
   display: flex;
   align-items: center;
   gap: 0.65rem;
+  padding: 0.28rem 0.55rem;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  text-decoration: none;
+  background: rgba(255, 250, 242, 0.18);
+  box-shadow: 0 0 0 rgba(75, 60, 26, 0);
+  transition:
+    background-color 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    transform 0.22s ease;
+}
+
+.brand-block:hover {
+  background: rgba(255, 251, 245, 0.62);
+  border-color: rgba(129, 104, 56, 0.22);
+  box-shadow: 0 12px 28px rgba(75, 60, 26, 0.12);
+  transform: translateY(-1px);
+}
+
+.brand-block:focus-visible {
+  outline: 2px solid rgba(17, 17, 17, 0.72);
+  outline-offset: 3px;
+  background: rgba(255, 251, 245, 0.72);
+  border-color: rgba(129, 104, 56, 0.24);
+  box-shadow: 0 12px 28px rgba(75, 60, 26, 0.14);
 }
 
 .brand-logo {
