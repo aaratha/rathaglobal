@@ -19,8 +19,7 @@ const updateFlagsOffset = () => {
     return
   }
 
-  const { top } = pageContent.value.getBoundingClientRect()
-  const scrollOffset = Math.min(Math.max(-top * 0.48, 0), 220)
+  const scrollOffset = Math.min(window.scrollY * 0.48, 220)
   pageContent.value.style.setProperty('--flags-offset', `${scrollOffset.toFixed(1)}px`)
 }
 
