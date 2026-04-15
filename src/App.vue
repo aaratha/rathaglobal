@@ -20,7 +20,7 @@ const updateFlagsOffset = () => {
   }
 
   const { top } = pageContent.value.getBoundingClientRect()
-  const scrollOffset = Math.min(Math.max(-top * 0.3, 0), 120)
+  const scrollOffset = Math.min(Math.max(-top * 0.48, 0), 220)
   pageContent.value.style.setProperty('--flags-offset', `${scrollOffset.toFixed(1)}px`)
 }
 
@@ -172,6 +172,7 @@ onUnmounted(() => {
     radial-gradient(ellipse 140% 56% at 50% 0%, rgba(196, 169, 116, 0.22), transparent 68%),
     linear-gradient(180deg, #f7f2e8 0%, #fffdf8 35%, #f3eee2 100%);
   color: #1f2933;
+  scroll-behavior: smooth;
 }
 
 * {
@@ -281,11 +282,14 @@ a {
   border-radius: 22px;
   background: rgba(255, 252, 245, 0.82);
   box-shadow: 0 18px 40px rgba(84, 69, 39, 0.08);
-  backdrop-filter: blur(8px);
 }
 
 .card-wide {
   grid-column: span 12;
+}
+
+#contact {
+  scroll-margin-top: 7rem;
 }
 
 .card h2 {
@@ -367,6 +371,10 @@ a {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  :root {
+    scroll-behavior: auto;
+  }
+
   .page-content::before {
     transform: none;
     will-change: auto;
