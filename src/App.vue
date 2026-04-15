@@ -55,9 +55,9 @@ onUnmounted(() => {
     <NavBar />
 
     <main ref="pageContent" class="page-content">
-      <section class="hero">
+      <section class="hero" aria-labelledby="hero-title">
         <p class="eyebrow">Remittances | Diaspora Bonds | Structured Finance</p>
-        <h1>Strategy, Advice, and Analytics on Global Development Finance</h1>
+        <h1 id="hero-title">Strategy, Advice, and Analytics on Global Development Finance</h1>
         <p class="hero-copy">
           Ratha Global supports governments, financial institutions, and fintech leaders
           with deep expertise in remittances, diaspora financing, sovereign ratings,
@@ -69,7 +69,7 @@ onUnmounted(() => {
         <article class="card card-wide">
           <h2>Who we are</h2>
           <p>
-            Ratha Global was founded by <a target="_blank" href="https://www.linkedin.com/in/dilipratha/">Dilip Ratha</a>. He advises governments,
+            Ratha Global was founded by <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/dilipratha/">Dilip Ratha</a>. He advises governments,
             supranational institutions, banks, and fintechs on remittances,
             cross-border payments, migration, diaspora financing (diaspora bonds and
             remittance bonds), sovereign ratings, structured finance, and investment
