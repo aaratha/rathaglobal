@@ -3,9 +3,9 @@ from PIL import Image
 from io import BytesIO
 
 country_codes = [
-    "us", "gb", "fr", "de", "jp", "cn", "in", "br", "ca", "au",
-    "ru", "kr", "mx", "it", "es", "id", "tr", "sa", "nl", "ch",
-    "ar", "se", "no", "pl", "za", "ng", "eg", "th", "pk", "bd"
+    "in", "br", "mx", "id", "tr", "za", "ng", "eg", "th", "pk",
+    "bd", "vn", "ph", "my", "ke", "gh", "et", "tz", "ug", "rw",
+    "sn", "ma", "tn", "dz", "co", "pe", "cl", "ar", "ec", "lk"
 ]
 
 cols = 5

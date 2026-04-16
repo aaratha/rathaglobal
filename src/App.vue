@@ -118,6 +118,7 @@ onUnmounted(() => {
 
         <article class="card">
           <h2>Who we work with</h2>
+          <p>Global public and private sector clients including:</p>
           <ul>
             <li>Remittance and Payments Industry</li>
             <li>Fintechs</li>
@@ -147,16 +148,42 @@ onUnmounted(() => {
                 target="_blank"
                 rel="noopener"
               >
-                Academic citations
+                Academic resources
               </a>
             </li>
           </ul>
         </article>
 
-        <article id="contact" class="card contact-card">
-          <h2>Contact</h2>
-          <p>For advisory inquiries and speaking engagements:</p>
-          <a href="mailto:contact@rathaglobal.com">contact@rathaglobal.com</a>
+        <article id="contact" class="card card-wide contact-card">
+          <div class="contact-card-inner">
+            <h2>Get in touch</h2>
+            <div class="contact-sections">
+              <section class="contact-section">
+                <div class="contact-section-inner">
+                  <h3>Speaking engagements</h3>
+                  <p>Invite Ratha Global for keynote talks, panels, and expert commentary.</p>
+                </div>
+              </section>
+
+              <section class="contact-section">
+                <div class="contact-section-inner">
+                  <h3>Book a consultation</h3>
+                  <p>Reach out for advisory work on remittances, diaspora bonds, and structured finance.</p>
+                </div>
+              </section>
+
+              <section class="contact-section">
+                <div class="contact-section-inner">
+                  <h3>Subscribe to data and reports</h3>
+                  <p> Semi-annual and monthly reports including data, analysis, and projections from Ratha Global.</p>
+                </div>
+              </section>
+            </div>
+            <p class="contact-callout">
+              For all of the above, email 
+              <a href="mailto:contact@rathaglobal.com">contact@rathaglobal.com</a>.
+            </p>
+          </div>
         </article>
       </section>
     </main>
@@ -182,6 +209,7 @@ body {
   margin: 0;
   min-width: 320px;
   background: transparent;
+  overflow-x: clip;
 }
 
 a {
@@ -194,6 +222,7 @@ a {
 
 .page-shell {
   min-height: 100vh;
+  overflow-x: clip;
 }
 
 .page-content {
@@ -211,7 +240,7 @@ a {
   inset: 0 min(50% - 50vw, -3rem) auto;
   height: min(78rem, 100%);
   background: top center / calc(100% + 10rem) auto no-repeat url('/flags_grid.png');
-  opacity: 0.08;
+  opacity: 0.1;
   filter: grayscale(1) blur(1.5px);
   pointer-events: none;
   z-index: 0;
@@ -291,10 +320,69 @@ a {
   scroll-margin-top: 7rem;
 }
 
+.contact-card-inner {
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.contact-card-inner > h2 {
+  text-align: center;
+}
+
+.contact-callout {
+  margin: 2.75rem 0 0;
+  text-align: center;
+}
+
+.contact-sections {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.contact-section {
+  position: relative;
+  width: 100%;
+}
+
+.contact-section-inner {
+  max-width: 18rem;
+  margin: 0 auto;
+}
+
+.contact-section:not(:first-child)::before {
+  content: '';
+  position: absolute;
+  top: 0.3rem;
+  bottom: 0.3rem;
+  left: -0.5rem;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(129, 104, 56, 0.18) 18%,
+    rgba(129, 104, 56, 0.18) 82%,
+    transparent 100%
+  );
+}
+
+.contact-section h3 {
+  margin: 0 0 0.6rem;
+  font-size: 1.42rem;
+  font-family: Garamond, Baskerville, 'Times New Roman', serif;
+  font-weight: 500;
+  color: #11212d;
+}
+
+.contact-section p {
+  margin-bottom: 0.75rem;
+}
+
 .card h2 {
   margin: 0 0 1rem;
-  font-size: 1.45rem;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.7rem;
+  font-family: Garamond, Baskerville, 'Times New Roman', serif;
+  font-weight: 500;
   color: #11212d;
 }
 
@@ -312,6 +400,10 @@ a {
 
 .card p:last-child {
   margin-bottom: 0;
+}
+
+.card p + ul {
+  margin-top: -0.6rem;
 }
 
 .card ul {
@@ -350,6 +442,34 @@ a {
   .card,
   .card-wide {
     grid-column: span 12;
+  }
+
+  .contact-sections {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-section {
+    width: 100%;
+  }
+
+  .contact-section-inner {
+    max-width: none;
+  }
+
+  .contact-section:not(:first-child)::before {
+    top: -0.5rem;
+    right: 0;
+    bottom: auto;
+    left: 0;
+    width: auto;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(129, 104, 56, 0.18) 16%,
+      rgba(129, 104, 56, 0.18) 84%,
+      transparent 100%
+    );
   }
 }
 

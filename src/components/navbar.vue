@@ -4,7 +4,7 @@
       <a href="/" class="brand-block" aria-label="Ratha Global home">
         <img
           class="brand-logo"
-          src="/ratha_global_bg.png"
+          src="/ratha_global_black.png"
           alt="Ratha Global logo"
         >
         <p class="nav-kicker">Ratha Global</p>
@@ -68,19 +68,20 @@
 }
 
 .brand-logo {
-  width: 50px;
-  height: 50px;
+  width: 42px;
+  height: 42px;
   object-fit: contain;
   flex: 0 0 auto;
 }
 
 .nav-kicker {
   margin: 0;
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-family: Garamond, Baskerville, 'Times New Roman', serif;
   font-weight: 500;
   line-height: 1.1;
   color: #111111;
+  transform: translateY(0.04em);
 }
 
 .nav-tagline {
@@ -119,12 +120,12 @@
   }
 
   .brand-logo {
-    width: 42px;
-    height: 42px;
+    width: 36px;
+    height: 36px;
   }
 
   .nav-kicker {
-    font-size: 1.45rem;
+    font-size: 1.6rem;
   }
 
   .nav-button {
