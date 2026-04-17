@@ -131,27 +131,52 @@ onUnmounted(() => {
 
         <article class="card">
           <h2>Selected links</h2>
-          <ul class="link-list">
-           <li>
-              <a href="https://www.ted.com/talks/dilip_ratha_the_hidden_force_in_global_economics_sending_money_home" target="_blank" rel="noopener">
-                TED Talk
-              </a>
-            </li>
-            <li>
-              <a href="https://nyti.ms/2moxI2P" target="_blank" rel="noopener">
-                New York Times article
-              </a>
-            </li>
-             <li>
-              <a
-                href="https://scholar.google.com/citations?user=9Y4tm18AAAAJ&hl=en"
-                target="_blank"
-                rel="noopener"
-              >
-                Academic resources
-              </a>
-            </li>
-          </ul>
+          <div class="link-card-list">
+            <a
+              class="link-card"
+              href="https://www.ted.com/talks/dilip_ratha_the_hidden_force_in_global_economics_sending_money_home"
+              target="_blank"
+              rel="noopener"
+            >
+              <div class="link-thumb thumb-ted">
+                <span class="visually-hidden">TED</span>
+              </div>
+              <div class="link-card-body">
+                <h3>TED Talk</h3>
+                <p>Migration and money.</p>
+              </div>
+            </a>
+
+            <a
+              class="link-card"
+              href="https://nyti.ms/2moxI2P"
+              target="_blank"
+              rel="noopener"
+            >
+              <div class="link-thumb thumb-nyt">
+                <span class="visually-hidden">New York Times</span>
+              </div>
+              <div class="link-card-body">
+                <h3>New York Times</h3>
+                <p>Feature coverage.</p>
+              </div>
+            </a>
+
+            <a
+              class="link-card"
+              href="https://scholar.google.com/citations?user=9Y4tm18AAAAJ&hl=en"
+              target="_blank"
+              rel="noopener"
+            >
+              <div class="link-thumb thumb-scholar">
+                <span class="visually-hidden">Scholar</span>
+              </div>
+              <div class="link-card-body">
+                <h3>Academic resources</h3>
+                <p>Research and citations.</p>
+              </div>
+            </a>
+          </div>
         </article>
 
         <article id="contact" class="card card-wide contact-card">
@@ -329,8 +354,9 @@ a {
   text-align: center;
 }
 
-.contact-callout {
-  margin: 2.75rem 0 0;
+.contact-card .contact-callout {
+  margin: 0;
+  padding-top: 2rem;
   text-align: center;
 }
 
@@ -411,24 +437,106 @@ a {
   padding-left: 1.2rem;
 }
 
-.link-list {
-  list-style: disc;
-  padding-left: 1.2rem;
+.link-card-list {
+  display: grid;
+  gap: 0.9rem;
 }
 
-.link-list li + li {
-  margin-top: 0.85rem;
+.link-card {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 0.7rem;
+  align-items: center;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid rgba(129, 104, 56, 0.14);
+  border-radius: 16px;
+  background: rgba(255, 250, 242, 0.66);
+  color: inherit;
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
 }
 
-.link-list a,
+.link-card:hover {
+  transform: translateY(-1px);
+  border-color: rgba(129, 104, 56, 0.28);
+  background: rgba(255, 251, 245, 0.88);
+  box-shadow: 0 14px 30px rgba(84, 69, 39, 0.08);
+}
+
+.link-thumb {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fffdf8;
+}
+
+.thumb-ted {
+  background:
+    center / cover no-repeat url('/ted_thumb.png');
+}
+
+.thumb-nyt {
+  background: center / contain no-repeat url('/nyt_thumb.png');
+}
+
+.thumb-scholar {
+  background: center / cover no-repeat url('/scholar_thumb.png');
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.link-card-body h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1.1rem;
+  font-family: Garamond, Baskerville, 'Times New Roman', serif;
+  font-weight: 500;
+  color: #11212d;
+}
+
+.link-card-body p {
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.3;
+}
+
 .contact-card a {
   color: #8a6a2f;
-  text-decoration: none;
   font-weight: 700;
 }
 
-.link-list a:hover,
+.link-card {
+  color: #8a6a2f;
+}
+
+.link-card:hover .link-card-body h3,
+.link-card:hover .link-card-body p,
+.link-card:hover .link-thumb,
 .contact-card a:hover {
+  color: inherit;
+}
+
+.link-card:hover .link-card-body h3 {
   text-decoration: underline;
 }
 
@@ -470,6 +578,15 @@ a {
       rgba(129, 104, 56, 0.18) 84%,
       transparent 100%
     );
+  }
+
+  .link-card {
+    grid-template-columns: 56px minmax(0, 1fr);
+  }
+
+  .link-thumb {
+    width: 56px;
+    height: 56px;
   }
 }
 

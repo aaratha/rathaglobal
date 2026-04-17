@@ -1,6 +1,7 @@
 import requests
 from PIL import Image
 from io import BytesIO
+from pathlib import Path
 
 country_codes = [
     "in", "br", "mx", "id", "tr", "za", "ng", "eg", "th", "pk",
@@ -54,5 +55,7 @@ for i, flag in enumerate(flags):
     y = padding + (i // cols) * (cell_h + padding)
     canvas.paste(flag, (x, y))
 
-canvas.save("flags_grid.png")
+repo_root = Path(__file__).resolve().parent.parent
+canvas.save(repo_root / "public" / "flags_grid.png")
+canvas.save(Path(__file__).resolve().parent / "flags_grid.png")
 print(f"Saved {len(flags)} flags in a {cols}×{rows} grid.")
