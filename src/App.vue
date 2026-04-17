@@ -363,33 +363,22 @@ a {
 .contact-sections {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+  gap: 0;
 }
 
 .contact-section {
   position: relative;
   width: 100%;
+  padding-inline: 1.1rem;
+}
+
+.contact-section + .contact-section {
+  border-left: 1px solid rgba(129, 104, 56, 0.18);
 }
 
 .contact-section-inner {
-  max-width: 18rem;
-  margin: 0 auto;
-}
-
-.contact-section:not(:first-child)::before {
-  content: '';
-  position: absolute;
-  top: 0.3rem;
-  bottom: 0.3rem;
-  left: -0.5rem;
-  width: 1px;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(129, 104, 56, 0.18) 18%,
-    rgba(129, 104, 56, 0.18) 82%,
-    transparent 100%
-  );
+  width: 100%;
+  margin: 0;
 }
 
 .contact-section h3 {
@@ -554,10 +543,16 @@ a {
 
   .contact-sections {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   .contact-section {
     width: 100%;
+    padding-inline: 0;
+  }
+
+  .contact-section + .contact-section {
+    border-left: 0;
   }
 
   .contact-section-inner {
@@ -565,6 +560,8 @@ a {
   }
 
   .contact-section:not(:first-child)::before {
+    content: '';
+    position: absolute;
     top: -0.5rem;
     right: 0;
     bottom: auto;
