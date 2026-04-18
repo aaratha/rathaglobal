@@ -4,9 +4,9 @@ from io import BytesIO
 from pathlib import Path
 
 country_codes = [
-    "in", "br", "mx", "id", "tr", "za", "ng", "eg", "th", "pk",
-    "bd", "vn", "ph", "my", "ke", "gh", "et", "tz", "ug", "rw",
-    "sn", "ma", "tn", "dz", "co", "pe", "cl", "ar", "ec", "lk"
+    "in", "br", "mx", "tr", "za", "ng", "eg", "th", "bo", "vn",
+    "ph", "ar", "ke", "gh", "et", "tz", "ug", "rw", "sn", "tn",
+    "co", "pe", "cl", "my", "ec", "lk", "ao", "cm", "ci", "zm"
 ]
 
 cols = 5
@@ -19,11 +19,9 @@ def cover_crop(img, cell_w, cell_h):
     cell_ratio = cell_w / cell_h
 
     if img_ratio > cell_ratio:
-        # image is wider than cell — scale by height, crop sides
         new_h = cell_h
         new_w = int(img.width * cell_h / img.height)
     else:
-        # image is taller than cell — scale by width, crop top/bottom
         new_w = cell_w
         new_h = int(img.height * cell_w / img.width)
 
