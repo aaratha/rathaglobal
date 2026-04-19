@@ -157,8 +157,8 @@ onUnmounted(() => {
                 <span class="visually-hidden">New York Times</span>
               </div>
               <div class="link-card-body">
-                <h3>New York Times</h3>
-                <p>Feature coverage.</p>
+                <h3>New York Times Article</h3>
+                <p>Profile on his work and story.</p>
               </div>
             </a>
 
@@ -172,7 +172,7 @@ onUnmounted(() => {
                 <span class="visually-hidden">Scholar</span>
               </div>
               <div class="link-card-body">
-                <h3>Academic resources</h3>
+                <h3>Academic Resources</h3>
                 <p>Research and citations.</p>
               </div>
             </a>
@@ -254,7 +254,7 @@ a {
   --flags-offset: 0px;
   position: relative;
   isolation: isolate;
-  width: min(1100px, calc(100% - 2rem));
+  width: min(1020px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 0.75rem 0 4rem;
 }
