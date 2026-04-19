@@ -66,42 +66,6 @@ onUnmounted(() => {
       </section>
 
       <section class="content-grid">
-        <article class="card card-wide">
-          <h2>Who we are</h2>
-          <p>
-            Ratha Global was founded by <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/dilipratha/">Dilip Ratha</a>. He advises governments,
-            supranational institutions, banks, and fintechs on remittances,
-            cross-border payments, migration, diaspora financing (diaspora bonds and
-            remittance bonds), sovereign ratings, structured finance, and investment
-            risk guarantees. His work with the World Bank Group (over three decades),
-            regional development banks, and the United Nations helped integrate
-            remittances and migration into global development policy, including
-            monitoring the UN Sustainable Development Goals.
-          </p>
-
-          <p>
-            He founded KNOMAD (a global brain trust on migration with 800+ expert
-            network) and co-founded the Migrating out of Poverty Research Consortium
-            (6 core universities and 40+ associate partner universities), the Global
-            Remittances Working Group, and the African Institute for Remittances
-            (securing funding from the EU, Germany, Sweden, Switzerland, UK,
-            partnering with the African Union, U of Sussex, the OECD and the UN). His
-            research and ideas on today's global challenges have been widely cited in
-            policy circles, academic publications, and leading media outlets.
-          </p>
-
-          <p>
-            After working at the World Bank Group for over 30 years, he founded
-            Ratha Global, to continue this work and help fill any institutional gaps.
-          </p>
-
-          <p>
-              A frequent keynote speaker, his <a target="_blank" href="https://www.ted.com/talks/dilip_ratha_the_hidden_force_in_global_economics_sending_money_home">TED Talk</a> has been viewed over 1.5 million
-            times and has inspired 20+ fintech startups. He remains committed to
-            lowering the cost of cross-border remittances and advising the next
-            generation of innovators.
-          </p>
-        </article>
 
         <article class="card">
           <h2>Services</h2>
@@ -179,6 +143,43 @@ onUnmounted(() => {
           </div>
         </article>
 
+        <article class="card card-wide">
+          <h2>Who we are</h2>
+          <p>
+            Ratha Global was founded by <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/dilipratha/">Dilip Ratha</a>. He advises governments,
+            supranational institutions, banks, and fintechs on remittances,
+            cross-border payments, migration, diaspora financing (diaspora bonds and
+            remittance bonds), sovereign ratings, structured finance, and investment
+            risk guarantees. His work with the World Bank Group (over three decades),
+            regional development banks, and the United Nations helped integrate
+            remittances and migration into global development policy, including
+            monitoring the UN Sustainable Development Goals.
+          </p>
+
+          <p>
+            He founded KNOMAD (a global brain trust on migration with 800+ expert
+            network) and co-founded the Migrating out of Poverty Research Consortium
+            (6 core universities and 40+ associate partner universities), the Global
+            Remittances Working Group, and the African Institute for Remittances
+            (securing funding from the EU, Germany, Sweden, Switzerland, UK,
+            partnering with the African Union, U of Sussex, the OECD and the UN). His
+            research and ideas on today's global challenges have been widely cited in
+            policy circles, academic publications, and leading media outlets.
+          </p>
+
+          <p>
+            After working at the World Bank Group for over 30 years, he founded
+            Ratha Global, to continue this work and help fill any institutional gaps.
+          </p>
+
+          <p>
+              A frequent keynote speaker, his <a target="_blank" href="https://www.ted.com/talks/dilip_ratha_the_hidden_force_in_global_economics_sending_money_home">TED Talk</a> has been viewed over 1.5 million
+            times and has inspired 20+ fintech startups. He remains committed to
+            lowering the cost of cross-border remittances and advising the next
+            generation of innovators.
+          </p>
+        </article>
+
         <article id="contact" class="card card-wide contact-card">
           <div class="contact-card-inner">
             <h2>Get in touch</h2>
@@ -254,7 +255,7 @@ a {
   --flags-offset: 0px;
   position: relative;
   isolation: isolate;
-  width: min(1020px, calc(100% - 2rem));
+  width: min(1050px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 0.75rem 0 4rem;
 }
