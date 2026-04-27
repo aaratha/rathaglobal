@@ -11,7 +11,7 @@
 
 backend:
   name: github
-  repo: "aaratha/rathaglobal"
+  repo: aaratha/rathaglobal
   branch: main
   base_url: https://decap-proxy.aseemratha.workers.dev
   auth_endpoint: /auth
