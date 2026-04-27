@@ -11,10 +11,10 @@
 
 backend:
   name: github
-  repo: aaratha/rathaglobal 
+  repo: "aaratha/rathaglobal"
   branch: main
-  auth_type: pkce            # client-side OAuth — no proxy server needed
-  app_id: Iv23litAnYdB6Rq3TkJO
+  base_url: https://decap-proxy.aseemratha.workers.dev
+  auth_endpoint: /auth
 
 # Where uploaded images are stored in the repo and served from
 media_folder: public/images/blog
