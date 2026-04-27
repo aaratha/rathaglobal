@@ -103,7 +103,7 @@ onUnmounted(() => {
             </div>
             <div class="link-card-body">
               <h3>TED Talk</h3>
-              <p>Migration and money.</p>
+              <p>Remittances and diaspora bonds</p>
             </div>
           </a>
 
@@ -118,7 +118,7 @@ onUnmounted(() => {
             </div>
             <div class="link-card-body">
               <h3>New York Times Article</h3>
-              <p>Profile on his work and story.</p>
+              <p>Profile on Dilip Ratha</p>
             </div>
           </a>
 
