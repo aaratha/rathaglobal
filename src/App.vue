@@ -1,218 +1,11 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
 import NavBar from './components/navbar.vue'
-
-const pageContent = ref<HTMLElement | null>(null)
-
-let animationFrame = 0
-let mediaQuery: MediaQueryList | null = null
-
-const updateFlagsOffset = () => {
-  animationFrame = 0
-
-  if (!pageContent.value) {
-    return
-  }
-
-  if (mediaQuery?.matches) {
-    pageContent.value.style.setProperty('--flags-offset', '0px')
-    return
-  }
-
-  const scrollOffset = Math.min(window.scrollY * 0.48, 220)
-  pageContent.value.style.setProperty('--flags-offset', `${scrollOffset.toFixed(1)}px`)
-}
-
-const requestFlagsUpdate = () => {
-  if (animationFrame !== 0) {
-    return
-  }
-
-  animationFrame = window.requestAnimationFrame(updateFlagsOffset)
-}
-
-onMounted(() => {
-  mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-  requestFlagsUpdate()
-  window.addEventListener('scroll', requestFlagsUpdate, { passive: true })
-  window.addEventListener('resize', requestFlagsUpdate)
-  mediaQuery.addEventListener('change', requestFlagsUpdate)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', requestFlagsUpdate)
-  window.removeEventListener('resize', requestFlagsUpdate)
-  mediaQuery?.removeEventListener('change', requestFlagsUpdate)
-
-  if (animationFrame !== 0) {
-    window.cancelAnimationFrame(animationFrame)
-  }
-})
 </script>
 
 <template>
   <div class="page-shell">
     <NavBar />
-
-    <main ref="pageContent" class="page-content">
-      <section class="hero" aria-labelledby="hero-title">
-        <p class="eyebrow">Remittances | Diaspora Bonds | Structured Finance</p>
-        <h1 id="hero-title">Strategy, Advice, and Analytics on Global Development Finance</h1>
-        <p class="hero-copy">
-          Ratha Global supports governments, financial institutions, and fintech leaders
-          with deep expertise in remittances, diaspora financing, sovereign ratings,
-          structured finance, and investment risk guarantees.
-        </p>
-      </section>
-
-      <section class="content-grid">
-
-        <article class="card">
-          <h2>Services</h2>
-          <p>Strategic, advisory, and analytic services on:</p>
-          <ul>
-            <li>Remittances</li>
-            <li>Cross-Border Payments</li>
-            <li>Diaspora Bonds</li>
-            <li>Sovereign Ratings</li>
-            <li>Investment Risk Guarantees</li>
-            <li>Structured Finance Solutions</li>
-          </ul>
-        </article>
-
-        <article class="card">
-          <h2>Who we work with</h2>
-          <p>Global public and private sector clients including:</p>
-          <ul>
-            <li>Remittance and Payments Industry</li>
-            <li>Fintechs</li>
-            <li>Commercial Banks</li>
-            <li>Governments</li>
-            <li>Multilateral Development Banks</li>
-            <li>International Financial Institutions</li>
-          </ul>
-        </article>
-
-        <article class="card">
-          <h2>Selected links</h2>
-          <div class="link-card-list">
-            <a
-              class="link-card"
-              href="https://www.ted.com/talks/dilip_ratha_the_hidden_force_in_global_economics_sending_money_home"
-              target="_blank"
-              rel="noopener"
-            >
-              <div class="link-thumb thumb-ted">
-                <span class="visually-hidden">TED</span>
-              </div>
-              <div class="link-card-body">
-                <h3>TED Talk</h3>
-                <p>Migration and money.</p>
-              </div>
-            </a>
-
-            <a
-              class="link-card"
-              href="https://nyti.ms/2moxI2P"
-              target="_blank"
-              rel="noopener"
-            >
-              <div class="link-thumb thumb-nyt">
-                <span class="visually-hidden">New York Times</span>
-              </div>
-              <div class="link-card-body">
-                <h3>New York Times Article</h3>
-                <p>Profile on his work and story.</p>
-              </div>
-            </a>
-
-            <a
-              class="link-card"
-              href="https://scholar.google.com/citations?user=9Y4tm18AAAAJ&hl=en"
-              target="_blank"
-              rel="noopener"
-            >
-              <div class="link-thumb thumb-scholar">
-                <span class="visually-hidden">Scholar</span>
-              </div>
-              <div class="link-card-body">
-                <h3>Academic Resources</h3>
-                <p>Research and citations.</p>
-              </div>
-            </a>
-          </div>
-        </article>
-
-        <article class="card card-wide">
-          <h2>Who we are</h2>
-          <p>
-            Ratha Global was founded by <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/dilipratha/">Dilip Ratha</a>. He advises governments,
-            supranational institutions, banks, and fintechs on remittances,
-            cross-border payments, migration, diaspora financing (diaspora bonds and
-            remittance bonds), sovereign ratings, structured finance, and investment
-            risk guarantees. His work with the World Bank Group (over three decades),
-            regional development banks, and the United Nations helped integrate
-            remittances and migration into global development policy, including
-            monitoring the UN Sustainable Development Goals.
-          </p>
-
-          <p>
-            He founded KNOMAD (a global brain trust on migration with 800+ expert
-            network) and co-founded the Migrating out of Poverty Research Consortium
-            (6 core universities and 40+ associate partner universities), the Global
-            Remittances Working Group, and the African Institute for Remittances
-            (securing funding from the EU, Germany, Sweden, Switzerland, UK,
-            partnering with the African Union, U of Sussex, the OECD and the UN). His
-            research and ideas on today's global challenges have been widely cited in
-            policy circles, academic publications, and leading media outlets.
-          </p>
-
-          <p>
-            After working at the World Bank Group for over 30 years, he founded
-            Ratha Global, to continue this work and help fill any institutional gaps.
-          </p>
-
-          <p>
-              A frequent keynote speaker, his <a target="_blank" href="https://www.ted.com/talks/dilip_ratha_the_hidden_force_in_global_economics_sending_money_home">TED Talk</a> has been viewed over 1.5 million
-            times and has inspired 20+ fintech startups. He remains committed to
-            lowering the cost of cross-border remittances and advising the next
-            generation of innovators.
-          </p>
-        </article>
-
-        <article id="contact" class="card card-wide contact-card">
-          <div class="contact-card-inner">
-            <h2>Get in touch</h2>
-            <div class="contact-sections">
-              <section class="contact-section">
-                <div class="contact-section-inner">
-                  <h3>Speaking engagements</h3>
-                  <p>Invite Ratha Global for keynote talks, panels, and expert commentary.</p>
-                </div>
-              </section>
-
-              <section class="contact-section">
-                <div class="contact-section-inner">
-                  <h3>Book a consultation</h3>
-                  <p>Reach out for advisory work on remittances, diaspora bonds, and structured finance.</p>
-                </div>
-              </section>
-
-              <section class="contact-section">
-                <div class="contact-section-inner">
-                  <h3>Subscribe to data and reports</h3>
-                  <p> Semi-annual and monthly reports including data, analysis, and projections from Ratha Global.</p>
-                </div>
-              </section>
-            </div>
-            <p class="contact-callout">
-              For all of the above, email 
-              <a href="mailto:contact@rathaglobal.com">contact@rathaglobal.com</a>.
-            </p>
-          </div>
-        </article>
-      </section>
-    </main>
+    <router-view />
   </div>
 </template>
 
@@ -529,6 +322,113 @@ a {
 .link-card:hover .link-card-body h3 {
   text-decoration: underline;
 }
+
+/* ── Blog prose styles ─────────────────────────────────────── */
+
+.post-body {
+  font-size: 1.08rem;
+  line-height: 1.8;
+  color: #4a4a4a;
+}
+
+.post-body > *:first-child {
+  margin-top: 0;
+}
+
+.post-body > *:last-child {
+  margin-bottom: 0;
+}
+
+.post-body h1,
+.post-body h2,
+.post-body h3,
+.post-body h4 {
+  font-family: Garamond, Baskerville, 'Times New Roman', serif;
+  font-weight: 500;
+  color: #11212d;
+  line-height: 1.2;
+  margin: 2rem 0 0.75rem;
+}
+
+.post-body h1 { font-size: 2rem; }
+.post-body h2 { font-size: 1.6rem; }
+.post-body h3 { font-size: 1.32rem; }
+.post-body h4 { font-size: 1.1rem; }
+
+.post-body p {
+  margin: 0 0 1.1rem;
+}
+
+.post-body ul,
+.post-body ol {
+  margin: 0 0 1.1rem;
+  padding-left: 1.4rem;
+}
+
+.post-body li {
+  margin-bottom: 0.35rem;
+}
+
+.post-body a {
+  color: #8a6a2f;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.post-body a:hover {
+  color: #11212d;
+}
+
+.post-body strong {
+  font-weight: 700;
+  color: #11212d;
+}
+
+.post-body blockquote {
+  margin: 1.5rem 0;
+  padding: 0.85rem 1.25rem;
+  border-left: 3px solid rgba(129, 104, 56, 0.35);
+  background: rgba(255, 250, 242, 0.6);
+  border-radius: 0 12px 12px 0;
+  font-style: italic;
+  color: #4a4a4a;
+}
+
+.post-body blockquote p {
+  margin: 0;
+}
+
+.post-body code {
+  font-family: 'SF Mono', 'Fira Code', 'Fira Mono', monospace;
+  font-size: 0.9em;
+  background: rgba(129, 104, 56, 0.1);
+  padding: 0.15em 0.4em;
+  border-radius: 5px;
+}
+
+.post-body pre {
+  background: rgba(17, 33, 45, 0.06);
+  border: 1px solid rgba(129, 104, 56, 0.14);
+  border-radius: 14px;
+  padding: 1.1rem 1.3rem;
+  overflow-x: auto;
+  margin: 0 0 1.1rem;
+}
+
+.post-body pre code {
+  background: none;
+  padding: 0;
+  font-size: 0.92rem;
+}
+
+.post-body hr {
+  border: none;
+  border-top: 1px solid rgba(129, 104, 56, 0.18);
+  margin: 2rem 0;
+}
+
+/* ─────────────────────────────────────────────────────────── */
 
 @media (max-width: 900px) {
   .hero {

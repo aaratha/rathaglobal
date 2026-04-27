@@ -1,0 +1,50 @@
+# Decap CMS configuration
+# See: https://decapcms.org/docs/configuration-options/
+#
+# Before going live you must:
+#   1. Register a GitHub OAuth App at:
+#      https://github.com/settings/developers → New OAuth App
+#      - Homepage URL: https://your-site.com
+#      - Authorization callback URL: https://your-site.com/admin
+#   2. Replace OWNER/REPO below with your GitHub username and repo name.
+#   3. Replace YOUR_OAUTH_APP_CLIENT_ID with the Client ID from the OAuth App.
+
+backend:
+  name: github
+  repo: aaratha/rathaglobal 
+  branch: main
+  auth_type: pkce            # client-side OAuth — no proxy server needed
+  app_id: Iv23litAnYdB6Rq3TkJO
+
+# Where uploaded images are stored in the repo and served from
+media_folder: public/images/blog
+public_folder: /images/blog
+
+collections:
+  - name: posts
+    label: Blog Posts
+    label_singular: Post
+    folder: src/content/posts
+    create: true
+    slug: "{{slug}}"
+    preview_path: "/blog/{{slug}}"
+    fields:
+      - name: title
+        label: Title
+        widget: string
+
+      - name: date
+        label: Date
+        widget: datetime
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        format: "YYYY-MM-DD"
+
+      - name: description
+        label: Description
+        widget: string
+        hint: "A one-sentence summary shown on the blog index and in search results."
+
+      - name: body
+        label: Body
+        widget: markdown

@@ -1,16 +1,22 @@
+<script setup lang="ts">
+import { RouterLink } from 'vue-router'
+</script>
+
 <template>
   <header class="nav-shell">
     <div class="nav-content">
-      <a href="/" class="brand-block" aria-label="Ratha Global home">
+      <RouterLink to="/" class="brand-block" aria-label="Ratha Global home">
         <img
           class="brand-logo"
           src="/ratha_global_black.png"
           alt="Ratha Global logo"
         >
         <p class="nav-kicker">Ratha Global</p>
-      </a>
+      </RouterLink>
 
-      <a href="#contact" class="nav-button">Contact</a>
+      <nav class="nav-links" aria-label="Site navigation">
+        <a href="/#contact" class="nav-button">Contact</a>
+      </nav>
     </div>
   </header>
 </template>
@@ -84,10 +90,26 @@
   transform: translateY(0.04em);
 }
 
-.nav-tagline {
-  margin: 0.2rem 0 0;
-  font-size: 0.95rem;
-  color: #5b6875;
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.nav-link {
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  color: #4a4a4a;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link.router-link-active {
+  color: #11212d;
+  background: rgba(129, 104, 56, 0.08);
 }
 
 .nav-button {
