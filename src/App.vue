@@ -74,9 +74,9 @@ a {
   );
   mask-image: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.20) 0%,
     rgba(0, 0, 0, 0.48) 34%,
-    rgba(0, 0, 0, 0.14) 66%,
+    rgba(0, 0, 0, 0.48) 66%,
     transparent 100%
   );
 }
@@ -87,8 +87,29 @@ a {
 }
 
 .hero {
-  padding: 1.75rem 1.25rem 2.5rem;
-  max-width: 860px;
+  --hero-title-size: clamp(1.9rem, 4.6vw, 3.5rem);
+  max-width: 889px;
+  margin: 0 auto;
+  padding: 1.75rem 0 2.5rem;
+}
+
+.hero-top {
+  position: relative;
+  padding-left: calc(var(--hero-title-size) * 3.24 + 1.87rem + 1.5rem);
+}
+
+.hero-logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: auto;
+  max-width: calc(var(--hero-title-size) * 3.24 + 1.87rem);
+  object-fit: contain;
+}
+
+.hero-heading {
+  min-width: 0;
 }
 
 .eyebrow {
@@ -102,15 +123,14 @@ a {
 
 .hero h1 {
   margin: 0;
-  font-size: clamp(2.35rem, 5.6vw, 4.3rem);
-  line-height: 0.98;
+  font-size: var(--hero-title-size);
+  line-height: 1.08;
   font-family: Georgia, 'Times New Roman', serif;
   color: #11212d;
 }
 
 .hero-copy {
   margin: 1.5rem 0 0;
-  max-width: 680px;
   font-size: 1.1rem;
   line-height: 1.8;
   color: #4a4a4a;
@@ -189,7 +209,7 @@ a {
 
 .card h2 {
   margin: 0 0 1rem;
-  font-size: 1.7rem;
+  font-size: 2.2rem;
   font-family: Garamond, Baskerville, 'Times New Roman', serif;
   font-weight: 500;
   color: #11212d;
@@ -431,11 +451,6 @@ a {
 /* ─────────────────────────────────────────────────────────── */
 
 @media (max-width: 900px) {
-  .hero {
-    max-width: 640px;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-  }
 
   .card,
   .card-wide {
@@ -495,8 +510,15 @@ a {
   }
 
   .hero {
-    max-width: none;
-    padding: 1.25rem 1rem 1.5rem;
+    padding: 1.25rem 1.2rem 1.5rem;
+  }
+
+  .hero-top {
+    padding-left: 0;
+  }
+
+  .hero-logo {
+    display: none;
   }
 
   .card {

@@ -52,8 +52,17 @@ onUnmounted(() => {
 <template>
   <main ref="pageContent" class="page-content">
     <section class="hero" aria-labelledby="hero-title">
-      <p class="eyebrow">Remittances | Diaspora Bonds | Structured Finance</p>
-      <h1 id="hero-title">Strategy, Advice, and Analytics on Global Development Finance</h1>
+      <div class="hero-top">
+        <img
+          class="hero-logo"
+          src="/ratha_global_new_transparent.png"
+          alt="Ratha Global logo"
+        >
+        <div class="hero-heading">
+          <p class="eyebrow">Remittances | Diaspora Bonds | Structured Finance</p>
+          <h1 id="hero-title">Strategy, Advice, and Analytics on Global Development Finance</h1>
+        </div>
+      </div>
       <p class="hero-copy">
         Ratha Global supports governments, financial institutions, and fintech leaders
         with deep expertise in remittances, diaspora financing, sovereign ratings,

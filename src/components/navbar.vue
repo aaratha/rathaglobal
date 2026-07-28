@@ -8,7 +8,7 @@ import { RouterLink } from 'vue-router'
       <RouterLink to="/" class="brand-block" aria-label="Ratha Global home">
         <img
           class="brand-logo"
-          src="/ratha_global_black.png"
+          src="/ratha_global_new_no_border.png"
           alt="Ratha Global logo"
         >
         <p class="nav-kicker">Ratha Global</p>
@@ -78,17 +78,19 @@ import { RouterLink } from 'vue-router'
   height: 42px;
   object-fit: contain;
   flex: 0 0 auto;
+  border-right: 1px solid rgba(0, 0, 0, 0.4);
+  padding-right: 10px;
 }
 
 .nav-kicker {
-  margin: 0;
-  font-size: 2rem;
-  font-family: Garamond, Baskerville, 'Times New Roman', serif;
-  font-weight: 500;
-  line-height: 1.1;
-  color: #111111;
-  transform: translateY(0.04em);
-}
+             margin: 0;
+             font-size: 2rem;
+             font-family: Garamond, Baskerville, 'Times New Roman', serif;
+             font-weight: 500;
+             line-height: 1.1;
+             color: #111111;
+             transform: translateY(0.04em);
+             }
 
 .nav-links {
   display: flex;
