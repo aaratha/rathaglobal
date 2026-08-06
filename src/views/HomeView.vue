@@ -60,13 +60,11 @@ onUnmounted(() => {
         >
         <div class="hero-heading">
           <p class="eyebrow">Remittances | Diaspora Bonds | Structured Finance</p>
-          <h1 id="hero-title">Strategy, Advice, and Analytics on Global Development Finance</h1>
+          <h1 id="hero-title">Advice, Analytics, and Solutions for Global Development Finance</h1>
         </div>
       </div>
       <p class="hero-copy">
-        Ratha Global supports governments, financial institutions, and fintech leaders
-        with deep expertise in remittances, diaspora financing, sovereign ratings,
-        structured finance, and investment risk guarantees.
+        Ratha Global supports public and private sector clients on Remittances, Diaspora Financing, Credit Enhancement, and Innovative Capital Solutions
       </p>
     </section>
 
@@ -76,21 +74,19 @@ onUnmounted(() => {
         <h2>Services</h2>
         <p>Strategic, advisory, and analytic services on:</p>
         <ul>
-          <li>Remittances</li>
-          <li>Cross-Border Payments</li>
-          <li>Diaspora Bonds</li>
-          <li>Sovereign Ratings</li>
-          <li>Investment Risk Guarantees</li>
-          <li>Structured Finance Solutions</li>
+          <li>Cross-Border Remittances</li>
+          <li>Capital Market Access</li>
+          <li>Credit Ratings</li>
+          <li>Innovative Financing Instruments</li>
+          <li>Investment Outreach and Transactions</li>
         </ul>
       </article>
 
       <article class="card">
         <h2>Who we work with</h2>
-        <p>Global public and private sector clients including:</p>
+        <p>Public and private sector clients including:</p>
         <ul>
           <li>Remittance and Payments Industry</li>
-          <li>Fintechs</li>
           <li>Commercial Banks</li>
           <li>Governments</li>
           <li>Multilateral Development Banks</li>
@@ -148,14 +144,10 @@ onUnmounted(() => {
         </div>
       </article>
 
-      <article class="card card-wide">
+      <article class="card card-wide about-card">
         <h2>Who we are</h2>
         <p>
-          Ratha Global was founded by <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/dilipratha/">Dilip Ratha</a>. He advises governments,
-          supranational institutions, banks, and fintechs on remittances,
-          cross-border payments, migration, diaspora financing (diaspora bonds and
-          remittance bonds), sovereign ratings, structured finance, and investment
-          risk guarantees. His work with the World Bank Group (over three decades),
+          Ratha Global was founded by <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/dilipratha/">Dilip Ratha</a>. His work with the World Bank Group (over three decades),
           regional development banks, and the United Nations helped integrate
           remittances and migration into global development policy, including
           monitoring the UN Sustainable Development Goals.
@@ -173,11 +165,6 @@ onUnmounted(() => {
         </p>
 
         <p>
-          After working at the World Bank Group for over 30 years, he founded
-          Ratha Global, to continue this work and help fill any institutional gaps.
-        </p>
-
-        <p>
             A frequent keynote speaker, his <a target="_blank" href="https://www.ted.com/talks/dilip_ratha_the_hidden_force_in_global_economics_sending_money_home">TED Talk</a> has been viewed over 1.5 million
           times and has inspired 20+ fintech startups. He remains committed to
           lowering the cost of cross-border remittances and advising the next
@@ -191,13 +178,6 @@ onUnmounted(() => {
           <div class="contact-sections">
             <section class="contact-section">
               <div class="contact-section-inner">
-                <h3>Speaking engagements</h3>
-                <p>Invite Ratha Global for keynote talks, panels, and expert commentary.</p>
-              </div>
-            </section>
-
-            <section class="contact-section">
-              <div class="contact-section-inner">
                 <h3>Book a consultation</h3>
                 <p>Reach out for advisory work on remittances, diaspora bonds, and structured finance.</p>
               </div>
@@ -205,8 +185,15 @@ onUnmounted(() => {
 
             <section class="contact-section">
               <div class="contact-section-inner">
-                <h3>Subscribe to data and reports</h3>
+                <h3>Subscribe to data & reports</h3>
                 <p> Semi-annual and monthly reports including data, analysis, and projections from Ratha Global.</p>
+              </div>
+            </section>
+            
+            <section class="contact-section">
+              <div class="contact-section-inner">
+                <h3>Speaking engagements</h3>
+                <p>Invite Ratha Global for keynote talks, panels, and expert commentary.</p>
               </div>
             </section>
           </div>

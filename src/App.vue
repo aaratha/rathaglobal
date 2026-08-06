@@ -125,13 +125,13 @@ a {
   margin: 0;
   font-size: var(--hero-title-size);
   line-height: 1.08;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: 'Asul', sans-serif;
   color: #11212d;
 }
 
 .hero-copy {
   margin: 1.5rem 0 0;
-  font-size: 1.1rem;
+  font-size: 1.6rem;
   line-height: 1.8;
   color: #4a4a4a;
 }
@@ -153,6 +153,10 @@ a {
 
 .card-wide {
   grid-column: span 12;
+}
+
+.about-card {
+  padding: 3rem;
 }
 
 #contact {
@@ -198,7 +202,7 @@ a {
 .contact-section h3 {
   margin: 0 0 0.6rem;
   font-size: 1.42rem;
-  font-family: Garamond, Baskerville, 'Times New Roman', serif;
+  font-family: 'Asul', sans-serif;
   font-weight: 500;
   color: #11212d;
 }
@@ -209,8 +213,8 @@ a {
 
 .card h2 {
   margin: 0 0 1rem;
-  font-size: 2.2rem;
-  font-family: Garamond, Baskerville, 'Times New Roman', serif;
+  font-size: 2.12rem;
+  font-family: 'Asul', sans-serif;
   font-weight: 500;
   color: #11212d;
 }
@@ -312,7 +316,7 @@ a {
 .link-card-body h3 {
   margin: 0 0 0.25rem;
   font-size: 1.1rem;
-  font-family: Garamond, Baskerville, 'Times New Roman', serif;
+  font-family: 'Asul', sans-serif;
   font-weight: 500;
   color: #11212d;
 }
@@ -363,7 +367,7 @@ a {
 .post-body h2,
 .post-body h3,
 .post-body h4 {
-  font-family: Garamond, Baskerville, 'Times New Roman', serif;
+  font-family: 'Asul', sans-serif;
   font-weight: 500;
   color: #11212d;
   line-height: 1.2;

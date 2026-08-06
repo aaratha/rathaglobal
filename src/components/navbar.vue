@@ -85,7 +85,7 @@ import { RouterLink } from 'vue-router'
 .nav-kicker {
              margin: 0;
              font-size: 2rem;
-             font-family: Garamond, Baskerville, 'Times New Roman', serif;
+             font-family: 'Asul', sans-serif;
              font-weight: 500;
              line-height: 1.1;
              color: #111111;
