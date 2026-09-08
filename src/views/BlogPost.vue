@@ -141,9 +141,10 @@ watch(
 
 .post-description {
   margin: 1rem 0 0;
-  font-size: 1.12rem;
-  line-height: 1.7;
-  color: #4a4a4a;
+  font-size: 1.28rem;
+  line-height: 1.6;
+  color: #11212d;
+  font-weight: 500;
   max-width: 680px;
 }
 

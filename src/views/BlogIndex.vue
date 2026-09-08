@@ -85,7 +85,7 @@ const posts = computed<Post[]>(() =>
   grid-column: span 6;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.3rem;
 }
 
 .post-card-date {

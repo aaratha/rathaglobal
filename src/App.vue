@@ -146,8 +146,8 @@ a {
   margin-bottom: 0.65rem;
 }
 
-.featured-post-date {
-  margin: 0 0 0.45rem;
+.card .featured-post-date {
+  margin: 0 0 0.35rem;
   color: #184e74;
   font-size: 0.88rem;
   font-weight: 700;
@@ -155,13 +155,13 @@ a {
   text-transform: uppercase;
 }
 
-.featured-post h2 {
-  margin-bottom: 0.65rem;
+.card.featured-post h2 {
+  margin-bottom: 0.35rem;
   font-size: clamp(1.75rem, 3.5vw, 2.5rem);
 }
 
-.featured-post-description {
-  margin-bottom: 1rem;
+.card .featured-post-description {
+  margin-bottom: 0.75rem;
 }
 
 .featured-post-link {
