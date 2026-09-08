@@ -28,7 +28,7 @@ const featuredPostData = parseFrontmatter(
   featuredPostRaw[`../content/posts/${featuredPostSlug}.md`] ?? '',
 )
 const featuredPostDate = featuredPostData.date
-  ? new Date(featuredPostData.date).toLocaleDateString('en-US', {
+  ? new Date(`${featuredPostData.date}T00:00:00`).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',

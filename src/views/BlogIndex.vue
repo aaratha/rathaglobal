@@ -37,7 +37,7 @@ const posts = computed<Post[]>(() =>
     .map(([path, raw]) => {
       const slug = path.replace('../content/posts/', '').replace('.md', '')
       const { data } = parseFrontmatter(raw)
-      const d = data.date ? new Date(data.date) : null
+      const d = data.date ? new Date(`${data.date}T00:00:00`) : null
       return {
         slug,
         title: String(data.title ?? slug),

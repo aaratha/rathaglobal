@@ -51,7 +51,7 @@ const loadPost = async (slug: string) => {
 
   const raw = await allPosts[key]()
   const { data, content } = parseFrontmatter(raw)
-  const d = data.date ? new Date(data.date) : null
+  const d = data.date ? new Date(`${data.date}T00:00:00`) : null
   const date = d
     ? d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
     : ''
