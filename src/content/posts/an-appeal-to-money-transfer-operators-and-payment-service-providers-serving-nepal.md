@@ -1,6 +1,5 @@
 ---
-title: "An Appeal to Money Transfer Operators and Payment Service Providers
-  Serving Nepal  "
+title: "An Appeal to Money Transfer Operators and Payment Service Providers Serving Nepal"
 date: 2026-09-07
 description: "For a Waiver of Fees on Remittances to Nepal for Eight Weeks  "
 ---

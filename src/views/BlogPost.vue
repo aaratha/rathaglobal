@@ -77,7 +77,7 @@ watch(
   <main class="page-content">
     <div class="post-nav">
       <RouterLink to="/blog" class="back-link">
-        <span aria-hidden="true">&larr;</span>&nbsp;All posts
+        <span aria-hidden="true">&larr;</span>&nbsp;All publications
       </RouterLink>
     </div>
 
@@ -88,17 +88,16 @@ watch(
     <div v-else-if="notFound" class="card card-wide post-not-found">
       <h2>Post not found</h2>
       <p>This post may have been moved or removed.</p>
-      <RouterLink to="/blog" class="back-link">Back to blog</RouterLink>
+      <RouterLink to="/blog" class="back-link">Back to publications</RouterLink>
     </div>
 
     <template v-else-if="post">
-      <header class="post-header">
-        <p v-if="post.date" class="eyebrow">{{ post.date }}</p>
-        <h1 class="post-title">{{ post.title }}</h1>
-        <p v-if="post.description" class="post-description">{{ post.description }}</p>
-      </header>
-
       <article class="card card-wide post-article">
+        <header class="post-header">
+          <p v-if="post.date" class="eyebrow">{{ post.date }}</p>
+          <h1 class="post-title">{{ post.title }}</h1>
+          <p v-if="post.description" class="post-description">{{ post.description }}</p>
+        </header>
         <!-- eslint-disable-next-line vue/no-v-html -->
         <div class="post-body" v-html="post.html" />
       </article>
@@ -108,7 +107,7 @@ watch(
 
 <style scoped>
 .post-nav {
-  padding: 1rem 0 0.25rem;
+  padding: 1rem 0 1.25rem;
 }
 
 .back-link {
@@ -128,15 +127,15 @@ watch(
 }
 
 .post-header {
-  padding: 1.25rem 0 1.5rem;
-  max-width: 820px;
+  padding: 0 0 1.5rem;
+  width: 100%;
 }
 
 .post-title {
   margin: 0.5rem 0 0;
-  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  font-size: clamp(1.8rem, 3.6vw, 2.8rem);
   line-height: 1.05;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: 'Asul', sans-serif;
   color: #11212d;
 }
 

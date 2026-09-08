@@ -54,16 +54,16 @@ const posts = computed<Post[]>(() =>
 
 <template>
   <main class="page-content">
-    <section class="hero" aria-labelledby="blog-title">
+    <section class="hero" aria-labelledby="publications-title">
       <p class="eyebrow">Insights &amp; Analysis</p>
-      <h1 id="blog-title">Blog</h1>
+      <h1 id="publications-title">Publications</h1>
       <p class="hero-copy">
-        Perspectives on remittances, diaspora finance, sovereign ratings,
+        Briefs, reports, and blog posts on remittances, diaspora finance, sovereign ratings,
         and global development from Ratha Global.
       </p>
     </section>
 
-    <section class="content-grid" aria-label="Blog posts">
+    <section class="content-grid" aria-label="Publications">
       <p v-if="posts.length === 0" class="card card-wide no-posts">
         No posts yet. Check back soon.
       </p>
@@ -100,6 +100,7 @@ const posts = computed<Post[]>(() =>
 
 .post-card-title {
   margin: 0;
+  width: 100%;
   font-size: 1.52rem;
   font-family: Garamond, Baskerville, 'Times New Roman', serif;
   font-weight: 500;

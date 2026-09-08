@@ -1,5 +1,39 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
+import { RouterLink } from 'vue-router'
+
+function parseFrontmatter(raw: string): Record<string, string> {
+  const fence = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/)
+  if (!fence) return {}
+
+  const data: Record<string, string> = {}
+  for (const line of (fence[1] ?? '').split('\n')) {
+    const i = line.indexOf(':')
+    if (i < 1) continue
+    const key = line.slice(0, i).trim()
+    const value = line.slice(i + 1).trim().replace(/^['"]|['"]$/g, '')
+    if (key) data[key] = value
+  }
+  return data
+}
+
+const featuredPostSlug =
+  'an-appeal-to-money-transfer-operators-and-payment-service-providers-serving-nepal'
+const featuredPostRaw = import.meta.glob('../content/posts/*.md', {
+  eager: true,
+  query: '?raw',
+  import: 'default',
+}) as Record<string, string>
+const featuredPostData = parseFrontmatter(
+  featuredPostRaw[`../content/posts/${featuredPostSlug}.md`] ?? '',
+)
+const featuredPostDate = featuredPostData.date
+  ? new Date(featuredPostData.date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    })
+  : ''
 
 const pageContent = ref<HTMLElement | null>(null)
 
@@ -66,6 +100,21 @@ onUnmounted(() => {
       <p class="hero-copy">
         Ratha Global supports public and private sector clients on Remittances, Diaspora Financing, Credit Enhancement, and Innovative Capital Solutions
       </p>
+    </section>
+
+    <section class="featured-post card" aria-labelledby="featured-post-title">
+      <div class="featured-post-copy">
+        <p class="eyebrow">Featured Publication</p>
+        <p v-if="featuredPostDate" class="featured-post-date">{{ featuredPostDate }}</p>
+        <h2 id="featured-post-title">{{ featuredPostData.title }}</h2>
+        <p class="featured-post-description">{{ featuredPostData.description }}</p>
+        <RouterLink
+          :to="`/blog/${featuredPostSlug}`"
+          class="featured-post-link"
+        >
+          Read the post <span aria-hidden="true">&rarr;</span>
+        </RouterLink>
+      </div>
     </section>
 
     <section class="content-grid">

@@ -6,15 +6,18 @@ import { RouterLink } from 'vue-router'
   <header class="nav-shell">
     <div class="nav-content">
       <RouterLink to="/" class="brand-block" aria-label="Ratha Global home">
-        <img
-          class="brand-logo"
-          src="/ratha_global_new_no_border.png"
-          alt="Ratha Global logo"
-        >
-        <p class="nav-kicker">Ratha Global</p>
+        <div class="brand-identity">
+          <img
+            class="brand-logo"
+            src="/ratha_global_new_no_border.png"
+            alt="Ratha Global logo"
+          >
+          <p class="nav-kicker">Ratha Global</p>
+        </div>
       </RouterLink>
 
       <nav class="nav-links" aria-label="Site navigation">
+        <RouterLink to="/blog" class="nav-button blog-nav-button">Publications</RouterLink>
         <a href="/#contact" class="nav-button">Contact</a>
       </nav>
     </div>
@@ -61,8 +64,12 @@ import { RouterLink } from 'vue-router'
 .brand-block:hover {
   background: rgba(255, 251, 245, 0.62);
   border-color: rgba(129, 104, 56, 0.22);
-  box-shadow: 0 12px 28px rgba(75, 60, 26, 0.12);
+  box-shadow: none;
   transform: translateY(-1px);
+}
+
+.brand-block:hover .brand-identity {
+  transform: scale(0.92);
 }
 
 .brand-block:focus-visible {
@@ -82,6 +89,13 @@ import { RouterLink } from 'vue-router'
   padding-right: 10px;
 }
 
+.brand-identity {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  transition: transform 0.2s ease;
+}
+
 .nav-kicker {
              margin: 0;
              font-size: 2rem;
@@ -90,6 +104,7 @@ import { RouterLink } from 'vue-router'
              line-height: 1.1;
              color: #111111;
              transform: translateY(0.04em);
+             transition: transform 0.2s ease;
              }
 
 .nav-links {
@@ -128,7 +143,16 @@ import { RouterLink } from 'vue-router'
   transition:
     transform 0.2s ease,
     background-color 0.2s ease,
+    border-color 0.2s ease,
     color 0.2s ease;
+}
+
+.blog-nav-button {
+  border-color: transparent;
+}
+
+.blog-nav-button:hover {
+  border-color: #111111;
 }
 
 .nav-button:hover {
