@@ -1,11 +1,12 @@
 ---
-title: "An Appeal to Money Transfer Operators and Payment Service Providers Serving Nepal"
+title: An Appeal to Money Transfer Operators and Payment Service Providers
+  Serving Nepal
 date: 2026-09-07
-description: "For a Waiver of Fees on Remittances to Nepal for Eight Weeks  "
+description: For a Waiver of Fees on Remittances to Nepal for Eight Weeks
 ---
 It is with a sense of urgency that I appeal to **the leadership of all money transfer operators and payment service providers** to waive transaction fees on remittances sent to Nepal for a period of eight weeks, starting as soon as possible. 
 
-Following the catastrophic floods that struck Nepal on August 26, as of today, 2026, 1,350 people are confirmed dead and approximately 5,000 remain missing (including 600 foreign nationals from 34 countries). At least 41 bridges and 42 kilometers of road have been destroyed, 13 hydropower projects have suffered damage. Nepal’s Finance Minister has estimated preliminary reconstruction costs at $4–5 billion, roughly a tenth of the economy.  
+Following the catastrophic floods that struck Nepal on August 26, as of today, 1,350 people are confirmed dead and approximately 5,000 remain missing (including 600 foreign nationals from 34 countries). At least 41 bridges and 42 kilometers of road have been destroyed, 13 hydropower projects have suffered damage. Nepal’s Finance Minister has estimated preliminary reconstruction costs at $4–5 billion, roughly a tenth of the economy.  
 
 Since the flood struck, we have seen an outpouring of support move through your networks. Nepal is among the top five remittance-dependent economies on earth. Remittances amount to over a quarter of GDP, or about $16 billion a year. More than 3.5 million Nepalis work abroad, and the Nepali diaspora numbers more than 6 million people, nearly one-fifth of the country’s population. They are sending financial help to families in affected districts. In addition, people of many nationalities and charitable organizations are sending contributions to help flood-affected communities. They all use your payment services. Every one of these transfers will be worth more, and reach further, if it moves free of charge during the next two months. 
 
@@ -25,4 +26,4 @@ With gratitude,
 
 **Dilip Ratha** 
 
-[CEO, Ratha Global ](https://www.rathaglobal.com/)
+[CEO, Ratha Global](https://www.rathaglobal.com/)
