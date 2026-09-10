@@ -68,14 +68,19 @@ const posts = computed<Post[]>(() =>
         No posts yet. Check back soon.
       </p>
 
-      <article v-for="post in posts" :key="post.slug" class="post-card card">
+      <RouterLink
+        v-for="post in posts"
+        :key="post.slug"
+        :to="`/blog/${post.slug}`"
+        class="post-card card"
+      >
         <p v-if="post.date" class="post-card-date eyebrow-small">{{ post.date }}</p>
         <h2 class="post-card-title">{{ post.title }}</h2>
         <p v-if="post.description" class="post-card-desc">{{ post.description }}</p>
-        <RouterLink :to="`/blog/${post.slug}`" class="post-card-link">
+        <span class="post-card-link">
           Read&nbsp;<span aria-hidden="true">&rarr;</span>
-        </RouterLink>
-      </article>
+        </span>
+      </RouterLink>
     </section>
   </main>
 </template>
@@ -86,6 +91,16 @@ const posts = computed<Post[]>(() =>
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
+  color: inherit;
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 36px rgba(84, 69, 39, 0.14);
 }
 
 .post-card-date {
@@ -127,9 +142,15 @@ const posts = computed<Post[]>(() =>
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.post-card-link:hover {
+.post-card:hover .post-card-link,
+.post-card:focus-visible .post-card-link {
   color: #11212d;
   transform: translateX(2px);
+}
+
+.post-card:focus-visible {
+  outline: 2px solid #11212d;
+  outline-offset: 3px;
 }
 
 .no-posts {

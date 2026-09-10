@@ -102,34 +102,23 @@ onUnmounted(() => {
       </p>
     </section>
 
-    <section class="featured-post card" aria-labelledby="featured-post-title">
+    <RouterLink
+      :to="`/blog/${featuredPostSlug}`"
+      class="featured-post card"
+      aria-labelledby="featured-post-title"
+    >
       <div class="featured-post-copy">
         <p class="eyebrow">Featured Publication</p>
         <p v-if="featuredPostDate" class="featured-post-date">{{ featuredPostDate }}</p>
         <h2 id="featured-post-title">{{ featuredPostData.title }}</h2>
         <p class="featured-post-description">{{ featuredPostData.description }}</p>
-        <RouterLink
-          :to="`/blog/${featuredPostSlug}`"
-          class="featured-post-link"
-        >
+        <span class="featured-post-link">
           Read the post <span aria-hidden="true">&rarr;</span>
-        </RouterLink>
+        </span>
       </div>
-    </section>
+    </RouterLink>
 
     <section class="content-grid">
-
-      <article class="card">
-        <h2>Services</h2>
-        <p>Strategic, advisory, and analytic services on:</p>
-        <ul>
-          <li>Cross-Border Remittances</li>
-          <li>Capital Market Access</li>
-          <li>Credit Ratings</li>
-          <li>Innovative Financing Instruments</li>
-          <li>Investment Outreach and Transactions</li>
-        </ul>
-      </article>
 
       <article class="card">
         <h2>Who we work with</h2>
@@ -140,6 +129,18 @@ onUnmounted(() => {
           <li>Governments</li>
           <li>Multilateral Development Banks</li>
           <li>International Financial Institutions</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>Services</h2>
+        <p>Strategic, advisory, and analytic services on:</p>
+        <ul>
+          <li>Cross-Border Remittances</li>
+          <li>Capital Market Access</li>
+          <li>Credit Ratings</li>
+          <li>Structured Finance & Guarantees</li>
+          <li>Investment Outreach and Transactions</li>
         </ul>
       </article>
 
@@ -235,14 +236,14 @@ onUnmounted(() => {
             <section class="contact-section">
               <div class="contact-section-inner">
                 <h3>Subscribe to data & reports</h3>
-                <p> Semi-annual and monthly reports including data, analysis, and projections from Ratha Global.</p>
+                <p> Regular reports including data, analysis, and projections from Ratha Global.</p>
               </div>
             </section>
             
             <section class="contact-section">
               <div class="contact-section-inner">
                 <h3>Speaking engagements</h3>
-                <p>Invite Ratha Global for keynote talks, panels, and expert commentary.</p>
+                <p>Invite Dilip Ratha for keynote talks, panels, and expert commentary.</p>
               </div>
             </section>
           </div>

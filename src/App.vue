@@ -137,9 +137,20 @@ a {
 }
 
 .featured-post {
+  display: block;
   width: 100%;
   margin: 0 0 1.25rem;
   padding: 1.75rem 2rem;
+  color: inherit;
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.featured-post:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 36px rgba(84, 69, 39, 0.14);
 }
 
 .featured-post .eyebrow {
@@ -174,9 +185,15 @@ a {
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.featured-post-link:hover {
+.featured-post:hover .featured-post-link,
+.featured-post:focus-visible .featured-post-link {
   color: #11212d;
   transform: translateX(2px);
+}
+
+.featured-post:focus-visible {
+  outline: 2px solid #11212d;
+  outline-offset: 3px;
 }
 
 .content-grid {
