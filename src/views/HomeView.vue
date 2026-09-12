@@ -136,8 +136,8 @@ onUnmounted(() => {
         <h2>Services</h2>
         <p>Strategic, advisory, and analytic services on:</p>
         <ul>
-          <li>Cross-Border Remittances</li>
-          <li>Capital Market Access</li>
+          <li>Remittances, Payments, and Fintech</li>
+          <li>Diaspora Finances</li>
           <li>Credit Ratings</li>
           <li>Structured Finance & Guarantees</li>
           <li>Investment Outreach and Transactions</li>
