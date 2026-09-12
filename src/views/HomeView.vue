@@ -196,6 +196,7 @@ onUnmounted(() => {
 
       <article class="card card-wide about-card">
         <h2>Who we are</h2>
+        <p>Ratha Global supports global development finance.</p>
         <p>
           Ratha Global was founded by <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/dilipratha/">Dilip Ratha</a>. His work with the World Bank Group (over three decades),
           regional development banks, and the United Nations helped integrate
