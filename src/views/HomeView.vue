@@ -108,7 +108,7 @@ onUnmounted(() => {
       aria-labelledby="featured-post-title"
     >
       <div class="featured-post-copy">
-        <p class="eyebrow">Featured Publication</p>
+        <p class="eyebrow">Featured</p>
         <p v-if="featuredPostDate" class="featured-post-date">{{ featuredPostDate }}</p>
         <h2 id="featured-post-title">{{ featuredPostData.title }}</h2>
         <p class="featured-post-description">{{ featuredPostData.description }}</p>
