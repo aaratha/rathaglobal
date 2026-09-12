@@ -181,4 +181,17 @@ import { RouterLink } from 'vue-router'
     white-space: nowrap;
   }
 }
+
+@media (max-width: 420px) {
+  .nav-content {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 0.6rem;
+  }
+
+  .nav-links {
+    flex-basis: 100%;
+    justify-content: center;
+  }
+}
 </style>
