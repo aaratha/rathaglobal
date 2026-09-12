@@ -3,6 +3,7 @@ title: An Appeal to Money Transfer Operators and Payment Service Providers
   Serving Nepal
 date: 2026-09-07
 description: For a Waiver of Fees on Remittances to Nepal for Eight Weeks
+pdf: /documents/appeal-nepal-floods.pdf
 ---
 It is with a sense of urgency that I appeal to **the leadership of all money transfer operators and payment service providers** to waive transaction fees on remittances sent to Nepal for a period of eight weeks, starting as soon as possible. 
 

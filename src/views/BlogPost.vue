@@ -26,6 +26,7 @@ interface PostData {
   date: string
   description: string
   html: string
+  pdf: string
 }
 
 const post = ref<PostData | null>(null)
@@ -62,8 +63,13 @@ const loadPost = async (slug: string) => {
     date,
     description: String(data.description ?? ''),
     html,
+    pdf: String(data.pdf ?? ''),
   }
   loading.value = false
+}
+
+const printPost = () => {
+  window.print()
 }
 
 watch(
@@ -93,6 +99,25 @@ watch(
 
     <template v-else-if="post">
       <article class="card card-wide post-article">
+        <a
+          v-if="post.pdf"
+          :href="post.pdf"
+          target="_blank"
+          rel="noopener"
+          class="print-button"
+          aria-label="Open the print-ready PDF of this publication"
+        >
+          <span aria-hidden="true">&#128424;</span>&nbsp;Print
+        </a>
+        <button
+          v-else
+          type="button"
+          class="print-button"
+          aria-label="Print this publication"
+          @click="printPost"
+        >
+          <span aria-hidden="true">&#128424;</span>&nbsp;Print
+        </button>
         <header class="post-header">
           <p v-if="post.date" class="eyebrow">{{ post.date }}</p>
           <h1 class="post-title">{{ post.title }}</h1>
@@ -127,7 +152,7 @@ watch(
 }
 
 .post-header {
-  padding: 0 0 1.5rem;
+  padding: 0 5.5rem 1.5rem 0;
   width: 100%;
 }
 
@@ -149,7 +174,33 @@ watch(
 }
 
 .post-article {
+  position: relative;
   padding: 2rem 2.25rem;
+}
+
+.print-button {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #8a6a2f;
+  background: transparent;
+  border: 1.5px solid #8a6a2f;
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.print-button:hover,
+.print-button:focus-visible {
+  color: #fff;
+  background: #8a6a2f;
 }
 
 .post-loading,
@@ -161,6 +212,22 @@ watch(
 @media (max-width: 640px) {
   .post-article {
     padding: 1.25rem;
+  }
+
+  .print-button {
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .post-header {
+    padding-right: 4.5rem;
+  }
+}
+
+@media print {
+  .post-nav,
+  .print-button {
+    display: none !important;
   }
 }
 </style>
