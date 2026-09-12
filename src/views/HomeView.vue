@@ -136,7 +136,7 @@ onUnmounted(() => {
         <h2>Services</h2>
         <p>Strategic, advisory, and analytic services on:</p>
         <ul>
-          <li>Remittances, Payments, and Fintech</li>
+          <li>Remittances, Payments, and Fintechs</li>
           <li>Diaspora Finances</li>
           <li>Credit Ratings</li>
           <li>Structured Finance & Guarantees</li>
