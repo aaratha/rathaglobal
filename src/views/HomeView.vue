@@ -236,7 +236,7 @@ onUnmounted(() => {
             <section class="contact-section">
               <div class="contact-section-inner">
                 <h3><a href="mailto:contact@rathaglobal.com">Subscribe to data & reports</a></h3>
-                <p> Regular reports including data, analysis, and projections from Ratha Global.</p>
+                <p>Regular and customized data, reports, analysis, projections and strategic briefs from Ratha Global.</p>
               </div>
             </section>
 
