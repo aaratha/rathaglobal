@@ -121,7 +121,7 @@ onUnmounted(() => {
     <section class="content-grid">
 
       <article class="card">
-        <h2>Who we work with</h2>
+        <h2>Clients</h2>
         <ul>
           <li>Remittance and Payments Industry</li>
           <li>Commercial Banks</li>
