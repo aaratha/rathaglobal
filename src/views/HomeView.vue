@@ -35,6 +35,10 @@ const featuredPostDate = featuredPostData.date
     })
   : ''
 
+const printFeaturedPost = () => {
+  window.print()
+}
+
 const pageContent = ref<HTMLElement | null>(null)
 
 let animationFrame = 0
@@ -102,21 +106,45 @@ onUnmounted(() => {
       </p>
     </section>
 
-    <RouterLink
-      :to="`/blog/${featuredPostSlug}`"
-      class="featured-post card"
-      aria-labelledby="featured-post-title"
-    >
-      <div class="featured-post-copy">
+    <article class="featured-post card">
+      <RouterLink
+        :to="`/blog/${featuredPostSlug}`"
+        class="featured-post-copy"
+        aria-labelledby="featured-post-title"
+      >
         <p class="eyebrow">Featured</p>
         <p v-if="featuredPostDate" class="featured-post-date">{{ featuredPostDate }}</p>
         <h2 id="featured-post-title">{{ featuredPostData.title }}</h2>
         <p class="featured-post-description">{{ featuredPostData.description }}</p>
-        <span class="featured-post-link">
+      </RouterLink>
+      <div class="featured-post-actions">
+        <RouterLink :to="`/blog/${featuredPostSlug}`" class="featured-post-link">
           Read the post <span aria-hidden="true">&rarr;</span>
-        </span>
+        </RouterLink>
+        <a
+          v-if="featuredPostData.pdf"
+          :href="featuredPostData.pdf"
+          target="_blank"
+          rel="noopener"
+          class="featured-action-button"
+          aria-label="Open the print-ready PDF of this publication"
+        >
+          <span aria-hidden="true">&#128424;</span>&nbsp;Print
+        </a>
+        <button
+          v-else
+          type="button"
+          class="featured-action-button"
+          aria-label="Print this publication"
+          @click="printFeaturedPost"
+        >
+          <span aria-hidden="true">&#128424;</span>&nbsp;Print
+        </button>
+        <a href="mailto:dratha@rathaglobal.com" class="featured-action-button">
+          Contact the editor
+        </a>
       </div>
-    </RouterLink>
+    </article>
 
     <section class="content-grid">
 
