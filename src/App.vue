@@ -157,12 +157,6 @@ a {
   margin-bottom: 0.65rem;
 }
 
-.featured-post-copy {
-  display: block;
-  color: inherit;
-  text-decoration: none;
-}
-
 .card .featured-post-date {
   margin: 0 0 0.35rem;
   color: #184e74;
@@ -192,45 +186,14 @@ a {
 }
 
 .featured-post:hover .featured-post-link,
-.featured-post-link:hover,
-.featured-post-link:focus-visible {
+.featured-post:focus-visible .featured-post-link {
   color: #11212d;
   transform: translateX(2px);
 }
 
-.featured-post-copy:focus-visible {
+.featured-post:focus-visible {
   outline: 2px solid #11212d;
   outline-offset: 3px;
-}
-
-.featured-post-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem 1rem;
-  margin-top: 1rem;
-}
-
-.featured-action-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.45rem 0.9rem;
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: #8a6a2f;
-  background: transparent;
-  border: 1.5px solid #8a6a2f;
-  border-radius: 999px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-}
-
-.featured-action-button:hover,
-.featured-action-button:focus-visible {
-  color: #fff;
-  background: #8a6a2f;
 }
 
 .content-grid {

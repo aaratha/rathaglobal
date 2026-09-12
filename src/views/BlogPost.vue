@@ -99,25 +99,30 @@ watch(
 
     <template v-else-if="post">
       <article class="card card-wide post-article">
-        <a
-          v-if="post.pdf"
-          :href="post.pdf"
-          target="_blank"
-          rel="noopener"
-          class="print-button"
-          aria-label="Open the print-ready PDF of this publication"
-        >
-          <span aria-hidden="true">&#128424;</span>&nbsp;Print
-        </a>
-        <button
-          v-else
-          type="button"
-          class="print-button"
-          aria-label="Print this publication"
-          @click="printPost"
-        >
-          <span aria-hidden="true">&#128424;</span>&nbsp;Print
-        </button>
+        <div class="post-actions">
+          <a
+            v-if="post.pdf"
+            :href="post.pdf"
+            target="_blank"
+            rel="noopener"
+            class="print-button"
+            aria-label="Open the print-ready PDF of this publication"
+          >
+            <span aria-hidden="true">&#128424;</span>&nbsp;Print
+          </a>
+          <button
+            v-else
+            type="button"
+            class="print-button"
+            aria-label="Print this publication"
+            @click="printPost"
+          >
+            <span aria-hidden="true">&#128424;</span>&nbsp;Print
+          </button>
+          <a href="mailto:dratha@rathaglobal.com" class="print-button">
+            Contact the editor
+          </a>
+        </div>
         <header class="post-header">
           <p v-if="post.date" class="eyebrow">{{ post.date }}</p>
           <h1 class="post-title">{{ post.title }}</h1>
@@ -152,7 +157,7 @@ watch(
 }
 
 .post-header {
-  padding: 0 5.5rem 1.5rem 0;
+  padding: 0 0 1.5rem;
   width: 100%;
 }
 
@@ -174,14 +179,19 @@ watch(
 }
 
 .post-article {
-  position: relative;
   padding: 2rem 2.25rem;
 }
 
+.post-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
 .print-button {
-  position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -214,19 +224,14 @@ watch(
     padding: 1.25rem;
   }
 
-  .print-button {
-    top: 1rem;
-    right: 1rem;
-  }
-
-  .post-header {
-    padding-right: 4.5rem;
+  .post-actions {
+    justify-content: flex-start;
   }
 }
 
 @media print {
   .post-nav,
-  .print-button {
+  .post-actions {
     display: none !important;
   }
 }
