@@ -56,9 +56,8 @@ a {
 .page-content::before {
   content: '';
   position: absolute;
-  inset: 0 min(50% - 50vw, -3rem) auto;
-  height: min(78rem, 100%);
-  background: top center / calc(100% + 10rem) auto no-repeat url('/flags_grid.png');
+  inset: 0 min(50% - 50vw, -3rem) 0;
+  background: top center / calc(140% + 10rem) auto repeat-y url('/flags_grid.png');
   opacity: 0.1;
   filter: grayscale(1) blur(1.5px);
   pointer-events: none;
