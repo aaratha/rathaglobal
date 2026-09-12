@@ -98,7 +98,7 @@ onUnmounted(() => {
         </div>
       </div>
       <p class="hero-copy">
-        Ratha Global supports public and private sector clients on Remittances, Diaspora Financing, Credit Enhancement, and Innovative Capital Solutions
+        Ratha Global supports public and private sector clients on Remittances, Diaspora Finances, Credit Enhancement, and Innovative Capital Solutions
       </p>
     </section>
 
