@@ -122,13 +122,13 @@ onUnmounted(() => {
 
       <article class="card">
         <h2>Who we work with</h2>
-        <p>Public and private sector clients including:</p>
         <ul>
           <li>Remittance and Payments Industry</li>
           <li>Commercial Banks</li>
           <li>Governments</li>
           <li>Multilateral Development Banks</li>
           <li>International Financial Institutions</li>
+          <li>U.N. Agencies and International Organizations</li>
         </ul>
       </article>
 
