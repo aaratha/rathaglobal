@@ -158,7 +158,7 @@ const posts = computed<Post[]>(() =>
   font-size: 1.08rem;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .post-card {
     grid-column: span 12;
   }
