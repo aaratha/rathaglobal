@@ -195,31 +195,48 @@ onUnmounted(() => {
       </article>
 
       <article class="card card-wide about-card">
-        <h2>Who we are</h2>
-        <p>Ratha Global supports global development finance.</p>
+        <h2>Who We Are</h2>
         <p>
-          Ratha Global was founded by <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/dilipratha/">Dilip Ratha</a>. His work with the World Bank Group (over three decades),
-          regional development banks, and the United Nations helped integrate
-          remittances and migration into global development policy, including
-          monitoring the UN Sustainable Development Goals.
+          Ratha Global is a global development finance advisory and research firm
+          dedicated to mobilizing finance for emerging and developing economies. We
+          combine original research, authoritative global data, deep market
+          experience, and a worldwide network to develop innovative financing
+          solutions where conventional approaches fall short — helping governments,
+          financial institutions, development agencies, investors, and fintech
+          companies turn financial innovation, cross-border flows, and underutilized
+          sources of capital into practical financing and development solutions.
         </p>
 
         <p>
-          He founded KNOMAD (a global brain trust on migration with 800+ expert
-          network) and co-founded the Migrating out of Poverty Research Consortium
-          (6 core universities and 40+ associate partner universities), the Global
-          Remittances Working Group, and the African Institute for Remittances
-          (securing funding from the EU, Germany, Sweden, Switzerland, UK,
-          partnering with the African Union, U of Sussex, the OECD and the UN). His
-          research and ideas on today's global challenges have been widely cited in
-          policy circles, academic publications, and leading media outlets.
+          Ratha Global builds on the pioneering work of its founder, <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/dilipratha/">Dilip Ratha</a>,
+          whose career spans more than three decades in the World Bank, MIGA,
+          investment banking, and academia. He pioneered the implementation of
+          diaspora bonds and established future-flow securitization as a
+          market-based approach to mobilizing capital when conventional market
+          access is constrained, and was among the first to systematically estimate
+          South-South flows of foreign direct investment, remittances, and
+          migration. His research has also shown that seemingly technical features
+          of sovereign borrowing — such as the governing law of a bond — can
+          meaningfully affect sovereign spreads, underscoring the importance of
+          where sovereign debt is issued, registered, and listed.
         </p>
 
         <p>
-            A frequent keynote speaker, his <a target="_blank" href="https://www.ted.com/talks/dilip_ratha_the_hidden_force_in_global_economics_sending_money_home">TED Talk</a> has been viewed over 1.5 million
-          times and has inspired 20+ fintech startups. He remains committed to
-          lowering the cost of cross-border remittances and advising the next
-          generation of innovators.
+          Building on this foundation, Ratha Global advises clients on
+          remittances, diaspora bonds, structured finance, and guarantees. The firm
+          maintains authoritative datasets on remittance flows and diaspora
+          savings, including time-series and bilateral remittance data covering
+          some 200 countries, helping clients leverage predictable cash flows,
+          strengthen credit profiles, mitigate risk, and connect development
+          priorities with the requirements of international capital markets.
+        </p>
+
+        <p>
+          Our work is supported by an extensive global network of policymakers,
+          central banks, money transfer operators, investment bankers, investors,
+          development practitioners, and fintech innovators — enabling Ratha
+          Global to bridge development policy and private finance, turning
+          knowledge and innovative ideas into actionable financing solutions.
         </p>
       </article>
 
