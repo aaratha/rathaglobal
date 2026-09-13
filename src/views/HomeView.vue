@@ -242,8 +242,8 @@ onUnmounted(() => {
 
             <section class="contact-section">
               <div class="contact-section-inner">
-                <h3><a href="mailto:contact@rathaglobal.com">Speaking engagements</a></h3>
-                <p>Invite Dilip Ratha for keynote talks, panels, and expert commentary.</p>
+                <h3><a href="mailto:contact@rathaglobal.com">Media and Speaking requests</a></h3>
+                <p>Contact Dilip Ratha for keynote presentations or media interviews.</p>
               </div>
             </section>
           </div>
