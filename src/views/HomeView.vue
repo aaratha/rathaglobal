@@ -201,24 +201,23 @@ onUnmounted(() => {
           dedicated to mobilizing finance for emerging and developing economies. We
           combine original research, authoritative global data, deep market
           experience, and a worldwide network to develop innovative financing
-          solutions where conventional approaches fall short — helping governments,
-          financial institutions, development agencies, investors, and fintech
-          companies turn financial innovation, cross-border flows, and underutilized
-          sources of capital into practical financing and development solutions.
+          solutions for governments, financial institutions, development agencies,
+          investors, and fintech companies.
         </p>
 
         <p>
           Ratha Global builds on the pioneering work of its founder, <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/dilipratha/">Dilip Ratha</a>,
           whose career spans more than three decades in the World Bank, MIGA,
           investment banking, and academia. He pioneered the implementation of
-          diaspora bonds and established future-flow securitization as a
+          diaspora bonds and advocated future-flow securitization as a
           market-based approach to mobilizing capital when conventional market
           access is constrained, and was among the first to systematically estimate
           South-South flows of foreign direct investment, remittances, and
-          migration. His research has also shown that seemingly technical features
-          of sovereign borrowing — such as the governing law of a bond — can
-          meaningfully affect sovereign spreads, underscoring the importance of
-          where sovereign debt is issued, registered, and listed.
+          migration. Recognizing the role credit ratings play in capital market
+          access, he has also built models to predict sovereign ratings for
+          countries that lack them or have outdated ones. He draws on his extensive
+          research on bond spreads to guide issuers where, when, and how to issue,
+          register and list bonds.
         </p>
 
         <p>
@@ -232,11 +231,11 @@ onUnmounted(() => {
         </p>
 
         <p>
-          Our work is supported by an extensive global network of policymakers,
+          Ratha Global draws on an extensive global network of policymakers,
           central banks, money transfer operators, investment bankers, investors,
-          development practitioners, and fintech innovators — enabling Ratha
-          Global to bridge development policy and private finance, turning
-          knowledge and innovative ideas into actionable financing solutions.
+          development practitioners, and fintech innovators to bridge development
+          policy and private finance, turning knowledge and innovative ideas into
+          actionable financing and development solutions.
         </p>
       </article>
 
