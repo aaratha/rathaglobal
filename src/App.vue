@@ -278,6 +278,18 @@ a {
   color: #11212d;
 }
 
+.about-card h3 {
+  margin: 2rem 0 1rem;
+  font-size: 1.3rem;
+  font-family: 'Asul', sans-serif;
+  font-weight: 500;
+  color: #11212d;
+}
+
+.card-half {
+  grid-column: span 6;
+}
+
 .card p,
 .card li,
 .contact-card a {
@@ -372,7 +384,7 @@ a {
   border: 0;
 }
 
-.link-card-body h3 {
+.link-card-body h4 {
   margin: 0 0 0.25rem;
   font-size: 1.1rem;
   font-family: 'Asul', sans-serif;
@@ -395,14 +407,14 @@ a {
   color: #8a6a2f;
 }
 
-.link-card:hover .link-card-body h3,
+.link-card:hover .link-card-body h4,
 .link-card:hover .link-card-body p,
 .link-card:hover .link-thumb,
 .contact-card a:hover {
   color: inherit;
 }
 
-.link-card:hover .link-card-body h3 {
+.link-card:hover .link-card-body h4 {
   text-decoration: underline;
 }
 

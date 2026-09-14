@@ -120,7 +120,7 @@ onUnmounted(() => {
 
     <section class="content-grid">
 
-      <article class="card">
+      <article class="card card-half">
         <h2>Clients</h2>
         <ul>
           <li>Remittance and Payments Industry</li>
@@ -132,7 +132,7 @@ onUnmounted(() => {
         </ul>
       </article>
 
-      <article class="card">
+      <article class="card card-half">
         <h2>Services</h2>
         <p>Strategic, advisory, and analytic services on:</p>
         <ul>
@@ -142,56 +142,6 @@ onUnmounted(() => {
           <li>Structured Finance & Guarantees</li>
           <li>Investment Outreach and Transactions</li>
         </ul>
-      </article>
-
-      <article class="card">
-        <h2>Selected links</h2>
-        <div class="link-card-list">
-          <a
-            class="link-card"
-            href="https://www.ted.com/talks/dilip_ratha_the_hidden_force_in_global_economics_sending_money_home"
-            target="_blank"
-            rel="noopener"
-          >
-            <div class="link-thumb thumb-ted">
-              <span class="visually-hidden">TED</span>
-            </div>
-            <div class="link-card-body">
-              <h3>TED Talk</h3>
-              <p>Remittances and diaspora bonds</p>
-            </div>
-          </a>
-
-          <a
-            class="link-card"
-            href="https://nyti.ms/2moxI2P"
-            target="_blank"
-            rel="noopener"
-          >
-            <div class="link-thumb thumb-nyt">
-              <span class="visually-hidden">New York Times</span>
-            </div>
-            <div class="link-card-body">
-              <h3>New York Times Article</h3>
-              <p>Profile on Dilip Ratha</p>
-            </div>
-          </a>
-
-          <a
-            class="link-card"
-            href="https://scholar.google.com/citations?user=9Y4tm18AAAAJ&hl=en"
-            target="_blank"
-            rel="noopener"
-          >
-            <div class="link-thumb thumb-scholar">
-              <span class="visually-hidden">Scholar</span>
-            </div>
-            <div class="link-card-body">
-              <h3>Academic Resources</h3>
-              <p>Research and citations.</p>
-            </div>
-          </a>
-        </div>
       </article>
 
       <article class="card card-wide about-card">
@@ -237,6 +187,54 @@ onUnmounted(() => {
           policy and private finance, turning knowledge and innovative ideas into
           actionable financing and development solutions.
         </p>
+
+        <h3>Selected links</h3>
+        <div class="link-card-list">
+          <a
+            class="link-card"
+            href="https://www.ted.com/talks/dilip_ratha_the_hidden_force_in_global_economics_sending_money_home"
+            target="_blank"
+            rel="noopener"
+          >
+            <div class="link-thumb thumb-ted">
+              <span class="visually-hidden">TED</span>
+            </div>
+            <div class="link-card-body">
+              <h4>TED Talk</h4>
+              <p>Remittances and diaspora bonds</p>
+            </div>
+          </a>
+
+          <a
+            class="link-card"
+            href="https://nyti.ms/2moxI2P"
+            target="_blank"
+            rel="noopener"
+          >
+            <div class="link-thumb thumb-nyt">
+              <span class="visually-hidden">New York Times</span>
+            </div>
+            <div class="link-card-body">
+              <h4>New York Times Article</h4>
+              <p>Profile on Dilip Ratha</p>
+            </div>
+          </a>
+
+          <a
+            class="link-card"
+            href="https://scholar.google.com/citations?user=9Y4tm18AAAAJ&hl=en"
+            target="_blank"
+            rel="noopener"
+          >
+            <div class="link-thumb thumb-scholar">
+              <span class="visually-hidden">Scholar</span>
+            </div>
+            <div class="link-card-body">
+              <h4>Academic Resources</h4>
+              <p>Research and citations.</p>
+            </div>
+          </a>
+        </div>
       </article>
 
       <article id="contact" class="card card-wide contact-card">
