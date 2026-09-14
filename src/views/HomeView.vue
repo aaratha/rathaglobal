@@ -235,24 +235,25 @@ onUnmounted(() => {
 
       <article id="contact" class="card card-wide contact-card">
         <div class="contact-card-inner">
+          <h2><a href="mailto:contact@rathaglobal.com">Contact Us</a></h2>
           <div class="contact-sections">
             <section class="contact-section">
               <div class="contact-section-inner">
-                <h3><a href="mailto:contact@rathaglobal.com">Book a consultation</a></h3>
+                <h3>Book a consultation</h3>
                 <p>Reach out for advisory work on remittances, diaspora bonds, and structured finance.</p>
               </div>
             </section>
 
             <section class="contact-section">
               <div class="contact-section-inner">
-                <h3><a href="mailto:contact@rathaglobal.com">Subscribe to data & reports</a></h3>
+                <h3>Subscribe to data & reports</h3>
                 <p>Regular and customized data, reports, analysis, projections and strategic briefs from Ratha Global.</p>
               </div>
             </section>
 
             <section class="contact-section">
               <div class="contact-section-inner">
-                <h3><a href="mailto:contact@rathaglobal.com">Media and Speaking requests</a></h3>
+                <h3>Media and Speaking requests</h3>
                 <p>Contact Dilip Ratha for keynote presentations or media interviews.</p>
               </div>
             </section>
