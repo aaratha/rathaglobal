@@ -188,7 +188,6 @@ onUnmounted(() => {
           actionable financing and development solutions.
         </p>
 
-        <h3>Selected links</h3>
         <div class="link-card-list">
           <a
             class="link-card"
@@ -200,8 +199,7 @@ onUnmounted(() => {
               <span class="visually-hidden">TED</span>
             </div>
             <div class="link-card-body">
-              <h4>TED Talk</h4>
-              <p>Remittances and diaspora bonds</p>
+              <p>TED Talk on Remittances and Diaspora Bonds</p>
             </div>
           </a>
 
@@ -215,8 +213,7 @@ onUnmounted(() => {
               <span class="visually-hidden">New York Times</span>
             </div>
             <div class="link-card-body">
-              <h4>New York Times Article</h4>
-              <p>Profile on Dilip Ratha</p>
+              <p>New York Times Profile on Dilip Ratha</p>
             </div>
           </a>
 
@@ -230,8 +227,7 @@ onUnmounted(() => {
               <span class="visually-hidden">Scholar</span>
             </div>
             <div class="link-card-body">
-              <h4>Academic Resources</h4>
-              <p>Research and citations.</p>
+              <p>Academic Resources</p>
             </div>
           </a>
         </div>

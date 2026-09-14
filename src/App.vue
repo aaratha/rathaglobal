@@ -317,6 +317,7 @@ a {
 
 .link-card-list {
   display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 0.9rem;
 }
 
@@ -384,14 +385,6 @@ a {
   border: 0;
 }
 
-.link-card-body h4 {
-  margin: 0 0 0.25rem;
-  font-size: 1.1rem;
-  font-family: 'Asul', sans-serif;
-  font-weight: 500;
-  color: #11212d;
-}
-
 .link-card-body p {
   margin: 0;
   font-size: 0.96rem;
@@ -407,14 +400,13 @@ a {
   color: #8a6a2f;
 }
 
-.link-card:hover .link-card-body h4,
 .link-card:hover .link-card-body p,
 .link-card:hover .link-thumb,
 .contact-card a:hover {
   color: inherit;
 }
 
-.link-card:hover .link-card-body h4 {
+.link-card:hover .link-card-body p {
   text-decoration: underline;
 }
 
@@ -598,6 +590,10 @@ a {
 
   .card {
     padding: 1.2rem;
+  }
+
+  .link-card-list {
+    grid-template-columns: 1fr;
   }
 }
 
