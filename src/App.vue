@@ -227,8 +227,9 @@ a {
   margin: 0 auto;
 }
 
-.contact-card-inner > h2 {
+.contact-card .contact-card-inner > h2 {
   text-align: center;
+  font-size: 2.6rem;
 }
 
 .contact-card .contact-callout {
@@ -260,7 +261,7 @@ a {
 
 .contact-section h3 {
   margin: 0 0 0.6rem;
-  font-size: 1.75rem;
+  font-size: 1.25rem;
   font-family: 'Asul', sans-serif;
   font-weight: 500;
   color: #11212d;
