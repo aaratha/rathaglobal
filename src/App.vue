@@ -260,7 +260,7 @@ a {
 
 .contact-section h3 {
   margin: 0 0 0.6rem;
-  font-size: 1.42rem;
+  font-size: 1.75rem;
   font-family: 'Asul', sans-serif;
   font-weight: 500;
   color: #11212d;
