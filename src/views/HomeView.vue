@@ -158,7 +158,8 @@ onUnmounted(() => {
         <p>
           Ratha Global builds on the pioneering work of its founder, <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/dilipratha/">Dilip Ratha</a>,
           whose career spans more than three decades in the World Bank, MIGA,
-          investment banking, and academia. He pioneered the implementation of
+          investment banking, and academia. He helped mainstream remittances in
+          the global development agenda. He pioneered the implementation of
           diaspora bonds and advocated future-flow securitization as a
           market-based approach to mobilizing capital when conventional market
           access is constrained, and was among the first to systematically estimate
