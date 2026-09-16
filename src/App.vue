@@ -218,6 +218,36 @@ a {
   padding: 3rem;
 }
 
+.about-card-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.about-card-side {
+  position: sticky;
+  top: 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding: 1.1rem;
+  border: 1px solid rgba(129, 104, 56, 0.16);
+  border-radius: 18px;
+  background: rgba(255, 250, 242, 0.66);
+}
+
+.about-card-photo {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.about-card-side .link-card-list {
+  grid-template-columns: 1fr;
+}
+
 #contact {
   scroll-margin-top: 7rem;
 }
@@ -568,6 +598,15 @@ a {
   .link-thumb {
     width: 56px;
     height: 56px;
+  }
+
+  .about-card-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .about-card-side {
+    position: static;
+    max-width: 320px;
   }
 }
 

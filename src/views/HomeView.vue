@@ -146,91 +146,102 @@ onUnmounted(() => {
 
       <article class="card card-wide about-card">
         <h2>Who We Are</h2>
-        <p>
-          Ratha Global is a global development finance advisory and research firm
-          dedicated to mobilizing finance for emerging and developing economies. We
-          combine original research, authoritative global data, deep market
-          experience, and a worldwide network to develop innovative financing
-          solutions for governments, financial institutions, development agencies,
-          investors, and fintech companies.
-        </p>
+        <div class="about-card-layout">
+          <div class="about-card-text">
+            <p>
+              Ratha Global is a global development finance advisory and research firm
+              dedicated to mobilizing finance for emerging and developing economies. We
+              combine original research, authoritative global data, deep market
+              experience, and a worldwide network to develop innovative financing
+              solutions for governments, financial institutions, development agencies,
+              investors, and fintech companies.
+            </p>
 
-        <p>
-          Ratha Global builds on the pioneering work of its founder, <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/dilipratha/">Dilip Ratha</a>,
-          whose career spans more than three decades in the World Bank, MIGA,
-          investment banking, and academia. He helped mainstream remittances in
-          the global development agenda. He pioneered the implementation of
-          diaspora bonds and advocated future-flow securitization as a
-          market-based approach to mobilizing capital when conventional market
-          access is constrained, and was among the first to systematically estimate
-          South-South flows of foreign direct investment, remittances, and
-          migration. Recognizing the role credit ratings play in capital market
-          access, he has also built models to predict sovereign ratings for
-          countries that lack them or have outdated ones. He draws on his extensive
-          research on bond spreads to guide issuers where, when, and how to issue,
-          register and list bonds.
-        </p>
+            <p>
+              Ratha Global builds on the pioneering work of its founder, <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/dilipratha/">Dilip Ratha</a>,
+              whose career spans more than three decades in the World Bank, MIGA,
+              investment banking, and academia. He helped mainstream remittances in
+              the global development agenda. He pioneered the implementation of
+              diaspora bonds and advocated future-flow securitization as a
+              market-based approach to mobilizing capital when conventional market
+              access is constrained, and was among the first to systematically estimate
+              South-South flows of foreign direct investment, remittances, and
+              migration. Recognizing the role credit ratings play in capital market
+              access, he has also built models to predict sovereign ratings for
+              countries that lack them or have outdated ones. He draws on his extensive
+              research on bond spreads to guide issuers where, when, and how to issue,
+              register and list bonds.
+            </p>
 
-        <p>
-          Building on this foundation, Ratha Global advises clients on
-          remittances, diaspora bonds, structured finance, and guarantees. The firm
-          maintains authoritative datasets on remittance flows and diaspora
-          savings, including time-series and bilateral remittance data covering
-          some 200 countries, helping clients leverage predictable cash flows,
-          strengthen credit profiles, mitigate risk, and connect development
-          priorities with the requirements of international capital markets.
-        </p>
+            <p>
+              Building on this foundation, Ratha Global advises clients on
+              remittances, diaspora bonds, structured finance, and guarantees. The firm
+              maintains authoritative datasets on remittance flows and diaspora
+              savings, including time-series and bilateral remittance data covering
+              some 200 countries, helping clients leverage predictable cash flows,
+              strengthen credit profiles, mitigate risk, and connect development
+              priorities with the requirements of international capital markets.
+            </p>
 
-        <p>
-          Ratha Global draws on an extensive global network of policymakers,
-          central banks, money transfer operators, investment bankers, investors,
-          development practitioners, and fintech innovators to bridge development
-          policy and private finance, turning knowledge and innovative ideas into
-          actionable financing and development solutions.
-        </p>
+            <p>
+              Ratha Global draws on an extensive global network of policymakers,
+              central banks, money transfer operators, investment bankers, investors,
+              development practitioners, and fintech innovators to bridge development
+              policy and private finance, turning knowledge and innovative ideas into
+              actionable financing and development solutions.
+            </p>
+          </div>
 
-        <div class="link-card-list">
-          <a
-            class="link-card"
-            href="https://www.ted.com/talks/dilip_ratha_the_hidden_force_in_global_economics_sending_money_home"
-            target="_blank"
-            rel="noopener"
-          >
-            <div class="link-thumb thumb-ted">
-              <span class="visually-hidden">TED</span>
-            </div>
-            <div class="link-card-body">
-              <p>TED Talk on Remittances and Diaspora Bonds</p>
-            </div>
-          </a>
+          <aside class="about-card-side">
+            <img
+              class="about-card-photo"
+              src="/dilip_ratha_headshot.jpeg"
+              alt="Dilip Ratha"
+            >
+            <div class="link-card-list">
+              <a
+                class="link-card"
+                href="https://www.ted.com/talks/dilip_ratha_the_hidden_force_in_global_economics_sending_money_home"
+                target="_blank"
+                rel="noopener"
+              >
+                <div class="link-thumb thumb-ted">
+                  <span class="visually-hidden">TED</span>
+                </div>
+                <div class="link-card-body">
+                  <p>TED Talk on Remittances and Diaspora Bonds</p>
+                </div>
+              </a>
 
-          <a
-            class="link-card"
-            href="https://nyti.ms/2moxI2P"
-            target="_blank"
-            rel="noopener"
-          >
-            <div class="link-thumb thumb-nyt">
-              <span class="visually-hidden">New York Times</span>
-            </div>
-            <div class="link-card-body">
-              <p>New York Times Profile on Dilip Ratha</p>
-            </div>
-          </a>
+              <a
+                class="link-card"
+                href="https://nyti.ms/2moxI2P"
+                target="_blank"
+                rel="noopener"
+              >
+                <div class="link-thumb thumb-nyt">
+                  <span class="visually-hidden">New York Times</span>
+                </div>
+                <div class="link-card-body">
+                  <p>New York Times Profile on Dilip Ratha</p>
+                </div>
+              </a>
 
-          <a
-            class="link-card"
-            href="https://scholar.google.com/citations?user=9Y4tm18AAAAJ&hl=en"
-            target="_blank"
-            rel="noopener"
-          >
-            <div class="link-thumb thumb-scholar">
-              <span class="visually-hidden">Scholar</span>
+              <a
+                class="link-card"
+                href="https://scholar.google.com/citations?user=9Y4tm18AAAAJ&hl=en"
+                target="_blank"
+                rel="noopener"
+              >
+                <div class="link-thumb thumb-scholar">
+                  <span class="visually-hidden">Scholar</span>
+                </div>
+                <div class="link-card-body">
+                  <p>Academic Resources</p>
+                </div>
+              </a>
             </div>
-            <div class="link-card-body">
-              <p>Academic Resources</p>
-            </div>
-          </a>
+          </aside>
         </div>
       </article>
 
