@@ -140,7 +140,7 @@ onUnmounted(() => {
           <li>Diaspora Finances</li>
           <li>Credit Ratings</li>
           <li>Structured Finance & Guarantees</li>
-          <li>Investment Outreach and Transactions</li>
+          <li>Migration, Diasporas & Development</li>
         </ul>
       </article>
 
