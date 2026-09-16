@@ -204,10 +204,10 @@ a {
 .card {
   grid-column: span 4;
   padding: 1.5rem;
-  border: 1px solid rgba(129, 104, 56, 0.16);
+  border: 1px solid rgba(129, 104, 56, 0.22);
   border-radius: 22px;
-  background: rgba(255, 252, 245, 0.82);
-  box-shadow: 0 18px 40px rgba(84, 69, 39, 0.08);
+  background: rgba(255, 253, 249, 0.97);
+  box-shadow: 0 18px 40px rgba(84, 69, 39, 0.14);
 }
 
 .card-wide {
