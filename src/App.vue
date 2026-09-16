@@ -326,7 +326,7 @@ a {
 .contact-card a {
   font-size: 1.08rem;
   line-height: 1.75;
-  color: #4a4a4a;
+  color: #38393b;
 }
 
 .card p {
@@ -446,7 +446,7 @@ a {
 .post-body {
   font-size: 1.08rem;
   line-height: 1.8;
-  color: #4a4a4a;
+  color: #38393b;
 }
 
 .post-body > *:first-child {
@@ -510,7 +510,7 @@ a {
   background: rgba(255, 250, 242, 0.6);
   border-radius: 0 12px 12px 0;
   font-style: italic;
-  color: #4a4a4a;
+  color: #38393b;
 }
 
 .post-body blockquote p {

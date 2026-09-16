@@ -127,7 +127,7 @@ const posts = computed<Post[]>(() =>
   margin: 0;
   font-size: 1.02rem;
   line-height: 1.7;
-  color: #4a4a4a;
+  color: #38393b;
   flex: 1;
 }
 
@@ -154,7 +154,7 @@ const posts = computed<Post[]>(() =>
 }
 
 .no-posts {
-  color: #4a4a4a;
+  color: #38393b;
   font-size: 1.08rem;
 }
 

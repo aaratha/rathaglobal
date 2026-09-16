@@ -215,7 +215,7 @@ watch(
 
 .post-loading,
 .post-not-found {
-  color: #4a4a4a;
+  color: #38393b;
   font-size: 1.08rem;
 }
 
