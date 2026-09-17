@@ -36,9 +36,12 @@ const featuredPostDate = featuredPostData.date
   : ''
 
 const pageContent = ref<HTMLElement | null>(null)
+const aboutSidebarSentinel = ref<HTMLElement | null>(null)
+const aboutSidebarStuck = ref(false)
 
 let animationFrame = 0
 let mediaQuery: MediaQueryList | null = null
+let sidebarObserver: IntersectionObserver | null = null
 
 const updateFlagsOffset = () => {
   animationFrame = 0
@@ -70,6 +73,19 @@ onMounted(() => {
   window.addEventListener('scroll', requestFlagsUpdate, { passive: true })
   window.addEventListener('resize', requestFlagsUpdate)
   mediaQuery.addEventListener('change', requestFlagsUpdate)
+
+  if (aboutSidebarSentinel.value) {
+    sidebarObserver = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (entry) {
+          aboutSidebarStuck.value = !entry.isIntersecting
+        }
+      },
+      { rootMargin: '-97px 0px 0px 0px', threshold: 0 },
+    )
+    sidebarObserver.observe(aboutSidebarSentinel.value)
+  }
 })
 
 onUnmounted(() => {
@@ -80,26 +96,32 @@ onUnmounted(() => {
   if (animationFrame !== 0) {
     window.cancelAnimationFrame(animationFrame)
   }
+
+  sidebarObserver?.disconnect()
 })
 </script>
 
 <template>
   <main ref="pageContent" class="page-content">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-top">
-        <img
-          class="hero-logo"
-          src="/ratha_global_new_transparent.png"
-          alt="Ratha Global logo"
-        >
-        <div class="hero-heading">
-          <p class="eyebrow">Remittances | Diaspora Bonds | Structured Finance</p>
-          <h1 id="hero-title">Advice, Analytics, and Solutions for Global Development Finance</h1>
+      <div class="hero-inner">
+        <div class="hero-top">
+          <div class="hero-logo-frame">
+            <img
+              class="hero-logo"
+              src="/ratha_global_new_no_border.png"
+              alt="Ratha Global logo"
+            >
+          </div>
+          <div class="hero-heading">
+            <p class="eyebrow">Remittances | Diaspora Bonds | Structured Finance</p>
+            <h1 id="hero-title">Advice, Analytics, and Solutions for Global Development Finance</h1>
+          </div>
         </div>
+        <p class="hero-copy">
+          Ratha Global supports public and private sector clients on Remittances, Diaspora Finances, Credit Enhancement, and Innovative Capital Solutions
+        </p>
       </div>
-      <p class="hero-copy">
-        Ratha Global supports public and private sector clients on Remittances, Diaspora Finances, Credit Enhancement, and Innovative Capital Solutions
-      </p>
     </section>
 
     <RouterLink
@@ -120,7 +142,7 @@ onUnmounted(() => {
 
     <section class="content-grid">
 
-      <article class="card card-half">
+      <article class="card">
         <h2>Clients</h2>
         <ul>
           <li>Remittance and Payments Industry</li>
@@ -132,7 +154,7 @@ onUnmounted(() => {
         </ul>
       </article>
 
-      <article class="card card-half">
+      <article class="card">
         <h2>Services</h2>
         <p>Strategic, advisory, and analytic services on:</p>
         <ul>
@@ -144,9 +166,56 @@ onUnmounted(() => {
         </ul>
       </article>
 
+      <article class="card">
+        <h2>Selected links</h2>
+        <div class="link-card-list">
+          <a
+            class="link-card"
+            href="https://www.ted.com/talks/dilip_ratha_the_hidden_force_in_global_economics_sending_money_home"
+            target="_blank"
+            rel="noopener"
+          >
+            <div class="link-thumb thumb-ted">
+              <span class="visually-hidden">TED</span>
+            </div>
+            <div class="link-card-body">
+              <p>TED Talk on Remittances and Diaspora Bonds</p>
+            </div>
+          </a>
+
+          <a
+            class="link-card"
+            href="https://www.miga.org/sites/default/files/2023-12/MarketFinance_MIGA.pdf"
+            target="_blank"
+            rel="noopener"
+          >
+            <div class="link-thumb thumb-pdf">
+              <span class="visually-hidden">MIGA</span>
+            </div>
+            <div class="link-card-body">
+              <p>Market Finance for Development</p>
+            </div>
+          </a>
+
+          <a
+            class="link-card"
+            href="https://scholar.google.com/citations?user=9Y4tm18AAAAJ&hl=en"
+            target="_blank"
+            rel="noopener"
+          >
+            <div class="link-thumb thumb-scholar">
+              <span class="visually-hidden">Scholar</span>
+            </div>
+            <div class="link-card-body">
+              <p>Academic Resources</p>
+            </div>
+          </a>
+        </div>
+      </article>
+
       <article class="card card-wide about-card">
         <h2>Who We Are</h2>
-        <div class="about-card-layout">
+        <div class="about-card-grid">
           <div class="about-card-text">
             <p>
               Ratha Global is a global development finance advisory and research firm
@@ -192,62 +261,33 @@ onUnmounted(() => {
             </p>
           </div>
 
-          <aside class="about-card-side">
+          <div class="about-card-sidebar" :class="{ 'is-stuck': aboutSidebarStuck }">
+            <div ref="aboutSidebarSentinel" class="about-card-sidebar-sentinel" aria-hidden="true"></div>
             <img
-              class="about-card-photo"
-              src="/dilip_ratha_headshot.jpeg"
+              class="about-card-portrait"
+              src="/dilip_ratha_portrait_web.jpg"
               alt="Dilip Ratha"
             >
-            <div class="link-card-list">
-              <a
-                class="link-card"
-                href="https://www.ted.com/talks/dilip_ratha_the_hidden_force_in_global_economics_sending_money_home"
-                target="_blank"
-                rel="noopener"
-              >
-                <div class="link-thumb thumb-ted">
-                  <span class="visually-hidden">TED</span>
-                </div>
-                <div class="link-card-body">
-                  <p>TED Talk on Remittances and Diaspora Bonds</p>
-                </div>
-              </a>
-
-              <a
-                class="link-card"
-                href="https://nyti.ms/2moxI2P"
-                target="_blank"
-                rel="noopener"
-              >
-                <div class="link-thumb thumb-nyt">
-                  <span class="visually-hidden">New York Times</span>
-                </div>
-                <div class="link-card-body">
-                  <p>New York Times Profile on Dilip Ratha</p>
-                </div>
-              </a>
-
-              <a
-                class="link-card"
-                href="https://scholar.google.com/citations?user=9Y4tm18AAAAJ&hl=en"
-                target="_blank"
-                rel="noopener"
-              >
-                <div class="link-thumb thumb-scholar">
-                  <span class="visually-hidden">Scholar</span>
-                </div>
-                <div class="link-card-body">
-                  <p>Academic Resources</p>
-                </div>
-              </a>
-            </div>
-          </aside>
+            <a
+              class="link-card"
+              href="https://nyti.ms/2moxI2P"
+              target="_blank"
+              rel="noopener"
+            >
+              <div class="link-thumb thumb-nyt">
+                <span class="visually-hidden">New York Times</span>
+              </div>
+              <div class="link-card-body">
+                <p>New York Times Profile on Dilip Ratha</p>
+              </div>
+            </a>
+          </div>
         </div>
       </article>
 
       <article id="contact" class="card card-wide contact-card">
         <div class="contact-card-inner">
-          <h2><a href="mailto:contact@rathaglobal.com">Contact Us</a></h2>
+          <h2>Contact</h2>
           <div class="contact-sections">
             <section class="contact-section">
               <div class="contact-section-inner">
@@ -270,6 +310,10 @@ onUnmounted(() => {
               </div>
             </section>
           </div>
+          <p class="contact-callout">
+            For all of the above, email
+            <a href="mailto:contact@rathaglobal.com">contact@rathaglobal.com</a>.
+          </p>
         </div>
       </article>
     </section>

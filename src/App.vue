@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import NavBar from './components/navbar.vue'
+import SiteFooter from './components/footer.vue'
 </script>
 
 <template>
   <div class="page-shell">
     <NavBar />
     <router-view />
+    <SiteFooter />
   </div>
 </template>
 
@@ -40,6 +42,8 @@ a {
 }
 
 .page-shell {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   overflow-x: clip;
 }
@@ -48,6 +52,7 @@ a {
   --flags-offset: 0px;
   position: relative;
   isolation: isolate;
+  flex: 1;
   width: min(1050px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 0.75rem 0 4rem;
@@ -57,27 +62,14 @@ a {
   content: '';
   position: absolute;
   inset: 0 min(50% - 50vw, -3rem) 0;
-  background: top center / calc(140% + 10rem) auto repeat-y url('/flags_grid.png');
-  opacity: 0.1;
+  background: top center / calc(100% + 10rem) auto repeat-y url('/flags_grid.png');
   filter: grayscale(1) blur(1.5px);
   pointer-events: none;
   z-index: 0;
   transform: translate3d(0, var(--flags-offset), 0);
   will-change: transform;
-  -webkit-mask-image: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.75) 0%,
-    rgba(0, 0, 0, 0.48) 34%,
-    rgba(0, 0, 0, 0.14) 66%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.20) 0%,
-    rgba(0, 0, 0, 0.48) 34%,
-    rgba(0, 0, 0, 0.48) 66%,
-    transparent 100%
-  );
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.08) 0, rgba(0, 0, 0, 0.03) 28rem);
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.08) 0, rgba(0, 0, 0, 0.03) 28rem);
 }
 
 .page-content > * {
@@ -87,23 +79,46 @@ a {
 
 .hero {
   --hero-title-size: clamp(1.9rem, 4.6vw, 3.5rem);
+  --hero-logo-size: calc(var(--hero-title-size) * 3.24 + 1.87rem);
+  margin: 0 0 1.5rem;
+  padding: 1.75rem 2rem 1.75rem;
+  border: 1px solid rgba(129, 104, 56, 0.16);
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(255, 253, 249, 0.4) 0%, rgba(255, 253, 249, 0) 100%);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 14px 32px rgba(84, 69, 39, 0.1);
+}
+
+.hero-inner {
   max-width: 889px;
   margin: 0 auto;
-  padding: 1.75rem 0 2.5rem;
 }
 
 .hero-top {
   position: relative;
-  padding-left: calc(var(--hero-title-size) * 3.24 + 1.87rem + 1.5rem);
+  padding-left: calc(var(--hero-logo-size) + 1.5rem);
+}
+
+.hero-logo-frame {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: var(--hero-logo-size);
+  height: var(--hero-logo-size);
+  box-sizing: border-box;
+  padding: calc(var(--hero-logo-size) * 0.12);
+  border: 4px solid #111111;
+  border-radius: 18%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-logo {
-  position: absolute;
-  top: 0;
-  left: 0;
+  width: 100%;
   height: 100%;
-  width: auto;
-  max-width: calc(var(--hero-title-size) * 3.24 + 1.87rem);
   object-fit: contain;
 }
 
@@ -135,11 +150,11 @@ a {
   color: #4a4a4a;
 }
 
-.featured-post {
+.card.featured-post {
   display: block;
   width: 100%;
   margin: 0 0 1.25rem;
-  padding: 1.75rem 2rem;
+  padding: 3rem;
   color: inherit;
   text-decoration: none;
   transition:
@@ -218,34 +233,65 @@ a {
   padding: 3rem;
 }
 
-.about-card-layout {
+.about-card-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 260px;
+  grid-template-columns: 2fr 1fr;
   gap: 2.5rem;
   align-items: start;
 }
 
-.about-card-side {
+.about-card-sidebar {
   position: sticky;
   top: 6rem;
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
-  padding: 1.1rem;
-  border: 1px solid rgba(129, 104, 56, 0.16);
+  gap: 0.75rem;
+  padding: 0.85rem;
+  border: 1px solid rgba(129, 104, 56, 0.22);
   border-radius: 18px;
-  background: rgba(255, 250, 242, 0.66);
+  background: rgba(255, 253, 249, 0.97);
+  box-shadow: 0 6px 16px rgba(84, 69, 39, 0.07);
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 }
 
-.about-card-photo {
+.about-card-sidebar.is-stuck {
+  box-shadow: 0 12px 26px rgba(84, 69, 39, 0.14);
+  transform: translateY(2px);
+}
+
+.about-card-sidebar-sentinel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.about-card-portrait {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 2 / 3;
   object-fit: cover;
   border-radius: 12px;
 }
 
-.about-card-side .link-card-list {
-  grid-template-columns: 1fr;
+.about-card-sidebar .link-card {
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+}
+
+.about-card-sidebar .link-card-body p {
+  font-size: 1.12rem;
+  line-height: 1.4;
+}
+
+.about-card-sidebar .link-card:hover {
+  transform: none;
+  box-shadow: none;
 }
 
 #contact {
@@ -257,9 +303,8 @@ a {
   margin: 0 auto;
 }
 
-.contact-card .contact-card-inner > h2 {
+.contact-card-inner > h2 {
   text-align: center;
-  font-size: 2.6rem;
 }
 
 .contact-card .contact-callout {
@@ -291,7 +336,7 @@ a {
 
 .contact-section h3 {
   margin: 0 0 0.6rem;
-  font-size: 1.25rem;
+  font-size: 1.42rem;
   font-family: 'Asul', sans-serif;
   font-weight: 500;
   color: #11212d;
@@ -307,18 +352,6 @@ a {
   font-family: 'Asul', sans-serif;
   font-weight: 500;
   color: #11212d;
-}
-
-.about-card h3 {
-  margin: 2rem 0 1rem;
-  font-size: 1.3rem;
-  font-family: 'Asul', sans-serif;
-  font-weight: 500;
-  color: #11212d;
-}
-
-.card-half {
-  grid-column: span 6;
 }
 
 .card p,
@@ -348,7 +381,6 @@ a {
 
 .link-card-list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 0.9rem;
 }
 
@@ -402,6 +434,10 @@ a {
 
 .thumb-scholar {
   background: center / cover no-repeat url('/scholar_thumb.png');
+}
+
+.thumb-pdf {
+  background: center / cover no-repeat url('/miga_link.png');
 }
 
 .visually-hidden {
@@ -599,15 +635,6 @@ a {
     width: 56px;
     height: 56px;
   }
-
-  .about-card-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .about-card-side {
-    position: static;
-    max-width: 320px;
-  }
 }
 
 @media (max-width: 640px) {
@@ -621,19 +648,32 @@ a {
   }
 
   .hero-top {
-    padding-left: 0;
+    padding-left: calc(var(--hero-logo-size) + 0.5rem);
   }
 
-  .hero-logo {
-    display: none;
+  .hero-logo-frame {
+    border: none;
+    padding: calc(var(--hero-logo-size) * 0.03) calc(var(--hero-logo-size) * 0.03)
+      calc(var(--hero-logo-size) * 0.03) 0;
+  }
+
+  .about-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-card-sidebar {
+    position: relative;
+    top: auto;
+    order: -1;
+  }
+
+  .about-card-sidebar.is-stuck {
+    box-shadow: 0 6px 16px rgba(84, 69, 39, 0.07);
+    transform: none;
   }
 
   .card {
     padding: 1.2rem;
-  }
-
-  .link-card-list {
-    grid-template-columns: 1fr;
   }
 }
 
