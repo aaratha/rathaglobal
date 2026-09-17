@@ -55,7 +55,7 @@ a {
   flex: 1;
   width: min(1050px, calc(100% - 2rem));
   margin: 0 auto;
-  padding: 0.75rem 0 4rem;
+  padding: 1.5rem 0 4rem;
 }
 
 .page-content::before {
@@ -639,7 +639,7 @@ a {
 @media (max-width: 640px) {
   .page-content {
     width: min(100% - 1rem, 1100px);
-    padding-top: 0.5rem;
+    padding-top: 1.5rem;
   }
 
   .hero {
