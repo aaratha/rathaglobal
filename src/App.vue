@@ -86,7 +86,6 @@ a {
   border-radius: 22px;
   background: linear-gradient(180deg, rgba(255, 253, 249, 0.4) 0%, rgba(255, 253, 249, 0) 100%);
   backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   box-shadow: 0 14px 32px rgba(84, 69, 39, 0.1);
 }
 
