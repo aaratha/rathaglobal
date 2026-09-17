@@ -93,7 +93,7 @@ onUnmounted(() => {
           alt="Ratha Global logo"
         >
         <div class="hero-heading">
-          <p class="eyebrow">Remittances | Diaspora Bonds | Structured Finance</p>
+          <p class="eyebrow">Remittances | Diaspora Bonds | Structured Finance & Guarantees</p>
           <h1 id="hero-title">Advice, Analytics, and Solutions for Global Development Finance</h1>
         </div>
       </div>
