@@ -1,5 +1,20 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
+import { ref, watch } from 'vue'
+
+const menuOpen = ref(false)
+const route = useRoute()
+
+function closeMenu() {
+  menuOpen.value = false
+}
+
+watch(
+  () => route.fullPath,
+  () => {
+    menuOpen.value = false
+  },
+)
 </script>
 
 <template>
@@ -16,9 +31,29 @@ import { RouterLink } from 'vue-router'
         </div>
       </RouterLink>
 
-      <nav class="nav-links" aria-label="Site navigation">
-        <RouterLink to="/blog" class="nav-button blog-nav-button">Publications</RouterLink>
-        <a href="/#contact" class="nav-button">Contact</a>
+      <button
+        type="button"
+        class="nav-toggle"
+        :aria-expanded="menuOpen"
+        aria-controls="site-nav"
+        aria-label="Toggle navigation menu"
+        @click="menuOpen = !menuOpen"
+      >
+        <span class="nav-toggle-bar" />
+        <span class="nav-toggle-bar" />
+        <span class="nav-toggle-bar" />
+      </button>
+
+      <nav
+        id="site-nav"
+        class="nav-links"
+        :class="{ 'nav-links-open': menuOpen }"
+        aria-label="Site navigation"
+      >
+        <RouterLink to="/blog" class="nav-button blog-nav-button" @click="closeMenu">
+          Publications
+        </RouterLink>
+        <a href="/#contact" class="nav-button" @click="closeMenu">Contact</a>
       </nav>
     </div>
   </header>
@@ -161,6 +196,50 @@ import { RouterLink } from 'vue-router'
   transform: translateY(-1px);
 }
 
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  flex: 0 0 auto;
+  transition: background-color 0.2s ease;
+}
+
+.nav-toggle:hover {
+  background: rgba(129, 104, 56, 0.1);
+}
+
+.nav-toggle-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  background: #111111;
+  transition:
+    transform 0.25s ease,
+    opacity 0.2s ease;
+}
+
+.nav-toggle[aria-expanded='true'] .nav-toggle-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded='true'] .nav-toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded='true'] .nav-toggle-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
 @media (max-width: 640px) {
   .nav-content {
     width: min(100% - 1.25rem, 1280px);
@@ -176,22 +255,42 @@ import { RouterLink } from 'vue-router'
     font-size: 1.6rem;
   }
 
-  .nav-button {
-    padding: 0.7rem 1rem;
-    white-space: nowrap;
-  }
-}
-
-@media (max-width: 420px) {
-  .nav-content {
-    flex-wrap: wrap;
-    justify-content: center;
-    row-gap: 0.6rem;
+  .nav-toggle {
+    display: flex;
   }
 
   .nav-links {
-    flex-basis: 100%;
-    justify-content: center;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    padding: 0 1.25rem;
+    background: rgba(255, 250, 242, 0.98);
+    border-bottom: 1px solid rgba(129, 104, 56, 0.12);
+    pointer-events: none;
+    transition:
+      max-height 0.32s ease,
+      opacity 0.24s ease,
+      padding 0.32s ease;
+  }
+
+  .nav-links.nav-links-open {
+    max-height: 16rem;
+    opacity: 1;
+    padding: 0.75rem 1.25rem 1.25rem;
+    pointer-events: auto;
+  }
+
+  .nav-button {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    white-space: nowrap;
   }
 }
 </style>

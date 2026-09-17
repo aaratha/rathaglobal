@@ -86,7 +86,7 @@ a {
   border-radius: 22px;
   background: linear-gradient(180deg, rgba(255, 253, 249, 0.4) 0%, rgba(255, 253, 249, 0) 100%);
   backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(4px);
   box-shadow: 0 14px 32px rgba(84, 69, 39, 0.1);
 }
 
@@ -648,13 +648,17 @@ a {
   }
 
   .hero-top {
-    padding-left: calc(var(--hero-logo-size) + 0.5rem);
+    padding-left: 0;
   }
 
   .hero-logo-frame {
-    border: none;
-    padding: calc(var(--hero-logo-size) * 0.03) calc(var(--hero-logo-size) * 0.03)
-      calc(var(--hero-logo-size) * 0.03) 0;
+    display: none;
+  }
+
+  .hero-copy {
+    margin-top: 0.85rem;
+    font-size: 1.15rem;
+    line-height: 1.6;
   }
 
   .about-card-grid {
@@ -673,6 +677,10 @@ a {
   }
 
   .card {
+    padding: 1.2rem;
+  }
+
+  .card.featured-post {
     padding: 1.2rem;
   }
 }
