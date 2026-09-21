@@ -55,7 +55,7 @@ const posts = computed<Post[]>(() =>
 <template>
   <main class="page-content">
     <section aria-labelledby="publications-title">
-      <p>Insights &amp; Analysis</p>
+      <p class="eyebrow">Insights &amp; Analysis</p>
       <h1 id="publications-title">Publications</h1>
       <p>
         Briefs, reports, and blog posts on remittances, diaspora finance, sovereign ratings,
@@ -68,8 +68,8 @@ const posts = computed<Post[]>(() =>
 
       <ul v-else>
         <li v-for="post in posts" :key="post.slug">
-          <RouterLink :to="`/blog/${post.slug}`">
-            <p v-if="post.date">{{ post.date }}</p>
+          <RouterLink :to="`/blog/${post.slug}`" class="card-link">
+            <p v-if="post.date" class="eyebrow">{{ post.date }}</p>
             <h2>{{ post.title }}</h2>
             <p v-if="post.description">{{ post.description }}</p>
             <span>Read&nbsp;&rarr;</span>

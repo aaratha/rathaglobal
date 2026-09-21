@@ -101,24 +101,57 @@ watch(
             :href="post.pdf"
             target="_blank"
             rel="noopener"
+            class="button"
             aria-label="Open the print-ready PDF of this publication"
           >Print</a>
           <button
             v-else
             type="button"
+            class="button"
             aria-label="Print this publication"
             @click="printPost"
           >Print</button>
-          <a href="mailto:dratha@rathaglobal.com">Contact the editor</a>
+          <a href="mailto:dratha@rathaglobal.com" class="button">Contact the editor</a>
         </p>
         <header>
-          <p v-if="post.date">{{ post.date }}</p>
+          <p v-if="post.date" class="eyebrow">{{ post.date }}</p>
           <h1>{{ post.title }}</h1>
           <p v-if="post.description">{{ post.description }}</p>
         </header>
         <!-- eslint-disable-next-line vue/no-v-html -->
-        <div v-html="post.html" />
+        <div class="prose" v-html="post.html" />
       </article>
     </template>
   </main>
 </template>
+
+<style scoped>
+.prose :deep(blockquote) {
+  margin: 1.25rem 0;
+  padding: 0.75rem 1.1rem;
+  border-left: 3px solid var(--color-brass);
+  background: rgba(185, 130, 122, 0.14);
+}
+
+.prose :deep(code) {
+  background: rgba(23, 33, 31, 0.08);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+}
+
+.prose :deep(pre) {
+  background: rgba(23, 33, 31, 0.06);
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.prose :deep(pre code) {
+  background: none;
+  padding: 0;
+}
+
+.prose :deep(hr) {
+  border: none;
+  border-top: 1px solid var(--color-brass);
+}
+</style>

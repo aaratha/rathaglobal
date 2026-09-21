@@ -1,5 +1,41 @@
 <script setup lang="ts">
+import { onMounted, onUnmounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
+
+const heroEl = ref<HTMLElement | null>(null)
+const heroBgEl = ref<HTMLElement | null>(null)
+
+let maxOffset = 0
+let ticking = false
+
+function measureHero() {
+  maxOffset = heroEl.value ? heroEl.value.offsetHeight * 0.15 : 0
+}
+
+function updateParallax() {
+  ticking = false
+  if (!heroEl.value || !heroBgEl.value) return
+  const offset = Math.max(-maxOffset, Math.min(maxOffset, -heroEl.value.getBoundingClientRect().top * 0.3))
+  heroBgEl.value.style.transform = `translateY(${offset}px)`
+}
+
+function onScroll() {
+  if (ticking) return
+  ticking = true
+  window.requestAnimationFrame(updateParallax)
+}
+
+onMounted(() => {
+  measureHero()
+  updateParallax()
+  window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener('resize', measureHero)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', onScroll)
+  window.removeEventListener('resize', measureHero)
+})
 
 function parseFrontmatter(raw: string): Record<string, string> {
   const fence = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/)
@@ -37,21 +73,35 @@ const featuredPostDate = featuredPostData.date
 
 <template>
   <main class="page-content">
-    <section aria-labelledby="hero-title">
-      <img src="/ratha_global_new_no_border.png" alt="Ratha Global logo" width="64" height="64">
-      <p>Remittances | Diaspora Bonds | Structured Finance</p>
-      <h1 id="hero-title">Advice, Analytics, and Solutions for Global Development Finance</h1>
-      <p>
-        Ratha Global supports public and private sector clients on Remittances, Diaspora Finances, Credit Enhancement, and Innovative Capital Solutions
-      </p>
+
+    <section ref="heroEl" class="hero" aria-labelledby="hero-title">
+      <div ref="heroBgEl" class="hero-bg" />
+      <div class="hero-gradient" />
+      <div class="hero-boxes">
+        <div class="hero-box hero-box-title">
+          <h1 id="hero-title">Advice, Analytics, and Solutions for Global Development Finance</h1>
+        </div>
+        <div class="hero-box hero-box-text">
+          <p>
+            Ratha Global supports public and private sector clients on Remittances, Diaspora Finances, Credit Enhancement, and Innovative Capital Solutions
+          </p>
+        </div>
+      </div>
     </section>
 
-    <RouterLink :to="`/blog/${featuredPostSlug}`" aria-labelledby="featured-post-title">
-      <p>Featured</p>
-      <p v-if="featuredPostDate">{{ featuredPostDate }}</p>
-      <h2 id="featured-post-title">{{ featuredPostData.title }}</h2>
-      <p>{{ featuredPostData.description }}</p>
-      <span>Read the post &rarr;</span>
+
+    <RouterLink
+      :to="`/blog/${featuredPostSlug}`"
+      class="card-link"
+      aria-labelledby="featured-post-title"
+    >
+      <section>
+        <p class="eyebrow">Featured</p>
+        <p v-if="featuredPostDate" class="eyebrow">{{ featuredPostDate }}</p>
+        <h2 id="featured-post-title">{{ featuredPostData.title }}</h2>
+        <p>{{ featuredPostData.description }}</p>
+        <span>Read the post &rarr;</span>
+      </section>
     </RouterLink>
 
     <section>
@@ -182,3 +232,104 @@ const featuredPostDate = featuredPostData.date
     </section>
   </main>
 </template>
+
+<style scoped>
+.hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 70vh;
+  padding: 1rem;
+  color: var(--color-paper);
+}
+
+.hero-bg {
+  position: absolute;
+  top: -15%;
+  bottom: -15%;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  background: center / cover no-repeat url('/flags_on_sky.jpg');
+  will-change: transform;
+}
+
+.hero-gradient {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(23, 33, 31, 0.3) 0%,
+      rgba(23, 33, 31, 0.5) 40%,
+      rgba(23, 33, 31, 0.80) 100%
+    ),
+    linear-gradient(
+      to right,
+      rgba(23, 33, 31, 0.6) 0%,
+      rgba(23, 33, 31, 0.15) 50%,
+      rgba(23, 33, 31, 0.6) 100%
+    );
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  mask-image:
+    linear-gradient(to bottom, transparent 0%, transparent 88%, black 100%),
+    linear-gradient(to right, black 0%, transparent 10%, transparent 90%, black 100%);
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0%, transparent 88%, black 100%),
+    linear-gradient(to right, black 0%, transparent 10%, transparent 90%, black 100%);
+}
+
+.hero h1,
+.hero p {
+  color: var(--color-paper);
+}
+
+.hero p {
+  font-size: 1.4rem;
+}
+
+.hero-boxes {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.hero-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 280px;
+  height: 280px;
+  padding: 1.5rem;
+}
+
+.hero-box-title {
+  text-align: left;
+}
+
+.hero-box-text {
+  text-align: right;
+}
+
+.hero-box h1,
+.hero-box p {
+  margin: 0;
+}
+</style>
