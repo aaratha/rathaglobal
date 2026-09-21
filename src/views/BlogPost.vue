@@ -81,158 +81,44 @@ watch(
 
 <template>
   <main class="page-content">
-    <div class="post-nav">
-      <RouterLink to="/blog" class="back-link">
-        <span aria-hidden="true">&larr;</span>&nbsp;All publications
-      </RouterLink>
-    </div>
+    <p>
+      <RouterLink to="/blog">&larr; All publications</RouterLink>
+    </p>
 
-    <div v-if="loading" class="card card-wide post-loading" aria-live="polite">
-      Loading&hellip;
-    </div>
+    <p v-if="loading" aria-live="polite">Loading&hellip;</p>
 
-    <div v-else-if="notFound" class="card card-wide post-not-found">
+    <div v-else-if="notFound">
       <h2>Post not found</h2>
       <p>This post may have been moved or removed.</p>
-      <RouterLink to="/blog" class="back-link">Back to publications</RouterLink>
+      <RouterLink to="/blog">Back to publications</RouterLink>
     </div>
 
     <template v-else-if="post">
-      <article class="card card-wide post-article">
-        <div class="post-actions">
+      <article>
+        <p>
           <a
             v-if="post.pdf"
             :href="post.pdf"
             target="_blank"
             rel="noopener"
-            class="print-button"
             aria-label="Open the print-ready PDF of this publication"
-          >
-            <span aria-hidden="true">&#128424;</span>&nbsp;Print
-          </a>
+          >Print</a>
           <button
             v-else
             type="button"
-            class="print-button"
             aria-label="Print this publication"
             @click="printPost"
-          >
-            <span aria-hidden="true">&#128424;</span>&nbsp;Print
-          </button>
-          <a href="mailto:dratha@rathaglobal.com" class="print-button">
-            Contact the editor
-          </a>
-        </div>
-        <header class="post-header">
-          <p v-if="post.date" class="eyebrow">{{ post.date }}</p>
-          <h1 class="post-title">{{ post.title }}</h1>
-          <p v-if="post.description" class="post-description">{{ post.description }}</p>
+          >Print</button>
+          <a href="mailto:dratha@rathaglobal.com">Contact the editor</a>
+        </p>
+        <header>
+          <p v-if="post.date">{{ post.date }}</p>
+          <h1>{{ post.title }}</h1>
+          <p v-if="post.description">{{ post.description }}</p>
         </header>
         <!-- eslint-disable-next-line vue/no-v-html -->
-        <div class="post-body" v-html="post.html" />
+        <div v-html="post.html" />
       </article>
     </template>
   </main>
 </template>
-
-<style scoped>
-.post-nav {
-  padding: 1rem 0 1.25rem;
-}
-
-.back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-size: 0.97rem;
-  font-weight: 700;
-  color: #8a6a2f;
-  text-decoration: none;
-  transition: color 0.2s ease, transform 0.2s ease;
-}
-
-.back-link:hover {
-  color: #11212d;
-  transform: translateX(-2px);
-}
-
-.post-header {
-  padding: 0 0 1.5rem;
-  width: 100%;
-}
-
-.post-title {
-  margin: 0.5rem 0 0;
-  font-size: clamp(1.8rem, 3.6vw, 2.8rem);
-  line-height: 1.05;
-  font-family: 'Asul', sans-serif;
-  color: #11212d;
-}
-
-.post-description {
-  margin: 1rem 0 0;
-  font-size: 1.28rem;
-  line-height: 1.6;
-  color: #11212d;
-  font-weight: 500;
-  max-width: 680px;
-}
-
-.post-article {
-  padding: 2rem 2.25rem;
-}
-
-.post-actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 1.25rem;
-}
-
-.print-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.45rem 0.9rem;
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: #8a6a2f;
-  background: transparent;
-  border: 1.5px solid #8a6a2f;
-  border-radius: 999px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-}
-
-.print-button:hover,
-.print-button:focus-visible {
-  color: #fff;
-  background: #8a6a2f;
-}
-
-.post-loading,
-.post-not-found {
-  color: #38393b;
-  font-size: 1.08rem;
-}
-
-@media (max-width: 640px) {
-  .post-article {
-    padding: 1.25rem;
-  }
-
-  .post-actions {
-    justify-content: flex-start;
-  }
-}
-
-@media print {
-  .post-nav,
-  .post-actions {
-    display: none !important;
-  }
-}
-</style>

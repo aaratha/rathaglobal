@@ -54,113 +54,28 @@ const posts = computed<Post[]>(() =>
 
 <template>
   <main class="page-content">
-    <section class="hero" aria-labelledby="publications-title">
-      <p class="eyebrow">Insights &amp; Analysis</p>
+    <section aria-labelledby="publications-title">
+      <p>Insights &amp; Analysis</p>
       <h1 id="publications-title">Publications</h1>
-      <p class="hero-copy">
+      <p>
         Briefs, reports, and blog posts on remittances, diaspora finance, sovereign ratings,
         and global development from Ratha Global.
       </p>
     </section>
 
-    <section class="content-grid" aria-label="Publications">
-      <p v-if="posts.length === 0" class="card card-wide no-posts">
-        No posts yet. Check back soon.
-      </p>
+    <section aria-label="Publications">
+      <p v-if="posts.length === 0">No posts yet. Check back soon.</p>
 
-      <RouterLink
-        v-for="post in posts"
-        :key="post.slug"
-        :to="`/blog/${post.slug}`"
-        class="post-card card"
-      >
-        <p v-if="post.date" class="post-card-date eyebrow-small">{{ post.date }}</p>
-        <h2 class="post-card-title">{{ post.title }}</h2>
-        <p v-if="post.description" class="post-card-desc">{{ post.description }}</p>
-        <span class="post-card-link">
-          Read&nbsp;<span aria-hidden="true">&rarr;</span>
-        </span>
-      </RouterLink>
+      <ul v-else>
+        <li v-for="post in posts" :key="post.slug">
+          <RouterLink :to="`/blog/${post.slug}`">
+            <p v-if="post.date">{{ post.date }}</p>
+            <h2>{{ post.title }}</h2>
+            <p v-if="post.description">{{ post.description }}</p>
+            <span>Read&nbsp;&rarr;</span>
+          </RouterLink>
+        </li>
+      </ul>
     </section>
   </main>
 </template>
-
-<style scoped>
-.post-card {
-  grid-column: span 6;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  color: inherit;
-  text-decoration: none;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.post-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 18px 36px rgba(84, 69, 39, 0.14);
-}
-
-.post-card-date {
-  margin: 0;
-  font-size: 0.88rem;
-  letter-spacing: 0.12em;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  color: #184e74;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.post-card-title {
-  margin: 0;
-  width: 100%;
-  font-size: 1.52rem;
-  font-family: Garamond, Baskerville, 'Times New Roman', serif;
-  font-weight: 500;
-  color: #11212d;
-  line-height: 1.2;
-}
-
-.post-card-desc {
-  margin: 0;
-  font-size: 1.02rem;
-  line-height: 1.7;
-  color: #38393b;
-  flex: 1;
-}
-
-.post-card-link {
-  display: inline-flex;
-  align-items: center;
-  margin-top: 0.5rem;
-  font-size: 0.97rem;
-  font-weight: 700;
-  color: #8a6a2f;
-  text-decoration: none;
-  transition: color 0.2s ease, transform 0.2s ease;
-}
-
-.post-card:hover .post-card-link,
-.post-card:focus-visible .post-card-link {
-  color: #11212d;
-  transform: translateX(2px);
-}
-
-.post-card:focus-visible {
-  outline: 2px solid #11212d;
-  outline-offset: 3px;
-}
-
-.no-posts {
-  color: #38393b;
-  font-size: 1.08rem;
-}
-
-@media (max-width: 900px) {
-  .post-card {
-    grid-column: span 12;
-  }
-}
-</style>
