@@ -37,6 +37,13 @@ const sproutSeriesConfig = [
 const sproutReaches = ref<number[]>(sproutSeriesConfig.map(() => 0))
 
 const sproutCount = 10
+// How much of the average gap between sprouts to randomize, so they don't
+// land in a perfectly even ladder up the vine.
+const sproutIntervalJitter = 0.6
+// Keep sprouts clear of the hero banner at the top of the page - expressed in
+// px (not a fraction of track height) since the hero's height doesn't scale
+// with how much content follows it.
+const sproutTopMarginPx = 500
 // How much scroll distance (px) it takes a leaf to go from just-sprouted to
 // full size.
 const sproutRevealWindow = 70
@@ -68,8 +75,8 @@ const leafConfig = [
   {
     // double
     symmetric: true,
-    xOffset: 12,
-    rotation: 60,
+    right: { rotation: 60, mirror: false, xOffset: 12 },
+    left: { rotation: -60, mirror: true, xOffset: 10 },
   },
   {
     // round (flipped vertically)
@@ -79,43 +86,66 @@ const leafConfig = [
   },
 ]
 
-// Build position/variant first, then assign side randomly per leaf, capping
-// same-side runs at 2 in a row - pure coin flips still read as "clumpy" to
-// the eye, and assigning side per-series index instead clustered 2-3
-// same-side leaves at each position slot (every series' i=0 landed on the
-// same side).
-let lastSproutSide: 'right' | 'left' | null = null
-let sproutSideRun = 0
-function nextSproutSide(): 'right' | 'left' {
-  const forced = sproutSideRun >= 2 ? (lastSproutSide === 'right' ? 'left' : 'right') : null
-  const side = forced ?? (Math.random() < 0.5 ? 'right' : 'left')
-  sproutSideRun = side === lastSproutSide ? sproutSideRun + 1 : 1
-  lastSproutSide = side
-  return side
+// Build position/variant first, then assign sides from a pre-balanced,
+// shuffled pool - independent coin flips are fair on average but a single
+// page load only draws ~10 samples, so pure Math.random() per leaf can (and
+// visibly does) land lopsided in any one session. Guaranteeing an even split
+// up front, then shuffling and de-clumping it, keeps every load balanced
+// while still looking randomly ordered.
+function buildBalancedSides(count: number): ('right' | 'left')[] {
+  const sides: ('right' | 'left')[] = Array.from({ length: count }, (_, i) =>
+    i % 2 === 0 ? 'right' : 'left',
+  )
+  for (let i = sides.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    const temp = sides[i]!
+    sides[i] = sides[j]!
+    sides[j] = temp
+  }
+  for (let i = 2; i < sides.length; i++) {
+    if (sides[i] === sides[i - 1] && sides[i] === sides[i - 2]) {
+      const swapIndex = sides.findIndex((s, idx) => idx > i && s !== sides[i])
+      if (swapIndex !== -1) {
+        const temp = sides[i]!
+        sides[i] = sides[swapIndex]!
+        sides[swapIndex] = temp
+      }
+    }
+  }
+  return sides
 }
+
+const sproutSides = buildBalancedSides(sproutSeriesConfig.length * sproutCount)
+let sproutSideIndex = 0
+
+const sproutInterval = 1 / (sproutCount + 1)
 
 const sprouts = sproutSeriesConfig
   .flatMap((series, seriesIndex) =>
-    Array.from({ length: sproutCount }, (_, i) => ({
-      fraction: (i + 1 + series.offset) / (sproutCount + 1),
-      series: seriesIndex,
-      variant: i % 3,
-    })),
+    Array.from({ length: sproutCount }, (_, i) => {
+      const base = (i + 1 + series.offset) / (sproutCount + 1)
+      const jitter = (Math.random() * 2 - 1) * sproutInterval * sproutIntervalJitter
+      return {
+        fraction: Math.max(0, Math.min(1, base + jitter)),
+        series: seriesIndex,
+        variant: i % 3,
+      }
+    }),
   )
   .sort((a, b) => a.fraction - b.fraction)
   .map((sprout) => {
-    const side = nextSproutSide()
+    const side = sproutSides[sproutSideIndex++]!
     const config = leafConfig[sprout.variant]
-    const sideConfig = config?.symmetric
-      ? null
-      : (config?.[side] ?? { rotation: 0, mirror: false, xOffset: 0 })
-    const rotation = config?.symmetric ? (config.rotation ?? 0) : sideConfig!.rotation
-    const mirrored = config?.symmetric ? false : sideConfig!.mirror
+    const sideConfig = config?.[side] ?? { rotation: 0, mirror: false, xOffset: 0 }
+    const rotation = sideConfig.rotation
+    const mirrored = sideConfig.mirror
     const left = config?.symmetric
-      ? `calc(${vineLeft} - ${leafWidth / 2}px + ${config.xOffset ?? 0}px)`
+      ? side === 'right'
+        ? `calc(${vineLeft} - ${leafWidth / 2}px + ${sideConfig.xOffset}px)`
+        : `calc(${vineLeft} - ${leafWidth / 2}px - ${sideConfig.xOffset}px)`
       : side === 'right'
-        ? `calc(${vineLeft} + ${vineWidth}px + ${sideConfig!.xOffset}px)`
-        : `calc(${vineLeft} - ${leafWidth}px - ${sideConfig!.xOffset}px)`
+        ? `calc(${vineLeft} + ${vineWidth}px + ${sideConfig.xOffset}px)`
+        : `calc(${vineLeft} - ${leafWidth}px - ${sideConfig.xOffset}px)`
     return {
       ...sprout,
       side,
@@ -132,7 +162,8 @@ const sproutBonusEnabled = false
 
 const sproutVisuals = computed(() =>
   sprouts.map((sprout) => {
-    const thresholdPx = growthTrackHeight.value * sprout.fraction
+    const thresholdPx =
+      sproutTopMarginPx + sprout.fraction * (growthTrackHeight.value - sproutTopMarginPx)
     const reach = sproutReaches.value[sprout.series] ?? 0
     const distance = reach - thresholdPx
     const progress = Math.max(0, Math.min(1, distance / sproutRevealWindow))
@@ -167,6 +198,21 @@ function updateGrowthLine() {
   if (!growthTrackEl.value) return
   const rect = growthTrackEl.value.getBoundingClientRect()
   growthTrackHeight.value = rect.height
+
+  // Once the page is scrolled all the way to the bottom (footer in view),
+  // force the vine and every leaf to their fully-grown state, regardless of
+  // where their individual viewport-relative reach points would otherwise
+  // land - so the vine always finishes growing by the time you reach the
+  // footer instead of possibly stalling partway.
+  const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 1
+  if (atBottom) {
+    growthFillHeight.value = rect.height
+    // Pad past the track's own height so every leaf's reveal distance clears
+    // sproutRevealWindow even if its threshold sits right at the bottom edge.
+    sproutReaches.value = sproutSeriesConfig.map(() => rect.height + sproutRevealWindow)
+    return
+  }
+
   const vineReach = window.innerHeight * vineReachFraction - rect.top
   growthFillHeight.value = Math.max(0, Math.min(rect.height, vineReach))
   sproutReaches.value = sproutSeriesConfig.map((series) => {
@@ -275,7 +321,7 @@ onUnmounted(() => {
           class="growth-sprout"
           :class="`growth-sprout-${sprout.side}`"
           :style="{
-            top: `${sprout.fraction * 100}%`,
+            top: `calc(${sproutTopMarginPx}px + ${sprout.fraction} * (100% - ${sproutTopMarginPx}px))`,
             left: sprout.left,
             opacity: sproutVisuals[i]?.opacity ?? 0,
             transformOrigin: sprout.symmetric ? 'center' : undefined,
@@ -456,7 +502,6 @@ a:focus-visible {
 }
 
 section {
-  border-top: 1px solid rgba(168, 137, 88, 0.35);
   margin: 0;
   padding: 3.5rem 10% 3.5rem 20%;
 }
@@ -486,9 +531,10 @@ section h2.heading-centered::after {
 }
 
 /* Featured post heading sits in its own unique card layout, not a regular
-   section heading - keep its short underline static instead of expanding. */
+   section heading - grow to double the resting width instead of the full
+   100% every other heading expands to. */
 #featured-post-title.heading-centered::after {
-  width: 3rem;
+  width: 6rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -513,10 +559,6 @@ section p {
 
 section p + p {
   margin-top: 1rem;
-}
-
-.page-content > section:first-child {
-  border-top: none;
 }
 
 ul {

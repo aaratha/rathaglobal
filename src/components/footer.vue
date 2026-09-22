@@ -93,7 +93,6 @@ nav a:focus-visible {
   max-width: 72rem;
   margin: 2.25rem auto 0;
   padding-top: 1.25rem;
-  border-top: 1px solid rgba(168, 137, 88, 0.2);
   color: var(--color-moss);
   font-size: 0.82rem;
   text-align: center;

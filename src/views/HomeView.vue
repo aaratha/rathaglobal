@@ -92,18 +92,20 @@ const featuredPostDate = featuredPostData.date
 
     <RouterLink
       :to="`/blog/${featuredPostSlug}`"
-      class="card-link"
+      class="card-link featured-post"
       aria-labelledby="featured-post-title"
     >
-      <section>
-        <p class="eyebrow">
-          Featured
-          <span v-if="featuredPostDate" class="eyebrow-divider">&middot;</span>
-          {{ featuredPostDate }}
-        </p>
-        <h2 id="featured-post-title">{{ featuredPostData.title }}</h2>
-        <p>{{ featuredPostData.description }}</p>
-        <span>Read the post &rarr;</span>
+      <section class="featured-post-section">
+        <div class="featured-post-card">
+          <p class="eyebrow">
+            Featured
+            <span v-if="featuredPostDate" class="eyebrow-divider">&middot;</span>
+            {{ featuredPostDate }}
+          </p>
+          <h2 id="featured-post-title">{{ featuredPostData.title }}</h2>
+          <p class="featured-post-description">{{ featuredPostData.description }}</p>
+          <span class="featured-post-cta">Read the post &rarr;</span>
+        </div>
       </section>
     </RouterLink>
 
@@ -268,6 +270,37 @@ const featuredPostDate = featuredPostData.date
 </template>
 
 <style scoped>
+.featured-post-section {
+  padding: 0;
+}
+
+.featured-post-card {
+  padding: 3.5rem 10% 3.5rem 20%;
+  background: rgba(36, 59, 83, 0.05);
+  transition: background 0.3s ease;
+}
+
+.featured-post:hover .featured-post-card,
+.featured-post:focus-visible .featured-post-card {
+  background: rgba(36, 59, 83, 0.12);
+}
+
+.featured-post-description,
+.featured-post:hover .featured-post-description,
+.featured-post:focus-visible .featured-post-description {
+  color: var(--color-ink);
+}
+
+.featured-post-cta {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.featured-post:hover .featured-post-cta,
+.featured-post:focus-visible .featured-post-cta {
+  transform: translateX(6px);
+}
+
 .who-we-are-layout {
   display: flex;
   align-items: flex-start;
@@ -359,6 +392,10 @@ const featuredPostDate = featuredPostData.date
     max-width: 260px;
     margin: 0 auto;
   }
+
+  .featured-post-card {
+    padding: 2.75rem 1.25rem;
+  }
 }
 
 .split-section {
@@ -366,6 +403,7 @@ const featuredPostDate = featuredPostData.date
   justify-content: space-between;
   gap: 2rem;
   flex-wrap: wrap;
+  border-top: 1px solid rgba(168, 137, 88, 0.35);
 }
 
 .split-column {
