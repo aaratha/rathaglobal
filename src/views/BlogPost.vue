@@ -2,6 +2,7 @@
 import { ref, watch } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
 import { marked } from 'marked'
+import { setMeta } from '../composables/useMeta'
 
 // Lightweight browser-safe frontmatter parser (no Node.js Buffer needed)
 function parseFrontmatter(raw: string): { data: Record<string, string>; content: string } {
@@ -47,6 +48,11 @@ const loadPost = async (slug: string) => {
   if (!allPosts[key]) {
     notFound.value = true
     loading.value = false
+    setMeta({
+      title: 'Post Not Found | Ratha Global',
+      description: 'This post may have been moved or removed.',
+      path: `/blog/${slug}`,
+    })
     return
   }
 
@@ -58,14 +64,23 @@ const loadPost = async (slug: string) => {
     : ''
   const html = await marked.parse(content)
 
+  const title = String(data.title ?? slug)
+  const description = String(data.description ?? '')
+
   post.value = {
-    title: String(data.title ?? slug),
+    title,
     date,
-    description: String(data.description ?? ''),
+    description,
     html,
     pdf: String(data.pdf ?? ''),
   }
   loading.value = false
+
+  setMeta({
+    title: `${title} | Ratha Global`,
+    description: description || 'A publication from Ratha Global.',
+    path: `/blog/${slug}`,
+  })
 }
 
 const printPost = () => {
