@@ -196,6 +196,10 @@ watch(
           </p>
         </div>
 
+        <div class="post-divider" aria-hidden="true">
+          <span v-for="n in 5" :key="n" />
+        </div>
+
         <p v-if="loading" aria-live="polite">Loading&hellip;</p>
 
         <div v-else-if="notFound">
@@ -231,7 +235,7 @@ watch(
 }
 
 .post-banner-figure + section {
-  padding-top: 1.25rem;
+  padding-top: 2.5rem;
 }
 
 .post-banner-viewport {
@@ -359,7 +363,23 @@ watch(
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+.post-divider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+}
+
+.post-divider span {
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-moss);
 }
 
 .back-link {
@@ -418,6 +438,17 @@ watch(
 .prose :deep(h2),
 .prose :deep(h3) {
   margin-top: 2rem;
+}
+
+.prose :deep(p:first-of-type)::first-letter {
+  float: left;
+  margin: 0.15em 0.45rem -0.3rem 0.0rem;
+  padding: 0.13em 0.4em;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 2.6em;
+  line-height: 0.85;
+  color: var(--color-paper);
+  background: var(--color-indigo);
 }
 
 .prose :deep(a) {
