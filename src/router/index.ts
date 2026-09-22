@@ -5,6 +5,7 @@ declare module 'vue-router' {
   interface RouteMeta {
     title?: string
     description?: string
+    noindex?: boolean
   }
 }
 
@@ -33,6 +34,15 @@ const router = createRouter({
       path: '/blog/:slug',
       component: () => import('../views/BlogPost.vue'),
     },
+    {
+      path: '/:pathMatch(.*)*',
+      component: () => import('../views/NotFound.vue'),
+      meta: {
+        title: '404 - Page Not Found | Ratha Global',
+        description: "The page you're looking for doesn't exist or may have been moved.",
+        noindex: true,
+      },
+    },
   ],
   scrollBehavior(to, _from, savedPosition) {
     if (savedPosition) return savedPosition
@@ -43,7 +53,12 @@ const router = createRouter({
 
 router.afterEach((to) => {
   if (to.meta.title && to.meta.description) {
-    setMeta({ title: to.meta.title, description: to.meta.description, path: to.path })
+    setMeta({
+      title: to.meta.title,
+      description: to.meta.description,
+      path: to.path,
+      noindex: to.meta.noindex,
+    })
   }
 })
 

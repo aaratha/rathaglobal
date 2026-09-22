@@ -1,11 +1,13 @@
 const SITE_URL = 'https://www.rathaglobal.com'
 const DEFAULT_IMAGE = `${SITE_URL}/ratha_global_bg.png`
+const DEFAULT_ROBOTS = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
 
 export interface MetaOptions {
   title: string
   description: string
   path?: string
   image?: string
+  noindex?: boolean
 }
 
 function setMetaTag(attr: 'name' | 'property', key: string, content: string) {
@@ -18,12 +20,19 @@ function setMetaTag(attr: 'name' | 'property', key: string, content: string) {
   el.setAttribute('content', content)
 }
 
-export function setMeta({ title, description, path = '/', image = DEFAULT_IMAGE }: MetaOptions) {
+export function setMeta({
+  title,
+  description,
+  path = '/',
+  image = DEFAULT_IMAGE,
+  noindex = false,
+}: MetaOptions) {
   const url = `${SITE_URL}${path}`
 
   document.title = title
 
   setMetaTag('name', 'description', description)
+  setMetaTag('name', 'robots', noindex ? 'noindex, nofollow' : DEFAULT_ROBOTS)
   setMetaTag('property', 'og:title', title)
   setMetaTag('property', 'og:description', description)
   setMetaTag('property', 'og:url', url)

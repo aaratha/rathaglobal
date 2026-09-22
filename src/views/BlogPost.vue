@@ -52,6 +52,7 @@ const loadPost = async (slug: string) => {
       title: 'Post Not Found | Ratha Global',
       description: 'This post may have been moved or removed.',
       path: `/blog/${slug}`,
+      noindex: true,
     })
     return
   }

@@ -30,7 +30,7 @@ const year = new Date().getFullYear()
 <style scoped>
 footer {
   border-top: 1px solid rgba(168, 137, 88, 0.35);
-  padding: 3rem 1.5rem 1.75rem;
+  padding: 3rem 3rem 1.75rem;
 }
 
 .footer-content {
@@ -98,6 +98,11 @@ nav a:focus-visible {
 }
 
 @media (max-width: 640px) {
+  footer {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
   .footer-content {
     flex-direction: column;
     align-items: flex-start;
