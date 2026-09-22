@@ -154,7 +154,10 @@ watch(
       <div ref="bannerViewportEl" class="post-banner-viewport">
         <img ref="bannerImgEl" class="post-banner" :src="post.banner" :alt="post.bannerAlt || post.title">
       </div>
-      <figcaption v-if="post.bannerCredit" class="post-banner-credit">{{ post.bannerCredit }}</figcaption>
+      <figcaption v-if="post.bannerAlt || post.bannerCredit" class="post-banner-caption">
+        <span v-if="post.bannerAlt" class="post-banner-description">{{ post.bannerAlt }}</span>
+        <span v-if="post.bannerCredit" class="post-banner-credit">{{ post.bannerCredit }}</span>
+      </figcaption>
     </figure>
 
     <section>
@@ -194,7 +197,7 @@ watch(
 
         <article v-else-if="post">
           <header>
-            <p v-if="post.date" class="eyebrow">{{ post.date }}</p>
+            <p v-if="post.date" class="eyebrow post-date">{{ post.date }}</p>
             <h1>{{ post.title }}</h1>
             <p v-if="post.description" class="post-description">{{ post.description }}</p>
           </header>
@@ -245,13 +248,45 @@ watch(
   will-change: transform;
 }
 
-.post-banner-credit {
-  display: block;
+.post-banner-caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
   margin-top: 0.4rem;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
+}
+
+.post-banner-description {
+  color: var(--color-moss);
+  font-size: 0.8rem;
+  text-align: left;
+}
+
+.post-banner-credit {
+  flex-shrink: 0;
   color: var(--color-moss);
   font-size: 0.8rem;
   text-align: right;
+}
+
+@media (max-width: 640px) {
+  .post-banner-viewport {
+    height: 40vh;
+    max-height: 22rem;
+  }
+
+  .post-banner-caption {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+    padding: 0 1.25rem;
+  }
+
+  .post-banner-credit {
+    text-align: left;
+  }
 }
 
 .post-divider {
@@ -272,6 +307,10 @@ watch(
 
 .post-description {
   color: var(--color-moss);
+}
+
+.post-date {
+  color: var(--color-terracotta);
 }
 
 .post-container {
