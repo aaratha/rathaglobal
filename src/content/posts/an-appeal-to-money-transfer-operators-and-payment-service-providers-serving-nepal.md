@@ -4,7 +4,7 @@ title: An Appeal to Money Transfer Operators and Payment Service Providers
 date: 2026-09-07
 description: For a Waiver of Fees on Remittances to Nepal for Eight Weeks
 pdf: /documents/appeal-nepal-floods.pdf
-banner: https://upload.wikimedia.org/wikipedia/commons/8/8f/Nepal_flood_before_2026-08-24_Copernicus_Sentinel2-L1C.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original
+banner: https://upload.wikimedia.org/wikipedia/commons/e/e9/Nepal_flood_2026_before_after.webp?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original
 banner_alt: Satellite imagery 2 days before the 2026 Nepal floods
 banner_credit: European Space Agency
 ---
