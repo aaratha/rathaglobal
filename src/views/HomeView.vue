@@ -230,12 +230,12 @@ const featuredPostDate = featuredPostData.date
           <span>Market Finance for Development</span>
         </a>
         <a
-          class="link-button link-button-classic"
+          class="link-button"
           href="https://scholar.google.com/citations?user=9Y4tm18AAAAJ&hl=en"
           target="_blank"
           rel="noopener"
         >
-          <img class="link-button-thumb" src="/scholar_thumb.png" alt="Google Scholar">
+          <img class="link-button-thumb link-button-thumb-books" src="/books.jpg" alt="Google Scholar">
           <span>Academic Resources</span>
         </a>
       </div>
@@ -459,9 +459,11 @@ const featuredPostDate = featuredPostData.date
 .link-button::before {
   background: linear-gradient(
     135deg,
-    rgba(36, 59, 83, 0.28) 0%,
-    rgba(17, 23, 22, 0.38) 45%,
-    rgba(17, 23, 22, 0.82) 100%
+    rgba(36, 59, 83, 0.4) 0%,
+    rgba(23, 41, 52, 0.44) 25%,
+    rgba(17, 23, 22, 0.52) 55%,
+    rgba(17, 23, 22, 0.6) 80%,
+    rgba(17, 23, 22, 0.68) 100%
   );
   backdrop-filter: saturate(150%);
   -webkit-backdrop-filter: saturate(150%);
@@ -470,9 +472,11 @@ const featuredPostDate = featuredPostData.date
 .link-button::after {
   background: linear-gradient(
     135deg,
-    rgba(36, 59, 83, 0.16) 0%,
-    rgba(17, 23, 22, 0.28) 45%,
-    rgba(17, 23, 22, 0.92) 100%
+    rgba(36, 59, 83, 0.35) 0%,
+    rgba(23, 41, 52, 0.4) 25%,
+    rgba(17, 23, 22, 0.55) 55%,
+    rgba(17, 23, 22, 0.68) 80%,
+    rgba(17, 23, 22, 0.8) 100%
   );
   backdrop-filter: blur(0.5px) saturate(70%);
   -webkit-backdrop-filter: blur(0.5px) saturate(70%);
@@ -499,7 +503,7 @@ const featuredPostDate = featuredPostData.date
   color: color-mix(in srgb, var(--color-saffron) 55%, white);
 }
 
-.link-button:focus-visible:not(.link-button-classic) .link-button-thumb {
+.link-button:focus-visible .link-button-thumb {
   transform: scale(1.06);
 }
 
@@ -517,47 +521,8 @@ const featuredPostDate = featuredPostData.date
     color: color-mix(in srgb, var(--color-saffron) 55%, white);
   }
 
-  .link-button:hover:not(.link-button-classic) .link-button-thumb {
+  .link-button:hover .link-button-thumb {
     transform: scale(1.06);
-  }
-}
-
-.link-button-classic {
-  color: var(--color-indigo);
-  background: var(--color-paper);
-}
-
-.link-button-classic::before,
-.link-button-classic::after {
-  display: none;
-}
-
-.link-button-classic span {
-  position: absolute;
-  left: 1.5rem;
-  right: 1.5rem;
-  bottom: 1.5rem;
-  text-align: center;
-}
-
-.link-button-classic .link-button-thumb {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 72px;
-  height: 72px;
-  transform: translate(-50%, -50%);
-}
-
-.link-button-classic:focus-visible,
-.link-button-classic:focus-visible span {
-  color: var(--color-saffron);
-}
-
-@media (hover: hover) {
-  .link-button-classic:hover,
-  .link-button-classic:hover span {
-    color: var(--color-saffron);
   }
 }
 
@@ -569,6 +534,10 @@ const featuredPostDate = featuredPostData.date
   border-radius: 0;
   object-fit: cover;
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.link-button-thumb-books {
+  object-position: center 30%;
 }
 
 .contact-columns {
@@ -613,42 +582,6 @@ const featuredPostDate = featuredPostData.date
     text-align: center;
   }
 
-  .link-button-classic {
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 0.85rem;
-    padding: 0.75rem;
-    text-align: left;
-    color: var(--color-indigo);
-    background: var(--color-paper);
-  }
-
-  .link-button-classic::before,
-  .link-button-classic::after {
-    display: none;
-  }
-
-  .link-button-classic span {
-    position: static;
-    text-align: left;
-  }
-
-  .link-button-classic .link-button-thumb {
-    position: static;
-    inset: auto;
-    width: 48px;
-    height: 48px;
-    flex-shrink: 0;
-    transform: none;
-    margin: 0 0.5rem;
-  }
-
-  .link-button-classic:focus-visible,
-  .link-button-classic:focus-visible span {
-    color: var(--color-saffron);
-  }
-
   .contact-columns {
     grid-template-columns: 1fr;
   }
@@ -664,13 +597,6 @@ const featuredPostDate = featuredPostData.date
   .contact-column + .contact-column {
     border-left: none;
     border-top: 1px solid rgba(168, 137, 88, 0.35);
-  }
-}
-
-@media (hover: hover) and (max-width: 900px) {
-  .link-button-classic:hover,
-  .link-button-classic:hover span {
-    color: var(--color-saffron);
   }
 }
 
