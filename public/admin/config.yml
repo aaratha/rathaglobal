@@ -51,6 +51,18 @@ collections:
         required: false
         hint: "Optional header image shown at the top of the post."
 
+      - name: banner_alt
+        label: Banner Accessibility Description
+        widget: string
+        required: false
+        hint: "Describes the banner image for screen readers. Required if a banner is set."
+
+      - name: banner_credit
+        label: Banner Credit
+        widget: string
+        required: false
+        hint: "Optional photo credit/attribution shown beneath the banner image."
+
       - name: body
         label: Body
         widget: markdown

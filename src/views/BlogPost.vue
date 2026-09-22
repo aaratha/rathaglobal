@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
 import { marked } from 'marked'
 import { setMeta } from '../composables/useMeta'
@@ -29,6 +29,8 @@ interface PostData {
   html: string
   pdf: string
   banner: string
+  bannerAlt: string
+  bannerCredit: string
 }
 
 const post = ref<PostData | null>(null)
@@ -77,6 +79,8 @@ const loadPost = async (slug: string) => {
     html,
     pdf: String(data.pdf ?? ''),
     banner,
+    bannerAlt: String(data.banner_alt ?? ''),
+    bannerCredit: String(data.banner_credit ?? ''),
   }
   loading.value = false
 
@@ -86,11 +90,56 @@ const loadPost = async (slug: string) => {
     path: `/blog/${slug}`,
     ...(banner ? { image: `https://www.rathaglobal.com${banner}` } : {}),
   })
+
+  await nextTick()
+  measureBanner()
+  updateBannerParallax()
 }
 
 const printPost = () => {
   window.print()
 }
+
+const bannerViewportEl = ref<HTMLElement | null>(null)
+const bannerImgEl = ref<HTMLElement | null>(null)
+
+let bannerMaxOffset = 0
+let bannerTicking = false
+
+function measureBanner() {
+  bannerMaxOffset = bannerViewportEl.value ? bannerViewportEl.value.offsetHeight * 0.3 : 0
+}
+
+function updateBannerParallax() {
+  bannerTicking = false
+  if (!bannerViewportEl.value || !bannerImgEl.value) return
+  const rect = bannerViewportEl.value.getBoundingClientRect()
+  // Ramp continuously across the banner's entire time on screen - from fully
+  // in view (progress 0) to fully scrolled past the top of the viewport
+  // (progress 1) - instead of saturating at a fixed offset after a small
+  // amount of scroll.
+  const progress = Math.max(0, Math.min(1, -rect.top / (rect.height || 1)))
+  const offset = progress * bannerMaxOffset
+  bannerImgEl.value.style.transform = `translateY(${offset}px)`
+}
+
+function onBannerScroll() {
+  if (bannerTicking) return
+  bannerTicking = true
+  window.requestAnimationFrame(updateBannerParallax)
+}
+
+onMounted(() => {
+  measureBanner()
+  updateBannerParallax()
+  window.addEventListener('scroll', onBannerScroll, { passive: true })
+  window.addEventListener('resize', measureBanner)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', onBannerScroll)
+  window.removeEventListener('resize', measureBanner)
+})
 
 watch(
   () => route.params.slug,
@@ -101,6 +150,13 @@ watch(
 
 <template>
   <main class="page-content">
+    <figure v-if="post?.banner" class="post-banner-figure">
+      <div ref="bannerViewportEl" class="post-banner-viewport">
+        <img ref="bannerImgEl" class="post-banner" :src="post.banner" :alt="post.bannerAlt || post.title">
+      </div>
+      <figcaption v-if="post.bannerCredit" class="post-banner-credit">{{ post.bannerCredit }}</figcaption>
+    </figure>
+
     <section>
       <div class="post-container">
         <div class="post-meta">
@@ -137,7 +193,6 @@ watch(
         </div>
 
         <article v-else-if="post">
-          <img v-if="post.banner" class="post-banner" :src="post.banner" :alt="post.title">
           <header>
             <p v-if="post.date" class="eyebrow">{{ post.date }}</p>
             <h1>{{ post.title }}</h1>
@@ -163,14 +218,40 @@ watch(
   }
 }
 
+.post-banner-figure {
+  margin: calc(-1rem - var(--frontmatter-height, 0px)) 0 0;
+}
+
+.post-banner-figure + section {
+  padding-top: 3rem;
+}
+
+.post-banner-viewport {
+  position: relative;
+  overflow: hidden;
+  height: 60vh;
+  max-height: 44rem;
+}
+
 .post-banner {
+  position: absolute;
+  top: -30%;
+  left: 0;
+  right: 0;
   display: block;
   width: 100%;
-  height: auto;
-  max-height: 22rem;
+  height: 130%;
   object-fit: cover;
-  border: 1px solid rgba(168, 137, 88, 0.35);
-  margin-bottom: 2rem;
+  will-change: transform;
+}
+
+.post-banner-credit {
+  display: block;
+  margin-top: 0.4rem;
+  padding: 0 1rem;
+  color: var(--color-moss);
+  font-size: 0.8rem;
+  text-align: right;
 }
 
 .post-divider {
