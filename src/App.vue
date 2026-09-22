@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import NavBar from './components/navbar.vue'
 import SiteFooter from './components/footer.vue'
 import FrontmatterBar from './components/frontmatter-bar.vue'
 import LeafIcon from './components/leaf-icon.vue'
+
+const route = useRoute()
+const isHome = computed(() => route.path === '/')
 
 const mastheadEl = ref<HTMLElement | null>(null)
 const frontmatterEl = ref<HTMLElement | null>(null)
@@ -27,12 +31,12 @@ const vineReachFraction = 0.75
 // its own cap and pacing per series.
 const sproutSeriesConfig = [
   { reachFraction: 0.5, offset: 0, bonusMax: 0.28, bonusWindow: 250 },
-  { reachFraction: 0.35, offset: 1 / 3, bonusMax: 0.22, bonusWindow: 350 },
-  { reachFraction: 0.25, offset: 2 / 3, bonusMax: 0.35, bonusWindow: 180 },
+  // { reachFraction: 0.35, offset: 1 / 3, bonusMax: 0.22, bonusWindow: 350 },
+  // { reachFraction: 0.25, offset: 2 / 3, bonusMax: 0.35, bonusWindow: 180 },
 ]
 const sproutReaches = ref<number[]>(sproutSeriesConfig.map(() => 0))
 
-const sproutCount = 30
+const sproutCount = 10
 // How much scroll distance (px) it takes a leaf to go from just-sprouted to
 // full size.
 const sproutRevealWindow = 70
@@ -171,6 +175,25 @@ function updateGrowthLine() {
   })
 }
 
+// Expand a section heading's underline once it's roughly centered in the
+// viewport. Uses hysteresis: once expanded, it stays expanded for as long as
+// the heading is visible anywhere in the viewport, only collapsing once it
+// scrolls fully out of view - otherwise it flickers on/off right at the
+// narrow center threshold.
+function updateHeadingHighlights() {
+  const viewportHeight = window.innerHeight
+  const centerY = viewportHeight / 2
+  const centerThreshold = viewportHeight * 0.18
+  document.querySelectorAll('.page-content section h2').forEach((h2) => {
+    const rect = h2.getBoundingClientRect()
+    const isVisible = rect.bottom > 0 && rect.top < viewportHeight
+    const headingCenter = rect.top + rect.height / 2
+    const isNearCenter = Math.abs(headingCenter - centerY) < centerThreshold
+    const alreadyExpanded = h2.classList.contains('heading-centered')
+    h2.classList.toggle('heading-centered', isNearCenter || (alreadyExpanded && isVisible))
+  })
+}
+
 function handleScroll() {
   if (ticking) return
   ticking = true
@@ -184,6 +207,7 @@ function handleScroll() {
     lastScrollY = y
     ticking = false
     updateGrowthLine()
+    updateHeadingHighlights()
   })
 }
 
@@ -191,18 +215,24 @@ onMounted(() => {
   lastScrollY = window.scrollY
   measure()
   updateGrowthLine()
+  updateHeadingHighlights()
   resizeObserver = new ResizeObserver(measure)
   if (mastheadEl.value) resizeObserver.observe(mastheadEl.value)
-  growthResizeObserver = new ResizeObserver(updateGrowthLine)
+  growthResizeObserver = new ResizeObserver(() => {
+    updateGrowthLine()
+    updateHeadingHighlights()
+  })
   if (growthTrackEl.value) growthResizeObserver.observe(growthTrackEl.value)
   window.addEventListener('scroll', handleScroll, { passive: true })
   window.addEventListener('resize', measure)
   window.addEventListener('resize', updateGrowthLine)
+  window.addEventListener('resize', updateHeadingHighlights)
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
   window.removeEventListener('resize', measure)
+  window.removeEventListener('resize', updateHeadingHighlights)
   window.removeEventListener('resize', updateGrowthLine)
   resizeObserver?.disconnect()
   growthResizeObserver?.disconnect()
@@ -223,22 +253,24 @@ onUnmounted(() => {
     </div>
     <div class="masthead-spacer" :style="{ height: `${mastheadHeight}px` }" />
     <div ref="growthTrackEl" class="growth-track">
-      <div class="growth-line-fill" :style="{ height: `${growthFillHeight}px` }" />
-      <div
-        v-for="(sprout, i) in sprouts"
-        :key="i"
-        class="growth-sprout"
-        :class="`growth-sprout-${sprout.side}`"
-        :style="{
-          top: `${sprout.fraction * 100}%`,
-          left: sprout.left,
-          opacity: sproutVisuals[i]?.opacity ?? 0,
-          transformOrigin: sprout.symmetric ? 'center' : undefined,
-          transform: `rotate(${sprout.rotation}deg) scale(${(sproutVisuals[i]?.scale ?? 0.3).toFixed(3)})${sprout.mirrored ? ' scaleX(-1)' : ''}`,
-        }"
-      >
-        <LeafIcon :variant="sprout.variant" />
-      </div>
+      <template v-if="isHome">
+        <div class="growth-line-fill" :style="{ height: `${growthFillHeight}px` }" />
+        <div
+          v-for="(sprout, i) in sprouts"
+          :key="i"
+          class="growth-sprout"
+          :class="`growth-sprout-${sprout.side}`"
+          :style="{
+            top: `${sprout.fraction * 100}%`,
+            left: sprout.left,
+            opacity: sproutVisuals[i]?.opacity ?? 0,
+            transformOrigin: sprout.symmetric ? 'center' : undefined,
+            transform: `rotate(${sprout.rotation}deg) scale(${(sproutVisuals[i]?.scale ?? 0.3).toFixed(3)})${sprout.mirrored ? ' scaleX(-1)' : ''}`,
+          }"
+        >
+          <LeafIcon :variant="sprout.variant" />
+        </div>
+      </template>
       <router-view />
     </div>
     <SiteFooter />
@@ -398,7 +430,53 @@ a:focus-visible {
 section {
   border-top: 1px solid rgba(168, 137, 88, 0.35);
   margin: 0;
-  padding: 2rem 10% 2rem 20%;
+  padding: 3.5rem 10% 3.5rem 20%;
+}
+
+section h2 {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.6rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.02em;
+}
+
+section h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 3rem;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--color-terracotta);
+  transition: width 0.6s ease;
+}
+
+section h2.heading-centered::after {
+  width: 100%;
+}
+
+/* Featured post heading sits in its own unique card layout, not a regular
+   section heading - keep its short underline static instead of expanding. */
+#featured-post-title.heading-centered::after {
+  width: 3rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  section h2::after {
+    width: 100%;
+    transition: none;
+  }
+}
+
+section p {
+  margin-top: 0;
+  line-height: 1.75;
+}
+
+section p + p {
+  margin-top: 1rem;
 }
 
 .page-content > section:first-child {
@@ -417,7 +495,7 @@ li {
 
 li::marker {
   font-size: 1.4em;
-  color: var(--color-terracotta);
+  color: var(--color-indigo);
 }
 
 @media (max-width: 640px) {
@@ -426,7 +504,7 @@ li::marker {
   }
 
   .growth-line-fill {
-    left: 0.75rem;
+    display: none;
   }
 
   .growth-sprout {

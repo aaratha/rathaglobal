@@ -107,55 +107,63 @@ const featuredPostDate = featuredPostData.date
       </section>
     </RouterLink>
 
-    <section>
-      <h2>CLIENTS</h2>
-      <ul>
-        <li>Remittance and Payments Industry</li>
-        <li>Commercial Banks</li>
-        <li>Governments</li>
-        <li>Multilateral Development Banks</li>
-        <li>International Financial Institutions</li>
-        <li>U.N. Agencies and International Organizations</li>
-      </ul>
-    </section>
+    <section class="split-section">
+     <div class="split-column">
+        <h2>SERVICES</h2>
+        <p>Strategic, advisory, and analytic services on:</p>
+        <ul>
+          <li>Remittances, Payments, and Fintechs</li>
+          <li>Diaspora Finances</li>
+          <li>Credit Ratings</li>
+          <li>Structured Finance & Guarantees</li>
+          <li>Migration, Diasporas & Development</li>
+        </ul>
+      </div>
 
-    <section>
-      <h2>SERVICES</h2>
-      <p>Strategic, advisory, and analytic services on:</p>
-      <ul>
-        <li>Remittances, Payments, and Fintechs</li>
-        <li>Diaspora Finances</li>
-        <li>Credit Ratings</li>
-        <li>Structured Finance & Guarantees</li>
-        <li>Migration, Diasporas & Development</li>
-      </ul>
-    </section>
+      <div class="split-column">
+        <h2>CLIENTS</h2>
+        <ul>
+          <li>Remittance and Payments Industry</li>
+          <li>Commercial Banks</li>
+          <li>Governments</li>
+          <li>Multilateral Development Banks</li>
+          <li>International Financial Institutions</li>
+          <li>U.N. Agencies and International Organizations</li>
+        </ul>
+      </div>
+     </section>
 
     <section>
       <h2>SELECTED LINKS</h2>
-      <ul>
-        <li>
-          <a
-            href="https://www.ted.com/talks/dilip_ratha_the_hidden_force_in_global_economics_sending_money_home"
-            target="_blank"
-            rel="noopener"
-          >TED Talk on Remittances and Diaspora Bonds</a>
-        </li>
-        <li>
-          <a
-            href="https://www.miga.org/sites/default/files/2023-12/MarketFinance_MIGA.pdf"
-            target="_blank"
-            rel="noopener"
-          >Market Finance for Development</a>
-        </li>
-        <li>
-          <a
-            href="https://scholar.google.com/citations?user=9Y4tm18AAAAJ&hl=en"
-            target="_blank"
-            rel="noopener"
-          >Academic Resources</a>
-        </li>
-      </ul>
+      <div class="link-buttons">
+        <a
+          class="link-button"
+          href="https://www.ted.com/talks/dilip_ratha_the_hidden_force_in_global_economics_sending_money_home"
+          target="_blank"
+          rel="noopener"
+        >
+          <img class="link-button-thumb" src="/ted_thumb.png" alt="TED">
+          <span>TED Talk on Remittances and Diaspora Bonds</span>
+        </a>
+        <a
+          class="link-button"
+          href="https://www.miga.org/sites/default/files/2023-12/MarketFinance_MIGA.pdf"
+          target="_blank"
+          rel="noopener"
+        >
+          <img class="link-button-thumb" src="/miga_link.png" alt="MIGA">
+          <span>Market Finance for Development</span>
+        </a>
+        <a
+          class="link-button"
+          href="https://scholar.google.com/citations?user=9Y4tm18AAAAJ&hl=en"
+          target="_blank"
+          rel="noopener"
+        >
+          <img class="link-button-thumb" src="/scholar_thumb.png" alt="Google Scholar">
+          <span>Academic Resources</span>
+        </a>
+      </div>
     </section>
 
     <section>
@@ -213,19 +221,21 @@ const featuredPostDate = featuredPostData.date
 
     <section id="contact">
       <h2>CONTACT</h2>
-      <div>
-        <h3>Book a consultation</h3>
-        <p>Reach out for advisory work on remittances, diaspora bonds, and structured finance.</p>
-      </div>
+      <div class="contact-columns">
+        <div class="contact-column">
+          <h3>Book a consultation</h3>
+          <p>Reach out for advisory work on remittances, diaspora bonds, and structured finance.</p>
+        </div>
 
-      <div>
-        <h3>Subscribe to data & reports</h3>
-        <p>Regular and customized data, reports, analysis, projections and strategic briefs from Ratha Global.</p>
-      </div>
+        <div class="contact-column">
+          <h3>Subscribe to data & reports</h3>
+          <p>Regular and customized data, reports, analysis, projections and strategic briefs from Ratha Global.</p>
+        </div>
 
-      <div>
-        <h3>Media and Speaking requests</h3>
-        <p>Contact Dilip Ratha for keynote presentations or media interviews.</p>
+        <div class="contact-column">
+          <h3>Media and Speaking requests</h3>
+          <p>Contact Dilip Ratha for keynote presentations or media interviews.</p>
+        </div>
       </div>
 
       <p>
@@ -237,6 +247,115 @@ const featuredPostDate = featuredPostData.date
 </template>
 
 <style scoped>
+.split-section {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.split-column {
+  flex: 0 1 auto;
+  max-width: 46%;
+  min-width: 220px;
+}
+
+@media (max-width: 640px) {
+  .split-section {
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .split-column {
+    max-width: none;
+  }
+}
+
+.link-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.link-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  aspect-ratio: 1;
+  padding: 2rem;
+  border: 1px solid rgba(168, 137, 88, 0.35);
+  border-radius: 0;
+  color: var(--color-indigo);
+  text-decoration: none;
+  text-align: center;
+  font-weight: 600;
+  background: var(--color-paper);
+  transition: box-shadow 0.25s ease, transform 0.25s ease, color 0.2s ease;
+}
+
+.link-button:hover,
+.link-button:focus-visible {
+  color: var(--color-moss);
+  transform: translateY(-2px);
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.02),
+    0 3px 8px rgba(0, 0, 0, 0.04),
+    0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.link-button-thumb {
+  width: 72px;
+  height: 72px;
+  border-radius: 0;
+  object-fit: cover;
+}
+
+.contact-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.contact-column {
+  padding: 0 2rem;
+}
+
+.contact-column:first-child {
+  padding-left: 0;
+}
+
+.contact-column:last-child {
+  padding-right: 0;
+}
+
+.contact-column + .contact-column {
+  border-left: 1px solid rgba(168, 137, 88, 0.35);
+}
+
+@media (max-width: 640px) {
+  .link-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-column {
+    padding: 1.5rem 0 0;
+  }
+
+  .contact-column:first-child {
+    padding-top: 0;
+  }
+
+  .contact-column + .contact-column {
+    border-left: none;
+    border-top: 1px solid rgba(168, 137, 88, 0.35);
+  }
+}
+
 .hero {
   position: relative;
   overflow: hidden;
@@ -265,19 +384,16 @@ const featuredPostDate = featuredPostData.date
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(23, 33, 31, 0.3) 0%,
-      rgba(23, 33, 31, 0.5) 40%,
-      rgba(23, 33, 31, 0.80) 100%
-    ),
-    linear-gradient(
-      to right,
-      rgba(23, 33, 31, 0.6) 0%,
-      rgba(23, 33, 31, 0.15) 50%,
-      rgba(23, 33, 31, 0.6) 100%
-    );
+  /* Darken the top-left and bottom-right corners, where the title and text
+     boxes now sit, while keeping the opposite diagonal (top-right/
+     bottom-left) clearer so more of the photo shows through. */
+  background: linear-gradient(
+    135deg,
+    rgba(23, 33, 31, 0.7) 10%,
+    rgba(23, 33, 31, 0.7) 30%,
+    rgba(23, 33, 31, 0.6) 62%,
+    rgba(23, 33, 31, 0.9) 100%
+  );
 }
 
 .hero h1,
@@ -286,11 +402,10 @@ const featuredPostDate = featuredPostData.date
 }
 
 .hero-boxes {
-  position: relative;
   z-index: 3;
   display: flex;
-  justify-content: space-between;
-  align-items: stretch;
+  justify-content: flex-end;
+  align-items: flex-end;
   flex-wrap: wrap;
   gap: 1.5rem;
 }
@@ -299,20 +414,24 @@ const featuredPostDate = featuredPostData.date
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(160px, 45vw, 280px);
-  height: clamp(160px, 45vw, 280px);
+  width: clamp(180px, 50vw, 320px);
+  height: clamp(180px, 50vw, 320px);
   padding: 1.25rem;
   overflow: hidden;
 }
 
 .hero-box-title {
+  position: absolute;
+  top: calc(0.25rem + var(--frontmatter-height, 0px));
+  left: 1rem;
   text-align: left;
-  width: clamp(200px, 55vw, 340px);
-  height: clamp(200px, 55vw, 340px);
+  width: clamp(240px, 65vw, 440px);
+  height: clamp(240px, 65vw, 440px);
 }
 
 .hero-box-text {
   text-align: right;
+  align-items: flex-end;
 }
 
 .hero-box h1,
@@ -321,7 +440,7 @@ const featuredPostDate = featuredPostData.date
 }
 
 .hero-box-title h1 {
-  font-size: 2.5rem;
+  font-size: 2.7rem;
   line-height: 1.15;
 }
 
@@ -339,6 +458,7 @@ const featuredPostDate = featuredPostData.date
   }
 
   .hero-box-title {
+    position: static;
     align-self: flex-start;
     width: clamp(200px, 72vw, 300px);
     height: clamp(200px, 72vw, 300px);
