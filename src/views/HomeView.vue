@@ -96,8 +96,11 @@ const featuredPostDate = featuredPostData.date
       aria-labelledby="featured-post-title"
     >
       <section>
-        <p class="eyebrow">Featured</p>
-        <p v-if="featuredPostDate" class="eyebrow">{{ featuredPostDate }}</p>
+        <p class="eyebrow">
+          Featured
+          <span v-if="featuredPostDate" class="eyebrow-divider">&middot;</span>
+          {{ featuredPostDate }}
+        </p>
         <h2 id="featured-post-title">{{ featuredPostData.title }}</h2>
         <p>{{ featuredPostData.description }}</p>
         <span>Read the post &rarr;</span>
@@ -105,7 +108,7 @@ const featuredPostDate = featuredPostData.date
     </RouterLink>
 
     <section>
-      <h2>Clients</h2>
+      <h2>CLIENTS</h2>
       <ul>
         <li>Remittance and Payments Industry</li>
         <li>Commercial Banks</li>
@@ -117,7 +120,7 @@ const featuredPostDate = featuredPostData.date
     </section>
 
     <section>
-      <h2>Services</h2>
+      <h2>SERVICES</h2>
       <p>Strategic, advisory, and analytic services on:</p>
       <ul>
         <li>Remittances, Payments, and Fintechs</li>
@@ -129,7 +132,7 @@ const featuredPostDate = featuredPostData.date
     </section>
 
     <section>
-      <h2>Selected links</h2>
+      <h2>SELECTED LINKS</h2>
       <ul>
         <li>
           <a
@@ -156,7 +159,7 @@ const featuredPostDate = featuredPostData.date
     </section>
 
     <section>
-      <h2>Who We Are</h2>
+      <h2>WHO WE ARE</h2>
       <p>
         Ratha Global is a global development finance advisory and research firm
         dedicated to mobilizing finance for emerging and developing economies. We
@@ -209,7 +212,7 @@ const featuredPostDate = featuredPostData.date
     </section>
 
     <section id="contact">
-      <h2>Contact</h2>
+      <h2>CONTACT</h2>
       <div>
         <h3>Book a consultation</h3>
         <p>Reach out for advisory work on remittances, diaspora bonds, and structured finance.</p>
@@ -240,7 +243,8 @@ const featuredPostDate = featuredPostData.date
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  min-height: 70vh;
+  margin-top: calc(-1rem - var(--frontmatter-height, 0px));
+  min-height: calc(70vh + 1rem + var(--frontmatter-height, 0px));
   padding: 1rem;
   color: var(--color-paper);
 }
@@ -276,29 +280,9 @@ const featuredPostDate = featuredPostData.date
     );
 }
 
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
-  mask-image:
-    linear-gradient(to bottom, transparent 0%, transparent 88%, black 100%),
-    linear-gradient(to right, black 0%, transparent 10%, transparent 90%, black 100%);
-  -webkit-mask-image:
-    linear-gradient(to bottom, transparent 0%, transparent 88%, black 100%),
-    linear-gradient(to right, black 0%, transparent 10%, transparent 90%, black 100%);
-}
-
 .hero h1,
 .hero p {
   color: var(--color-paper);
-}
-
-.hero p {
-  font-size: 1.4rem;
 }
 
 .hero-boxes {
@@ -315,13 +299,16 @@ const featuredPostDate = featuredPostData.date
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 280px;
-  height: 280px;
-  padding: 1.5rem;
+  width: clamp(160px, 45vw, 280px);
+  height: clamp(160px, 45vw, 280px);
+  padding: 1.25rem;
+  overflow: hidden;
 }
 
 .hero-box-title {
   text-align: left;
+  width: clamp(200px, 55vw, 340px);
+  height: clamp(200px, 55vw, 340px);
 }
 
 .hero-box-text {
@@ -331,5 +318,48 @@ const featuredPostDate = featuredPostData.date
 .hero-box h1,
 .hero-box p {
   margin: 0;
+}
+
+.hero-box-title h1 {
+  font-size: 2.5rem;
+  line-height: 1.15;
+}
+
+.hero-box-text p {
+  font-size: 1.4rem;
+  line-height: 1.35;
+}
+
+@media (max-width: 640px) {
+  .hero-boxes {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .hero-box-title {
+    align-self: flex-start;
+    width: clamp(200px, 72vw, 300px);
+    height: clamp(200px, 72vw, 300px);
+  }
+
+  .hero-box-text {
+    align-self: flex-end;
+  }
+
+  .hero-box {
+    width: clamp(160px, 60vw, 240px);
+    height: clamp(160px, 60vw, 240px);
+    padding: 0.85rem;
+  }
+
+  .hero-box-title h1 {
+    font-size: 1.9rem;
+  }
+
+  .hero-box-text p {
+    font-size: 1.15rem;
+  }
 }
 </style>

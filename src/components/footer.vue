@@ -6,31 +6,80 @@ const year = new Date().getFullYear()
 
 <template>
   <footer>
-    <hr>
-    <img src="/ratha_global_new_no_border.png" alt="Ratha Global logo" width="32" height="32">
-    <p class="brand-name">Ratha Global</p>
-    <p>Advice, analytics, and solutions for global development finance.</p>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <img src="/ratha_global_new_no_border.png" alt="Ratha Global logo" width="40" height="40">
+        <div>
+          <p class="brand-name">Ratha Global</p>
+          <p class="tagline">Advice, analytics, and solutions for global development finance.</p>
+        </div>
+      </div>
 
-    <nav aria-label="Footer navigation">
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/blog">Publications</RouterLink>
-      <a href="/#contact">Contact</a>
-      <a href="mailto:contact@rathaglobal.com">contact@rathaglobal.com</a>
-    </nav>
+      <nav aria-label="Footer navigation">
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/blog">Publications</RouterLink>
+        <a href="/#contact">Contact</a>
+        <a href="mailto:contact@rathaglobal.com">contact@rathaglobal.com</a>
+      </nav>
+    </div>
 
     <p class="copyright">&copy; {{ year }} Ratha Global. All rights reserved.</p>
   </footer>
 </template>
 
 <style scoped>
-hr {
-  border: none;
-  border-top: 1px solid var(--color-brass);
+footer {
+  border-top: 1px solid rgba(168, 137, 88, 0.35);
+  padding: 3rem 1.5rem 1.75rem;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  max-width: 26rem;
+}
+
+.footer-brand img {
+  flex: 0 0 auto;
+}
+
+.brand-name {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-indigo);
+}
+
+.tagline {
+  margin: 0.3rem 0 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--color-ink);
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
 }
 
 nav a {
   color: var(--color-ink);
   text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
 }
 
 nav a:hover,
@@ -38,14 +87,20 @@ nav a:focus-visible {
   color: var(--color-terracotta);
 }
 
-.brand-name {
-  font-family: var(--font-serif);
-  font-weight: 700;
-  color: var(--color-indigo);
+.copyright {
+  max-width: 72rem;
+  margin: 2.25rem auto 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(168, 137, 88, 0.2);
+  color: var(--color-moss);
+  font-size: 0.82rem;
+  text-align: center;
 }
 
-.copyright {
-  color: var(--color-moss);
-  font-size: 0.85rem;
+@media (max-width: 640px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
 }
 </style>
