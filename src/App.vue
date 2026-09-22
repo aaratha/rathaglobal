@@ -11,7 +11,7 @@ const isHome = computed(() => route.path === '/')
 
 const mastheadEl = ref<HTMLElement | null>(null)
 const frontmatterEl = ref<HTMLElement | null>(null)
-const revealed = ref(true)
+const hiddenOffset = ref(0)
 const mastheadHeight = ref(0)
 const frontmatterHeight = ref(0)
 
@@ -149,8 +149,8 @@ const sproutVisuals = computed(() =>
   }),
 )
 
-let lastScrollY = 0
 let ticking = false
+let lastScrollY = 0
 let resizeObserver: ResizeObserver | null = null
 let growthResizeObserver: ResizeObserver | null = null
 
@@ -214,11 +214,9 @@ function handleScroll() {
   ticking = true
   window.requestAnimationFrame(() => {
     const y = window.scrollY
-    if (y <= 0 || y < lastScrollY) {
-      revealed.value = true
-    } else if (y > lastScrollY) {
-      revealed.value = false
-    }
+    const delta = y - lastScrollY
+    hiddenOffset.value = Math.max(0, Math.min(frontmatterHeight.value, hiddenOffset.value + delta))
+    if (y <= 0) hiddenOffset.value = 0
     lastScrollY = y
     ticking = false
     updateGrowthLine()
@@ -227,8 +225,9 @@ function handleScroll() {
 }
 
 onMounted(() => {
-  lastScrollY = window.scrollY
   measure()
+  lastScrollY = window.scrollY
+  hiddenOffset.value = 0
   updateGrowthLine()
   updateHeadingHighlights()
   resizeObserver = new ResizeObserver(measure)
@@ -259,7 +258,7 @@ onUnmounted(() => {
     <div
       ref="mastheadEl"
       class="masthead"
-      :style="{ transform: `translateY(${revealed ? 0 : -frontmatterHeight}px)` }"
+      :style="{ transform: `translateY(-${hiddenOffset}px)` }"
     >
       <div ref="frontmatterEl">
         <FrontmatterBar />
@@ -413,7 +412,6 @@ a:focus-visible {
   right: 0;
   z-index: 20;
   background: var(--color-paper);
-  transition: transform 0.25s ease;
 }
 
 .page-content {

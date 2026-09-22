@@ -8,7 +8,7 @@ const year = new Date().getFullYear()
   <footer>
     <div class="footer-content">
       <div class="footer-brand">
-        <img src="/ratha_global_new_no_border.png" alt="Ratha Global logo" width="40" height="40">
+        <img src="/ratha_global_new_no_border.png" alt="Ratha Global logo">
         <div>
           <p class="brand-name">Ratha Global</p>
           <p class="tagline">Advice, analytics, and solutions for global development finance.</p>
@@ -51,6 +51,8 @@ footer {
 }
 
 .footer-brand img {
+  height: 40px;
+  width: auto;
   flex: 0 0 auto;
 }
 
@@ -116,7 +118,7 @@ nav a:focus-visible {
   nav {
     flex-direction: column;
     align-items: flex-start;
-    margin-left: calc(40px + 0.85rem);
+    margin-left: calc(36px + 0.85rem);
     gap: 0.75rem;
   }
 

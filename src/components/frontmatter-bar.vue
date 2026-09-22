@@ -100,7 +100,7 @@
 
 @media (max-width: 640px) {
   .site-title {
-    font-size: 1.6rem;
+    font-size: 2.1rem;
   }
 
   .frontmatter-bar .eyebrow {
