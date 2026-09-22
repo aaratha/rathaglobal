@@ -98,13 +98,13 @@ const featuredPostDate = featuredPostData.date
       <section class="featured-post-section">
         <div class="featured-post-card">
           <p class="eyebrow">
-            Featured
+            Open Letter
             <span v-if="featuredPostDate" class="eyebrow-divider">&middot;</span>
             {{ featuredPostDate }}
           </p>
           <h2 id="featured-post-title">{{ featuredPostData.title }}</h2>
           <p class="featured-post-description">{{ featuredPostData.description }}</p>
-          <span class="featured-post-cta">Read the post &rarr;</span>
+          <span class="featured-post-cta">Read &rarr;</span>
         </div>
       </section>
     </RouterLink>
@@ -235,7 +235,7 @@ const featuredPostDate = featuredPostData.date
           target="_blank"
           rel="noopener"
         >
-          <img class="link-button-thumb link-button-thumb-books" src="/books.jpg" alt="Google Scholar">
+          <img class="link-button-thumb link-button-thumb-books" src="/books.png" alt="Google Scholar">
           <span>Academic Resources</span>
         </a>
       </div>
