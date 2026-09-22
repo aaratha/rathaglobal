@@ -45,6 +45,12 @@ collections:
         widget: string
         hint: "A one-sentence summary shown on the blog index and in search results."
 
+      - name: banner
+        label: Banner Photo
+        widget: image
+        required: false
+        hint: "Optional header image shown at the top of the post."
+
       - name: body
         label: Body
         widget: markdown

@@ -28,6 +28,7 @@ interface PostData {
   description: string
   html: string
   pdf: string
+  banner: string
 }
 
 const post = ref<PostData | null>(null)
@@ -67,6 +68,7 @@ const loadPost = async (slug: string) => {
 
   const title = String(data.title ?? slug)
   const description = String(data.description ?? '')
+  const banner = String(data.banner ?? '')
 
   post.value = {
     title,
@@ -74,6 +76,7 @@ const loadPost = async (slug: string) => {
     description,
     html,
     pdf: String(data.pdf ?? ''),
+    banner,
   }
   loading.value = false
 
@@ -81,6 +84,7 @@ const loadPost = async (slug: string) => {
     title: `${title} | Ratha Global`,
     description: description || 'A publication from Ratha Global.',
     path: `/blog/${slug}`,
+    ...(banner ? { image: `https://www.rathaglobal.com${banner}` } : {}),
   })
 }
 
@@ -133,11 +137,16 @@ watch(
         </div>
 
         <article v-else-if="post">
+          <img v-if="post.banner" class="post-banner" :src="post.banner" :alt="post.title">
           <header>
             <p v-if="post.date" class="eyebrow">{{ post.date }}</p>
             <h1>{{ post.title }}</h1>
-            <p v-if="post.description">{{ post.description }}</p>
+            <p v-if="post.description" class="post-description">{{ post.description }}</p>
           </header>
+
+          <div class="post-divider" aria-hidden="true">
+            <span v-for="n in 5" :key="n" />
+          </div>
 
           <!-- eslint-disable-next-line vue/no-v-html -->
           <div class="prose" v-html="post.html" />
@@ -152,6 +161,36 @@ watch(
   section {
     padding-left: 10%;
   }
+}
+
+.post-banner {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 22rem;
+  object-fit: cover;
+  border: 1px solid rgba(168, 137, 88, 0.35);
+  margin-bottom: 2rem;
+}
+
+.post-divider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 2rem 0;
+}
+
+.post-divider span {
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-moss);
+}
+
+.post-description {
+  color: var(--color-moss);
 }
 
 .post-container {
