@@ -192,6 +192,10 @@ function measure() {
     '--frontmatter-height',
     `${frontmatterHeight.value}px`,
   )
+  document.documentElement.style.setProperty(
+    '--nav-height',
+    `${mastheadHeight.value - frontmatterHeight.value}px`,
+  )
 }
 
 function updateGrowthLine() {

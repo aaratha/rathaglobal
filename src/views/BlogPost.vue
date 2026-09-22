@@ -153,6 +153,14 @@ watch(
     <figure v-if="post?.banner" class="post-banner-figure">
       <div ref="bannerViewportEl" class="post-banner-viewport">
         <img ref="bannerImgEl" class="post-banner" :src="post.banner" :alt="post.bannerAlt || post.title">
+        <div class="post-banner-overlay" />
+        <div class="post-banner-overlay-content">
+          <div class="post-container">
+            <p v-if="post.date" class="eyebrow post-date">{{ post.date }}</p>
+            <h1>{{ post.title }}</h1>
+            <p v-if="post.description" class="post-description">{{ post.description }}</p>
+          </div>
+        </div>
       </div>
       <figcaption v-if="post.bannerAlt || post.bannerCredit" class="post-banner-caption">
         <span v-if="post.bannerAlt" class="post-banner-description">{{ post.bannerAlt }}</span>
@@ -164,7 +172,7 @@ watch(
       <div class="post-container">
         <div class="post-meta">
           <p class="back-link">
-            <RouterLink to="/blog">&larr; All publications</RouterLink>
+            <RouterLink to="/blog">All publications</RouterLink>
           </p>
 
           <p v-if="post" class="post-actions">
@@ -173,17 +181,18 @@ watch(
               :href="post.pdf"
               target="_blank"
               rel="noopener"
-              class="button"
+              class="post-print-link"
               aria-label="Open the print-ready PDF of this publication"
             >Print</a>
             <button
               v-else
               type="button"
-              class="button"
+              class="post-print-link"
               aria-label="Print this publication"
               @click="printPost"
             >Print</button>
-            <a href="mailto:dratha@rathaglobal.com" class="button">Contact the editor</a>
+            <span class="post-actions-dot" aria-hidden="true" />
+            <a href="mailto:dratha@rathaglobal.com" class="post-print-link">Contact</a>
           </p>
         </div>
 
@@ -196,15 +205,11 @@ watch(
         </div>
 
         <article v-else-if="post">
-          <header>
+          <header v-if="!post.banner">
             <p v-if="post.date" class="eyebrow post-date">{{ post.date }}</p>
             <h1>{{ post.title }}</h1>
             <p v-if="post.description" class="post-description">{{ post.description }}</p>
           </header>
-
-          <div class="post-divider" aria-hidden="true">
-            <span v-for="n in 5" :key="n" />
-          </div>
 
           <!-- eslint-disable-next-line vue/no-v-html -->
           <div class="prose" v-html="post.html" />
@@ -222,11 +227,11 @@ watch(
 }
 
 .post-banner-figure {
-  margin: calc(-1rem - var(--frontmatter-height, 0px)) 0 0;
+  margin: calc(-1rem - var(--nav-height, 0px)) 0 0;
 }
 
 .post-banner-figure + section {
-  padding-top: 3rem;
+  padding-top: 1.25rem;
 }
 
 .post-banner-viewport {
@@ -241,11 +246,52 @@ watch(
   top: -30%;
   left: 0;
   right: 0;
+  z-index: 0;
   display: block;
   width: 100%;
   height: 130%;
   object-fit: cover;
   will-change: transform;
+}
+
+.post-banner-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(17, 23, 22, 0.85) 0%,
+    rgba(17, 23, 22, 0.4) 45%,
+    rgba(17, 23, 22, 0.05) 100%
+  );
+}
+
+.post-banner-overlay-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 2rem 1.25rem;
+}
+
+@media (min-width: 641px) {
+  .post-banner-overlay-content {
+    padding: 2rem 10%;
+  }
+}
+
+.post-banner-overlay-content .post-date {
+  color: #fff;
+}
+
+.post-banner-overlay-content h1 {
+  color: #fff;
+}
+
+.post-banner-overlay-content .post-description {
+  color: #fff;
 }
 
 .post-banner-caption {
@@ -255,7 +301,7 @@ watch(
   justify-content: space-between;
   gap: 0.5rem 1.5rem;
   margin-top: 0.4rem;
-  padding: 0 1.5rem;
+  padding: 0 0.4rem;
 }
 
 .post-banner-description {
@@ -273,36 +319,25 @@ watch(
 
 @media (max-width: 640px) {
   .post-banner-viewport {
-    height: 40vh;
-    max-height: 22rem;
+    height: 50vh;
+    max-height: 28rem;
   }
 
   .post-banner-caption {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.3rem;
-    padding: 0 1.25rem;
+    padding: 0 0.4rem;
   }
 
   .post-banner-credit {
     text-align: left;
   }
-}
 
-.post-divider {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 2rem 0;
-}
-
-.post-divider span {
-  display: block;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--color-moss);
+  .post-banner-overlay-content {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
 }
 
 .post-description {
@@ -324,7 +359,7 @@ watch(
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .back-link {
@@ -346,9 +381,38 @@ watch(
 
 .post-actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
   margin: 0;
+}
+
+.post-actions-dot {
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-moss);
+}
+
+.post-print-link {
+  display: inline-block;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--color-moss);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.post-print-link:hover,
+.post-print-link:focus-visible {
+  color: var(--color-terracotta);
 }
 
 .prose :deep(h2),
