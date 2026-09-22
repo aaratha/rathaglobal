@@ -444,7 +444,7 @@ const featuredPostDate = featuredPostData.date
   text-decoration: none;
   text-align: center;
   font-weight: 400;
-  transition: box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1), transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .link-button::before,
@@ -488,10 +488,6 @@ const featuredPostDate = featuredPostData.date
 
 .link-button:focus-visible {
   transform: translateY(-4px);
-  box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.05),
-    0 8px 16px rgba(0, 0, 0, 0.08),
-    0 20px 32px rgba(0, 0, 0, 0.1);
 }
 
 .link-button:focus-visible::after {
@@ -510,10 +506,6 @@ const featuredPostDate = featuredPostData.date
 @media (hover: hover) {
   .link-button:hover {
     transform: translateY(-4px);
-    box-shadow:
-      0 2px 4px rgba(0, 0, 0, 0.05),
-      0 8px 16px rgba(0, 0, 0, 0.08),
-      0 20px 32px rgba(0, 0, 0, 0.1);
   }
 
   .link-button:hover::after {
