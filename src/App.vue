@@ -143,7 +143,7 @@ const sproutVisuals = computed(() =>
         ? series.bonusMax * Math.max(0, Math.min(1, bonusDistance / series.bonusWindow))
         : 0
     return {
-      opacity: progress * 0.8,
+      opacity: progress,
       scale: 0.3 + 0.7 * progress + bonus,
     }
   }),
@@ -175,22 +175,37 @@ function updateGrowthLine() {
   })
 }
 
-// Expand a section heading's underline once it's roughly centered in the
-// viewport. Uses hysteresis: once expanded, it stays expanded for as long as
-// the heading is visible anywhere in the viewport, only collapsing once it
-// scrolls fully out of view - otherwise it flickers on/off right at the
-// narrow center threshold.
+// Expand the underline on whichever section heading is closest to the
+// viewport's vertical center - only ever one at a time, except headings that
+// sit side by side on the same row (e.g. Clients/Services), which are
+// grouped so they expand together as a pair.
 function updateHeadingHighlights() {
   const viewportHeight = window.innerHeight
   const centerY = viewportHeight / 2
-  const centerThreshold = viewportHeight * 0.18
-  document.querySelectorAll('.page-content section h2').forEach((h2) => {
-    const rect = h2.getBoundingClientRect()
-    const isVisible = rect.bottom > 0 && rect.top < viewportHeight
-    const headingCenter = rect.top + rect.height / 2
-    const isNearCenter = Math.abs(headingCenter - centerY) < centerThreshold
-    const alreadyExpanded = h2.classList.contains('heading-centered')
-    h2.classList.toggle('heading-centered', isNearCenter || (alreadyExpanded && isVisible))
+  const headings = Array.from(document.querySelectorAll<HTMLElement>('.page-content section h2'))
+
+  const groups: HTMLElement[][] = []
+  headings.forEach((h2) => {
+    const top = h2.getBoundingClientRect().top
+    const group = groups.find((g) => Math.abs(g[0]!.getBoundingClientRect().top - top) < 4)
+    if (group) group.push(h2)
+    else groups.push([h2])
+  })
+
+  let closestGroup: HTMLElement[] | null = null
+  let closestDistance = Infinity
+  groups.forEach((group) => {
+    const rect = group[0]!.getBoundingClientRect()
+    const distance = Math.abs(rect.top + rect.height / 2 - centerY)
+    if (distance < closestDistance) {
+      closestDistance = distance
+      closestGroup = group
+    }
+  })
+
+  groups.forEach((group) => {
+    const isActive = group === closestGroup && closestDistance < viewportHeight * 0.5
+    group.forEach((h2) => h2.classList.toggle('heading-centered', isActive))
   })
 }
 
@@ -294,6 +309,10 @@ onUnmounted(() => {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   background: var(--color-paper);
@@ -354,20 +373,31 @@ a:focus-visible {
 
 .button {
   display: inline-block;
-  padding: 0.4rem 0.9rem;
-  border: 1.5px solid var(--color-terracotta);
-  border-radius: 999px;
-  background: none;
-  color: var(--color-terracotta);
+  padding: 0.6rem 1.25rem;
+  margin: 0;
+  border: 1px solid rgba(168, 137, 88, 0.35);
+  border-radius: 0;
+  background: var(--color-paper);
+  color: var(--color-indigo);
   font: inherit;
+  font-weight: 400;
+  line-height: 1.4;
   text-decoration: none;
+  text-align: center;
   cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: box-shadow 0.25s ease, transform 0.25s ease, color 0.2s ease;
 }
 
 .button:hover,
 .button:focus-visible {
-  background: var(--color-terracotta);
-  color: var(--color-paper);
+  color: var(--color-moss);
+  transform: translateY(-2px);
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.02),
+    0 3px 8px rgba(0, 0, 0, 0.04),
+    0 10px 20px rgba(0, 0, 0, 0.05);
 }
 
 .page-shell {
@@ -468,6 +498,14 @@ section h2.heading-centered::after {
     width: 100%;
     transition: none;
   }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+#contact {
+  scroll-margin-top: 6rem;
 }
 
 section p {
@@ -500,7 +538,7 @@ li::marker {
 
 @media (max-width: 640px) {
   section {
-    padding: 1.5rem 1.25rem;
+    padding: 2.75rem 1.25rem;
   }
 
   .growth-line-fill {

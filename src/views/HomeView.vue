@@ -133,8 +133,81 @@ const featuredPostDate = featuredPostData.date
       </div>
      </section>
 
+
     <section>
-      <h2>SELECTED LINKS</h2>
+      <h2>WHO WE ARE</h2>
+      <div class="who-we-are-layout">
+        <div class="who-we-are-text">
+          <p>
+            Ratha Global is a global development finance advisory and research firm
+            dedicated to mobilizing finance for emerging and developing economies. We
+            combine original research, authoritative global data, deep market
+            experience, and a worldwide network to develop innovative financing
+            solutions for governments, financial institutions, development agencies,
+            investors, and fintech companies.
+          </p>
+
+          <p>
+            Ratha Global builds on the pioneering work of its founder, <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/dilipratha/">Dilip Ratha</a>,
+            whose career spans more than three decades in the World Bank, MIGA,
+            investment banking, and academia. He helped mainstream remittances in
+            the global development agenda. He pioneered the implementation of
+            diaspora bonds and advocated future-flow securitization as a
+            market-based approach to mobilizing capital when conventional market
+            access is constrained, and was among the first to systematically estimate
+            South-South flows of foreign direct investment, remittances, and
+            migration. Recognizing the role credit ratings play in capital market
+            access, he has also built models to predict sovereign ratings for
+            countries that lack them or have outdated ones. He draws on his extensive
+            research on bond spreads to guide issuers where, when, and how to issue,
+            register and list bonds.
+          </p>
+
+          <p>
+            Building on this foundation, Ratha Global advises clients on
+            remittances, diaspora bonds, structured finance, and guarantees. The firm
+            maintains authoritative datasets on remittance flows and diaspora
+            savings, including time-series and bilateral remittance data covering
+            some 200 countries, helping clients leverage predictable cash flows,
+            strengthen credit profiles, mitigate risk, and connect development
+            priorities with the requirements of international capital markets.
+          </p>
+
+          <p>
+            Ratha Global draws on an extensive global network of policymakers,
+            central banks, money transfer operators, investment bankers, investors,
+            development practitioners, and fintech innovators to bridge development
+            policy and private finance, turning knowledge and innovative ideas into
+            actionable financing and development solutions.
+          </p>
+        </div>
+
+        <aside class="who-we-are-sidebar">
+          <div class="who-we-are-portrait-wrap">
+            <span class="who-we-are-portrait-caption">Founder & CEO Dilip Ratha</span>
+            <img class="who-we-are-portrait" src="/dilip_ratha_portrait.png" alt="Dilip Ratha">
+          </div>
+          <a
+            class="who-we-are-press"
+            href="https://www.nytimes.com/2008/03/17/world/asia/17remit.html"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="who-we-are-press-header">
+              <img class="who-we-are-press-logo" src="/nyt_logo.png" alt="The New York Times">
+              <span class="who-we-are-press-title">World Banker and His Cash Return Home</span>
+            </span>
+            <span class="who-we-are-press-desc">
+              Jason DeParle's March 2008 profile on his work bringing remittances into
+              the global development agenda.
+            </span>
+          </a>
+        </aside>
+      </div>
+    </section>
+
+    <section>
+      <h2>RESOURCES</h2>
       <div class="link-buttons">
         <a
           class="link-button"
@@ -155,7 +228,7 @@ const featuredPostDate = featuredPostData.date
           <span>Market Finance for Development</span>
         </a>
         <a
-          class="link-button"
+          class="link-button link-button-classic"
           href="https://scholar.google.com/citations?user=9Y4tm18AAAAJ&hl=en"
           target="_blank"
           rel="noopener"
@@ -166,58 +239,6 @@ const featuredPostDate = featuredPostData.date
       </div>
     </section>
 
-    <section>
-      <h2>WHO WE ARE</h2>
-      <p>
-        Ratha Global is a global development finance advisory and research firm
-        dedicated to mobilizing finance for emerging and developing economies. We
-        combine original research, authoritative global data, deep market
-        experience, and a worldwide network to develop innovative financing
-        solutions for governments, financial institutions, development agencies,
-        investors, and fintech companies.
-      </p>
-
-      <p>
-        Ratha Global builds on the pioneering work of its founder, <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/dilipratha/">Dilip Ratha</a>,
-        whose career spans more than three decades in the World Bank, MIGA,
-        investment banking, and academia. He helped mainstream remittances in
-        the global development agenda. He pioneered the implementation of
-        diaspora bonds and advocated future-flow securitization as a
-        market-based approach to mobilizing capital when conventional market
-        access is constrained, and was among the first to systematically estimate
-        South-South flows of foreign direct investment, remittances, and
-        migration. Recognizing the role credit ratings play in capital market
-        access, he has also built models to predict sovereign ratings for
-        countries that lack them or have outdated ones. He draws on his extensive
-        research on bond spreads to guide issuers where, when, and how to issue,
-        register and list bonds.
-      </p>
-
-      <p>
-        Building on this foundation, Ratha Global advises clients on
-        remittances, diaspora bonds, structured finance, and guarantees. The firm
-        maintains authoritative datasets on remittance flows and diaspora
-        savings, including time-series and bilateral remittance data covering
-        some 200 countries, helping clients leverage predictable cash flows,
-        strengthen credit profiles, mitigate risk, and connect development
-        priorities with the requirements of international capital markets.
-      </p>
-
-      <p>
-        Ratha Global draws on an extensive global network of policymakers,
-        central banks, money transfer operators, investment bankers, investors,
-        development practitioners, and fintech innovators to bridge development
-        policy and private finance, turning knowledge and innovative ideas into
-        actionable financing and development solutions.
-      </p>
-
-      <img src="/dilip_ratha_portrait_web.jpg" alt="Dilip Ratha" width="240">
-      <p>
-        <a href="https://nyti.ms/2moxI2P" target="_blank" rel="noopener">
-          New York Times Profile on Dilip Ratha
-        </a>
-      </p>
-    </section>
 
     <section id="contact">
       <h2>CONTACT</h2>
@@ -247,6 +268,99 @@ const featuredPostDate = featuredPostData.date
 </template>
 
 <style scoped>
+.who-we-are-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.75rem;
+}
+
+.who-we-are-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.who-we-are-sidebar {
+  position: sticky;
+  top: 6rem;
+  flex: 0 0 auto;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.who-we-are-portrait {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border: 1px solid rgba(168, 137, 88, 0.35);
+}
+
+.who-we-are-portrait-caption {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: var(--color-moss);
+  font-size: 0.82rem;
+  text-align: right;
+}
+
+.who-we-are-press {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  text-decoration: none;
+  line-height: 1.4;
+}
+
+.who-we-are-press-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.who-we-are-press-logo {
+  height: 32px;
+  width: auto;
+  flex-shrink: 0;
+  opacity: 0.82;
+}
+
+.who-we-are-press-title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--color-indigo);
+  transition: color 0.2s ease;
+}
+
+.who-we-are-press-desc {
+  color: var(--color-moss);
+  font-size: 0.82rem;
+}
+
+.who-we-are-press:hover .who-we-are-press-title,
+.who-we-are-press:focus-visible .who-we-are-press-title {
+  color: var(--color-terracotta);
+}
+
+@media (max-width: 640px) {
+  .who-we-are-layout {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .who-we-are-sidebar {
+    position: static;
+    width: 100%;
+    max-width: 260px;
+    margin: 0 auto;
+  }
+}
+
 .split-section {
   display: flex;
   justify-content: space-between;
@@ -275,46 +389,166 @@ const featuredPostDate = featuredPostData.date
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
+  margin-top: 1rem;
 }
 
 .link-button {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  gap: 1.25rem;
+  overflow: hidden;
   aspect-ratio: 1;
-  padding: 2rem;
+  padding: 1.5rem;
   border: 1px solid rgba(168, 137, 88, 0.35);
   border-radius: 0;
-  color: var(--color-indigo);
+  color: #fff;
   text-decoration: none;
   text-align: center;
-  font-weight: 600;
-  background: var(--color-paper);
-  transition: box-shadow 0.25s ease, transform 0.25s ease, color 0.2s ease;
+  font-weight: 400;
+  transition: box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1), transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.link-button:hover,
+.link-button::before,
+.link-button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.link-button::before {
+  background: linear-gradient(
+    135deg,
+    rgba(36, 59, 83, 0.28) 0%,
+    rgba(17, 23, 22, 0.38) 45%,
+    rgba(17, 23, 22, 0.82) 100%
+  );
+  backdrop-filter: saturate(150%);
+  -webkit-backdrop-filter: saturate(150%);
+}
+
+.link-button::after {
+  background: linear-gradient(
+    135deg,
+    rgba(36, 59, 83, 0.16) 0%,
+    rgba(17, 23, 22, 0.28) 45%,
+    rgba(17, 23, 22, 0.92) 100%
+  );
+  backdrop-filter: blur(0.5px) saturate(70%);
+  -webkit-backdrop-filter: blur(0.5px) saturate(70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.link-button span {
+  position: relative;
+  z-index: 2;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .link-button:focus-visible {
-  color: var(--color-moss);
-  transform: translateY(-2px);
+  transform: translateY(-4px);
   box-shadow:
-    0 1px 1px rgba(0, 0, 0, 0.02),
-    0 3px 8px rgba(0, 0, 0, 0.04),
-    0 10px 20px rgba(0, 0, 0, 0.05);
+    0 2px 4px rgba(0, 0, 0, 0.05),
+    0 8px 16px rgba(0, 0, 0, 0.08),
+    0 20px 32px rgba(0, 0, 0, 0.1);
+}
+
+.link-button:focus-visible::after {
+  opacity: 1;
+}
+
+.link-button:focus-visible span {
+  transform: translateY(-2px);
+  color: color-mix(in srgb, var(--color-saffron) 55%, white);
+}
+
+.link-button:focus-visible:not(.link-button-classic) .link-button-thumb {
+  transform: scale(1.06);
+}
+
+@media (hover: hover) {
+  .link-button:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.05),
+      0 8px 16px rgba(0, 0, 0, 0.08),
+      0 20px 32px rgba(0, 0, 0, 0.1);
+  }
+
+  .link-button:hover::after {
+    opacity: 1;
+  }
+
+  .link-button:hover span {
+    transform: translateY(-2px);
+    color: color-mix(in srgb, var(--color-saffron) 55%, white);
+  }
+
+  .link-button:hover:not(.link-button-classic) .link-button-thumb {
+    transform: scale(1.06);
+  }
+}
+
+.link-button-classic {
+  color: var(--color-indigo);
+  background: var(--color-paper);
+}
+
+.link-button-classic::before,
+.link-button-classic::after {
+  display: none;
+}
+
+.link-button-classic span {
+  position: absolute;
+  left: 1.5rem;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  text-align: center;
+}
+
+.link-button-classic .link-button-thumb {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 72px;
+  height: 72px;
+  transform: translate(-50%, -50%);
+}
+
+.link-button-classic:focus-visible,
+.link-button-classic:focus-visible span {
+  color: var(--color-saffron);
+}
+
+@media (hover: hover) {
+  .link-button-classic:hover,
+  .link-button-classic:hover span {
+    color: var(--color-saffron);
+  }
 }
 
 .link-button-thumb {
-  width: 72px;
-  height: 72px;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   border-radius: 0;
   object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .contact-columns {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 3rem;
+}
+
+#contact > p {
+  text-align: center;
 }
 
 .contact-column {
@@ -333,9 +567,56 @@ const featuredPostDate = featuredPostData.date
   border-left: 1px solid rgba(168, 137, 88, 0.35);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 900px) {
   .link-buttons {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .link-button {
+    aspect-ratio: auto;
+    height: 110px;
+    width: 100%;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .link-button-classic {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.85rem;
+    padding: 0.75rem;
+    text-align: left;
+    color: var(--color-indigo);
+    background: var(--color-paper);
+  }
+
+  .link-button-classic::before,
+  .link-button-classic::after {
+    display: none;
+  }
+
+  .link-button-classic span {
+    position: static;
+    text-align: left;
+  }
+
+  .link-button-classic .link-button-thumb {
+    position: static;
+    inset: auto;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    transform: none;
+    margin: 0 0.5rem;
+  }
+
+  .link-button-classic:focus-visible,
+  .link-button-classic:focus-visible span {
+    color: var(--color-saffron);
   }
 
   .contact-columns {
@@ -353,6 +634,13 @@ const featuredPostDate = featuredPostData.date
   .contact-column + .contact-column {
     border-left: none;
     border-top: 1px solid rgba(168, 137, 88, 0.35);
+  }
+}
+
+@media (hover: hover) and (max-width: 900px) {
+  .link-button-classic:hover,
+  .link-button-classic:hover span {
+    color: var(--color-saffron);
   }
 }
 
@@ -390,9 +678,8 @@ const featuredPostDate = featuredPostData.date
   background: linear-gradient(
     135deg,
     rgba(23, 33, 31, 0.7) 10%,
-    rgba(23, 33, 31, 0.7) 30%,
     rgba(23, 33, 31, 0.6) 62%,
-    rgba(23, 33, 31, 0.9) 100%
+    rgba(23, 33, 31, 0.7) 100%
   );
 }
 

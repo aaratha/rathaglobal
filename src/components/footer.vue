@@ -100,7 +100,23 @@ nav a:focus-visible {
 @media (max-width: 640px) {
   .footer-content {
     flex-direction: column;
+    align-items: flex-start;
     gap: 1.5rem;
+  }
+
+  .footer-brand {
+    max-width: none;
+  }
+
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: calc(40px + 0.85rem);
+    gap: 0.75rem;
+  }
+
+  nav a {
+    overflow-wrap: anywhere;
   }
 }
 </style>

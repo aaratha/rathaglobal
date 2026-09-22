@@ -81,51 +81,115 @@ watch(
 
 <template>
   <main class="page-content">
-    <p>
-      <RouterLink to="/blog">&larr; All publications</RouterLink>
-    </p>
+    <section>
+      <div class="post-container">
+        <div class="post-meta">
+          <p class="back-link">
+            <RouterLink to="/blog">&larr; All publications</RouterLink>
+          </p>
 
-    <p v-if="loading" aria-live="polite">Loading&hellip;</p>
+          <p v-if="post" class="post-actions">
+            <a
+              v-if="post.pdf"
+              :href="post.pdf"
+              target="_blank"
+              rel="noopener"
+              class="button"
+              aria-label="Open the print-ready PDF of this publication"
+            >Print</a>
+            <button
+              v-else
+              type="button"
+              class="button"
+              aria-label="Print this publication"
+              @click="printPost"
+            >Print</button>
+            <a href="mailto:dratha@rathaglobal.com" class="button">Contact the editor</a>
+          </p>
+        </div>
 
-    <div v-else-if="notFound">
-      <h2>Post not found</h2>
-      <p>This post may have been moved or removed.</p>
-      <RouterLink to="/blog">Back to publications</RouterLink>
-    </div>
+        <p v-if="loading" aria-live="polite">Loading&hellip;</p>
 
-    <template v-else-if="post">
-      <article>
-        <p>
-          <a
-            v-if="post.pdf"
-            :href="post.pdf"
-            target="_blank"
-            rel="noopener"
-            class="button"
-            aria-label="Open the print-ready PDF of this publication"
-          >Print</a>
-          <button
-            v-else
-            type="button"
-            class="button"
-            aria-label="Print this publication"
-            @click="printPost"
-          >Print</button>
-          <a href="mailto:dratha@rathaglobal.com" class="button">Contact the editor</a>
-        </p>
-        <header>
-          <p v-if="post.date" class="eyebrow">{{ post.date }}</p>
-          <h1>{{ post.title }}</h1>
-          <p v-if="post.description">{{ post.description }}</p>
-        </header>
-        <!-- eslint-disable-next-line vue/no-v-html -->
-        <div class="prose" v-html="post.html" />
-      </article>
-    </template>
+        <div v-else-if="notFound">
+          <h2>Post not found</h2>
+          <p>This post may have been moved or removed.</p>
+          <RouterLink to="/blog">Back to publications</RouterLink>
+        </div>
+
+        <article v-else-if="post">
+          <header>
+            <p v-if="post.date" class="eyebrow">{{ post.date }}</p>
+            <h1>{{ post.title }}</h1>
+            <p v-if="post.description">{{ post.description }}</p>
+          </header>
+
+          <!-- eslint-disable-next-line vue/no-v-html -->
+          <div class="prose" v-html="post.html" />
+        </article>
+      </div>
+    </section>
   </main>
 </template>
 
 <style scoped>
+@media (min-width: 641px) {
+  section {
+    padding-left: 10%;
+  }
+}
+
+.post-container {
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.back-link {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.back-link a {
+  color: var(--color-moss);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.back-link a:hover,
+.back-link a:focus-visible {
+  color: var(--color-terracotta);
+}
+
+.post-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.prose :deep(h2),
+.prose :deep(h3) {
+  margin-top: 2rem;
+}
+
+.prose :deep(a) {
+  color: var(--color-terracotta);
+}
+
+.prose :deep(a:hover),
+.prose :deep(a:focus-visible) {
+  color: var(--color-brass);
+}
+
 .prose :deep(blockquote) {
   margin: 1.25rem 0;
   padding: 0.75rem 1.1rem;

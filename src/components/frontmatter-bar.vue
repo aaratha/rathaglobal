@@ -1,8 +1,7 @@
 <template>
   <div class="frontmatter-bar">
-    <RouterLink to="/" class="brand" aria-label="Ratha Global home">
-    <img src="/ratha_global_new_no_border.png" alt="Ratha Global logo" width="48" height="48">
-    <span class="brand-name">RATHA GLOBAL</span>
+    <RouterLink to="/" class="site-title" aria-label="Ratha Global home">
+      RATHA GLOBAL
     </RouterLink>
     <div class="eyebrow-marquee">
       <div class="eyebrow-track">
@@ -36,9 +35,24 @@
   margin: 0;
 }
 
+.site-title {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 2.8rem;
+  line-height: 1;
+  color: #000;
+  text-decoration: none;
+  text-align: center;
+}
+
+.site-title:hover,
+.site-title:focus-visible {
+  color: var(--color-terracotta);
+}
+
 .eyebrow-marquee {
   width: 100%;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   margin-bottom: 0.5rem;
   min-width: 0;
   overflow: hidden;
@@ -84,36 +98,9 @@
   }
 }
 
-.brand {
-  display: inline-flex;
-  flex-shrink: 0;
-  align-items: center;
-  margin-left: 2rem;
-  gap: 0.5rem;
-  text-decoration: none;
-}
-
-.brand-name {
-  font-family: var(--font-serif);
-  font-size: 3rem;
-  translate: 0 -0.25rem;
-  line-height: 1;
-  color: #000;
-}
-
-.brand:hover .brand-name,
-.brand:focus-visible .brand-name {
-  color: var(--color-terracotta);
-}
-
 @media (max-width: 640px) {
-  .brand img {
-    width: 32px;
-    height: 32px;
-  }
-
-  .brand-name {
-    font-size: 1.3rem;
+  .site-title {
+    font-size: 1.6rem;
   }
 
   .frontmatter-bar .eyebrow {

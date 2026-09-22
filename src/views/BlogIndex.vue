@@ -70,7 +70,7 @@ const posts = computed<Post[]>(() =>
         <li v-for="post in posts" :key="post.slug">
           <RouterLink :to="`/blog/${post.slug}`" class="card-link">
             <p v-if="post.date" class="eyebrow">{{ post.date }}</p>
-            <h2>{{ post.title }}</h2>
+            <h2 class="publication-title">{{ post.title }}</h2>
             <p v-if="post.description">{{ post.description }}</p>
             <span>Read&nbsp;&rarr;</span>
           </RouterLink>
@@ -79,3 +79,31 @@ const posts = computed<Post[]>(() =>
     </section>
   </main>
 </template>
+
+<style scoped>
+@media (min-width: 641px) {
+  section {
+    padding-left: 10%;
+  }
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+li {
+  margin-bottom: 0;
+}
+
+li + li {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(168, 137, 88, 0.35);
+}
+
+.publication-title.heading-centered::after {
+  width: 3rem;
+}
+</style>
