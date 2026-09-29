@@ -473,6 +473,7 @@ a:focus-visible {
 
 .growth-track {
   position: relative;
+  width: 100%;
   max-width: 90rem;
   margin: 0 auto;
 }
