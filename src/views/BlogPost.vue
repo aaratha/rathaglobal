@@ -231,7 +231,11 @@ watch(
 }
 
 .post-banner-figure {
-  margin: calc(-1rem - var(--nav-height, 0px)) 0 0;
+  width: 100vw;
+  max-width: 100vw;
+  margin-top: calc(-1rem - var(--nav-height, 0px));
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
 }
 
 .post-banner-figure + section {

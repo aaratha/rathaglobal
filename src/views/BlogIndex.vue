@@ -59,7 +59,7 @@ const posts = computed<Post[]>(() =>
       <h1 id="publications-title">Publications</h1>
       <p>
         Briefs, reports, and blog posts on remittances, diaspora finance, sovereign ratings,
-        and global development from Ratha Global.
+        and global development.
       </p>
     </section>
 

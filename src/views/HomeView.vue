@@ -5,18 +5,31 @@ import { RouterLink } from 'vue-router'
 const heroEl = ref<HTMLElement | null>(null)
 const heroBgEl = ref<HTMLElement | null>(null)
 
+let heroTop = 0
+let heroHeight = 1
 let maxOffset = 0
 let ticking = false
 
+// Measured once on mount/resize rather than on every scroll frame, so the
+// scroll handler never forces a synchronous layout read.
 function measureHero() {
-  maxOffset = heroEl.value ? heroEl.value.offsetHeight * 0.15 : 0
+  if (!heroEl.value) return
+  heroTop = heroEl.value.offsetTop
+  heroHeight = heroEl.value.offsetHeight || 1
+  maxOffset = heroHeight * 0.3
 }
 
 function updateParallax() {
   ticking = false
-  if (!heroEl.value || !heroBgEl.value) return
-  const offset = Math.max(-maxOffset, Math.min(maxOffset, -heroEl.value.getBoundingClientRect().top * 0.3))
-  heroBgEl.value.style.transform = `translateY(${offset}px)`
+  if (!heroBgEl.value) return
+  // 0 while the hero sits at the top of the viewport, 1 once it has fully
+  // scrolled past. A constant (linear) rate across that whole transit means
+  // the background keeps visibly moving the entire time the hero is on
+  // screen - it only ever reaches maxOffset right as the hero fully exits,
+  // rather than easing off (and looking like it stalled) while still
+  // partway visible.
+  const progress = Math.max(0, Math.min(1, (window.scrollY - heroTop) / heroHeight))
+  heroBgEl.value.style.transform = `translate3d(0, ${progress * maxOffset}px, 0)`
 }
 
 function onScroll() {
@@ -77,7 +90,7 @@ const featuredPostDate = featuredPostData.date
     <section ref="heroEl" class="hero" aria-labelledby="hero-title">
       <div ref="heroBgEl" class="hero-bg" />
       <div class="hero-gradient" />
-      <div class="hero-boxes">
+      <div class="hero-inner">
         <div class="hero-box hero-box-title">
           <h1 id="hero-title">Advice, Analytics, and Solutions for Global Development Finance</h1>
         </div>
@@ -236,7 +249,7 @@ const featuredPostDate = featuredPostData.date
           rel="noopener"
         >
           <img class="link-button-thumb link-button-thumb-books" src="/books.png" alt="Google Scholar">
-          <span>Academic Resources</span>
+          <span>Research & Policy Resources</span>
         </a>
       </div>
     </section>
@@ -271,6 +284,10 @@ const featuredPostDate = featuredPostData.date
 
 <style scoped>
 .featured-post-section {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
   padding: 0;
 }
 
@@ -603,40 +620,79 @@ const featuredPostDate = featuredPostData.date
 .hero {
   position: relative;
   overflow: hidden;
+  width: 100vw;
+  max-width: 100vw;
+  margin-top: calc(-1rem - var(--frontmatter-height, 0px));
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  min-height: calc(62vh + 1rem + var(--frontmatter-height, 0px));
+  padding: 0;
+  color: var(--color-paper);
+  --hero-text-width: 680px;
+  --hero-left-inset: 2.5rem;
+}
+
+.hero-inner {
+  position: absolute;
+  top: calc(1rem + var(--frontmatter-height, 0px));
+  right: 1rem;
+  bottom: 1rem;
+  left: var(--hero-left-inset);
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  margin-top: calc(-1rem - var(--frontmatter-height, 0px));
-  min-height: calc(70vh + 1rem + var(--frontmatter-height, 0px));
-  padding: 1rem;
-  color: var(--color-paper);
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.75rem;
+  max-width: 90rem;
+  margin: 0 auto;
 }
 
 .hero-bg {
   position: absolute;
-  top: -15%;
-  bottom: -15%;
+  top: -32%;
+  bottom: -32%;
   left: 0;
   right: 0;
   z-index: 0;
-  background: center / cover no-repeat url('/flags_on_sky.jpg');
+  background-image: url('/flags_on_sky.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   will-change: transform;
 }
 
 .hero-gradient {
+  /* A flat baseline tint covers the entire banner (second background,
+     underneath) so no part of the photo is left uncovered. Layered on top
+     of it, a stronger fade - sized and anchored the same way the text
+     starts flush at the hero's true left edge, reaching past wherever the
+     text actually ends up - darkens specifically behind the text, easing
+     down to exactly the baseline tint so the handoff between the two
+     layers is invisible. */
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  /* Darken the top-left and bottom-right corners, where the title and text
-     boxes now sit, while keeping the opposite diagonal (top-right/
-     bottom-left) clearer so more of the photo shows through. */
-  background: linear-gradient(
-    135deg,
-    rgba(23, 33, 31, 0.7) 10%,
-    rgba(23, 33, 31, 0.6) 62%,
-    rgba(23, 33, 31, 0.7) 100%
-  );
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(23, 33, 31, 0.80) 0%,
+      rgba(23, 33, 31, 0.50) 55%,
+      rgba(23, 33, 31, 0.0) 100%
+    ),
+    linear-gradient(rgba(23, 33, 31, 0.3), rgba(23, 33, 31, 0.3));
+  background-repeat: no-repeat, no-repeat;
+  background-size:
+    min(
+      100%,
+      calc(
+        max(var(--hero-left-inset), (100vw - 1rem - 90rem + var(--hero-left-inset)) / 2) +
+          var(--hero-text-width) + 5rem
+      )
+    )
+    100%,
+    100% 100%;
 }
 
 .hero h1,
@@ -644,37 +700,10 @@ const featuredPostDate = featuredPostData.date
   color: var(--color-paper);
 }
 
-.hero-boxes {
-  z-index: 3;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-}
-
 .hero-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: clamp(180px, 50vw, 320px);
-  height: clamp(180px, 50vw, 320px);
-  padding: 1.25rem;
-  overflow: hidden;
-}
-
-.hero-box-title {
-  position: absolute;
-  top: calc(0.25rem + var(--frontmatter-height, 0px));
-  left: 1rem;
+  width: 100%;
+  max-width: var(--hero-text-width);
   text-align: left;
-  width: clamp(240px, 65vw, 440px);
-  height: clamp(240px, 65vw, 440px);
-}
-
-.hero-box-text {
-  text-align: right;
-  align-items: flex-end;
 }
 
 .hero-box h1,
@@ -683,46 +712,46 @@ const featuredPostDate = featuredPostData.date
 }
 
 .hero-box-title h1 {
-  font-size: 2.7rem;
+  font-size: 3.1rem;
   line-height: 1.15;
 }
 
 .hero-box-text p {
-  font-size: 1.4rem;
+  font-size: 1.55rem;
   line-height: 1.35;
 }
 
-@media (max-width: 640px) {
-  .hero-boxes {
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
-    gap: 0.75rem;
-  }
-
-  .hero-box-title {
-    position: static;
-    align-self: flex-start;
-    width: clamp(200px, 72vw, 300px);
-    height: clamp(200px, 72vw, 300px);
-  }
-
-  .hero-box-text {
-    align-self: flex-end;
-  }
-
-  .hero-box {
-    width: clamp(160px, 60vw, 240px);
-    height: clamp(160px, 60vw, 240px);
-    padding: 0.85rem;
+@media (min-width: 1440px) {
+  .hero {
+    --hero-text-width: 820px;
   }
 
   .hero-box-title h1 {
-    font-size: 1.9rem;
+    font-size: 3.6rem;
   }
 
   .hero-box-text p {
-    font-size: 1.15rem;
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    --hero-text-width: 100%;
+    --hero-left-inset: 1.5rem;
+  }
+
+  .hero-inner {
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .hero-box-title h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero-box-text p {
+    font-size: 1.3rem;
   }
 }
 </style>

@@ -1,6 +1,7 @@
 <template>
   <div class="frontmatter-bar">
     <RouterLink to="/" class="site-title" aria-label="Ratha Global home">
+      <img src="/ratha_global_new_no_border.png" alt="" class="site-title-logo" >
       RATHA GLOBAL
     </RouterLink>
     <div class="eyebrow-marquee">
@@ -36,13 +37,21 @@
 }
 
 .site-title {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
   font-family: var(--font-serif);
   font-size: 2.8rem;
   line-height: 1;
   color: #000;
   text-decoration: none;
   text-align: center;
+}
+
+.site-title-logo {
+  height: 3.6rem;
+  width: auto;
 }
 
 .site-title:hover,
@@ -101,6 +110,11 @@
 @media (max-width: 640px) {
   .site-title {
     font-size: 2.1rem;
+    gap: 0.5rem;
+  }
+
+  .site-title-logo {
+    height: 2.6rem;
   }
 
   .frontmatter-bar .eyebrow {

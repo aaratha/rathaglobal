@@ -453,6 +453,7 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .masthead {
@@ -472,6 +473,8 @@ a:focus-visible {
 
 .growth-track {
   position: relative;
+  max-width: 90rem;
+  margin: 0 auto;
 }
 
 .growth-line-fill {
@@ -508,6 +511,22 @@ a:focus-visible {
 section {
   margin: 0;
   padding: 3.5rem 10% 3.5rem 20%;
+}
+
+@media (min-width: 1440px) {
+  section {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+
+  section h2 {
+    font-size: 2.1rem;
+  }
+
+  section p,
+  section li {
+    font-size: 1.15rem;
+  }
 }
 
 section h2 {
