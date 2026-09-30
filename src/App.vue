@@ -360,6 +360,7 @@ onUnmounted(() => {
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -453,7 +454,6 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  overflow-x: hidden;
 }
 
 .masthead {
