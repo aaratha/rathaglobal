@@ -125,7 +125,7 @@ const featuredPostDate = featuredPostData.date
     <section class="split-section">
      <div class="split-column">
         <h2>SERVICES</h2>
-        <p>Strategic, advisory, and analytic services on:</p>
+        <p>Strategic, advisory, analytic, and M&amp;A services on:</p>
         <ul>
           <li>Remittances, Payments, and Fintechs</li>
           <li>Diaspora Finances</li>
@@ -158,7 +158,7 @@ const featuredPostDate = featuredPostData.date
             dedicated to mobilizing finance for emerging and developing economies. We
             combine original research, authoritative global data, deep market
             experience, and a worldwide network to develop innovative financing
-            solutions for governments, financial institutions, development agencies,
+            solutions and partnerships for governments, financial institutions, development agencies,
             investors, and fintech companies.
           </p>
 
@@ -193,7 +193,7 @@ const featuredPostDate = featuredPostData.date
             central banks, money transfer operators, investment bankers, investors,
             development practitioners, and fintech innovators to bridge development
             policy and private finance, turning knowledge and innovative ideas into
-            actionable financing and development solutions.
+            actionable financing and development solutions and international partnerships.
           </p>
         </div>
 
@@ -244,14 +244,22 @@ const featuredPostDate = featuredPostData.date
         </a>
         <a
           class="link-button"
-          href="https://scholar.google.com/citations?user=9Y4tm18AAAAJ&hl=en"
+          href="https://documents1.worldbank.org/curated/en/202621468156251840/pdf/456450PUB0978010ONLY10Sept030102008.pdf"
           target="_blank"
           rel="noopener"
         >
-          <img class="link-button-thumb link-button-thumb-books" src="/books.png" alt="Google Scholar">
-          <span>Research & Policy Resources</span>
+          <img class="link-button-thumb" src="/innovative_financing.png" alt="">
+          <span>Innovative Financing for Development</span>
         </a>
       </div>
+      <p class="resources-more-link">
+        <a
+          class="resources-more-cta"
+          href="https://scholar.google.com/citations?user=9Y4tm18AAAAJ&hl=en"
+          target="_blank"
+          rel="noopener"
+        >Research and Policy Resources</a>
+      </p>
     </section>
 
 
@@ -260,7 +268,7 @@ const featuredPostDate = featuredPostData.date
       <div class="contact-columns">
         <div class="contact-column">
           <h3>Book a consultation</h3>
-          <p>Reach out for advisory work on remittances, diaspora bonds, and structured finance.</p>
+          <p>Reach out for advisory work on remittances, diaspora bonds, structured finance, and guarantees.</p>
         </div>
 
         <div class="contact-column">
@@ -445,6 +453,36 @@ const featuredPostDate = featuredPostData.date
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   margin-top: 1rem;
+}
+
+.resources-more-link {
+  margin-top: 1.25rem;
+}
+
+.resources-more-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-indigo);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: color 0.2s ease;
+}
+
+.resources-more-cta::after {
+  content: '\2192';
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.resources-more-cta:hover,
+.resources-more-cta:focus-visible {
+  color: var(--color-terracotta);
+}
+
+.resources-more-cta:hover::after,
+.resources-more-cta:focus-visible::after {
+  transform: translateX(4px);
 }
 
 .link-button {
@@ -716,6 +754,11 @@ const featuredPostDate = featuredPostData.date
   line-height: 1.15;
 }
 
+.hero-box-text {
+  margin-left: 2.5rem;
+  max-width: calc(var(--hero-text-width) - 2.5rem);
+}
+
 .hero-box-text p {
   font-size: 1.55rem;
   line-height: 1.35;
@@ -737,21 +780,28 @@ const featuredPostDate = featuredPostData.date
 
 @media (max-width: 640px) {
   .hero {
-    --hero-text-width: 100%;
-    --hero-left-inset: 1.5rem;
+    --hero-text-width: min(90vw, 480px);
+    --hero-left-inset: 0.85rem;
   }
 
   .hero-inner {
-    align-items: stretch;
-    gap: 1rem;
+    right: 0.85rem;
+    bottom: 0.5rem;
+    align-items: center;
+    gap: 0.5rem;
   }
 
   .hero-box-title h1 {
-    font-size: 2.2rem;
+    font-size: 2.9rem;
+  }
+
+  .hero-box-text {
+    margin-left: 0;
+    max-width: var(--hero-text-width);
   }
 
   .hero-box-text p {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
 }
 </style>
