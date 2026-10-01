@@ -125,7 +125,7 @@ const featuredPostDate = featuredPostData.date
     <section class="split-section">
      <div class="split-column">
         <h2>SERVICES</h2>
-        <p>Strategic, advisory, analytic, and M&amp;A services on:</p>
+        <p>Strategic, advisory, analytic, growth and partnership services on:</p>
         <ul>
           <li>Remittances, Payments, and Fintechs</li>
           <li>Diaspora Finances</li>
