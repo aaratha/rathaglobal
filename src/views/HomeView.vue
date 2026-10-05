@@ -782,6 +782,7 @@ const featuredPostDate = featuredPostData.date
   .hero {
     --hero-text-width: min(90vw, 480px);
     --hero-left-inset: 0.85rem;
+    min-height: calc(66vh + 1rem + var(--frontmatter-height, 0px));
   }
 
   .hero-inner {
@@ -792,7 +793,7 @@ const featuredPostDate = featuredPostData.date
   }
 
   .hero-box-title h1 {
-    font-size: 2.9rem;
+    font-size: clamp(2.4rem, 1.9rem + 2.5vw, 2.9rem);
   }
 
   .hero-box-text {
@@ -801,7 +802,7 @@ const featuredPostDate = featuredPostData.date
   }
 
   .hero-box-text p {
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 0.9rem + 1.5vw, 1.5rem);
   }
 }
 </style>

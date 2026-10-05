@@ -181,7 +181,7 @@ header {
     padding: 0.5rem 0 0.75rem;
     background: var(--color-paper);
     border-bottom: 2px solid var(--color-moss);
-    transform: translateY(calc(-100% + 6px));
+    transform: translateY(calc(-100% + 2px));
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     pointer-events: none;
   }

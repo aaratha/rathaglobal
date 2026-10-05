@@ -9,11 +9,27 @@ import LeafIcon from './components/leaf-icon.vue'
 const route = useRoute()
 const isHome = computed(() => route.path === '/')
 
-const mastheadEl = ref<HTMLElement | null>(null)
 const frontmatterEl = ref<HTMLElement | null>(null)
-const hiddenOffset = ref(0)
+const navEl = ref<HTMLElement | null>(null)
+// Frontmatter bar: tracks absolute scroll position directly, so it only
+// ever reappears by actually scrolling back to the top of the page.
+const frontmatterShift = ref(0)
+// Nav bar: tracks scroll delta instead, so it hides while scrolling down and
+// reappears as soon as the user scrolls up, from anywhere on the page.
+const navShift = ref(0)
 const mastheadHeight = ref(0)
 const frontmatterHeight = ref(0)
+const navHeight = ref(0)
+// The nav bar's resting slot sits right below the frontmatter bar - as the
+// frontmatter bar collapses (frontmatterShift grows), the nav bar rises to
+// take its place, then its own navShift hides it independently on top of
+// that.
+const navTranslateY = computed(
+  () => frontmatterHeight.value - frontmatterShift.value - navShift.value,
+)
+// Extra hide-distance so the mobile dropdown's closed-state peek (2px,
+// see navbar.vue) fully clears the viewport along with the nav bar itself.
+const navPeekBuffer = 4
 
 const growthTrackEl = ref<HTMLElement | null>(null)
 const growthFillHeight = ref(0)
@@ -186,15 +202,21 @@ let resizeObserver: ResizeObserver | null = null
 let growthResizeObserver: ResizeObserver | null = null
 
 function measure() {
-  mastheadHeight.value = mastheadEl.value?.offsetHeight ?? 0
-  frontmatterHeight.value = frontmatterEl.value?.offsetHeight ?? 0
+  // Rounded up (not offsetHeight's nearest-pixel rounding) so the nav bar's
+  // resting position is never a sub-pixel short of the frontmatter bar's
+  // true rendered edge - a shortfall there leaves a hairline gap between the
+  // two independently-positioned fixed bars with whatever's behind them
+  // (the hero photo) showing through.
+  frontmatterHeight.value = Math.ceil(frontmatterEl.value?.getBoundingClientRect().height ?? 0)
+  navHeight.value = Math.ceil(navEl.value?.getBoundingClientRect().height ?? 0)
+  mastheadHeight.value = frontmatterHeight.value + navHeight.value
   document.documentElement.style.setProperty(
     '--frontmatter-height',
     `${frontmatterHeight.value}px`,
   )
   document.documentElement.style.setProperty(
     '--nav-height',
-    `${mastheadHeight.value - frontmatterHeight.value}px`,
+    `${navHeight.value}px`,
   )
 }
 
@@ -265,8 +287,22 @@ function handleScroll() {
   window.requestAnimationFrame(() => {
     const y = window.scrollY
     const delta = y - lastScrollY
-    hiddenOffset.value = Math.max(0, Math.min(frontmatterHeight.value, hiddenOffset.value + delta))
-    if (y <= 0) hiddenOffset.value = 0
+    frontmatterShift.value = Math.max(0, Math.min(frontmatterHeight.value, y))
+    // Only let the nav bar start hiding itself once the frontmatter bar has
+    // fully collapsed and the nav bar has actually reached the top - not
+    // while it's still riding up to close that gap.
+    if (frontmatterShift.value >= frontmatterHeight.value) {
+      // The mobile dropdown leaves a couple of px of its closed "peek" (plus
+      // border) hanging below the nav bar's own box. Letting the nav bar
+      // travel those few extra px further than its own height clears that
+      // peek in the exact same continuous motion as the nav bar itself,
+      // rather than needing a separate hidden/shown toggle that can't stay
+      // perfectly in sync with the nav bar's own scroll-driven position.
+      navShift.value = Math.max(0, Math.min(navHeight.value + navPeekBuffer, navShift.value + delta))
+    } else {
+      navShift.value = 0
+    }
+    if (y <= 0) navShift.value = 0
     lastScrollY = y
     ticking = false
     updateGrowthLine()
@@ -277,11 +313,13 @@ function handleScroll() {
 onMounted(() => {
   measure()
   lastScrollY = window.scrollY
-  hiddenOffset.value = 0
+  frontmatterShift.value = Math.max(0, Math.min(frontmatterHeight.value, window.scrollY))
+  navShift.value = 0
   updateGrowthLine()
   updateHeadingHighlights()
   resizeObserver = new ResizeObserver(measure)
-  if (mastheadEl.value) resizeObserver.observe(mastheadEl.value)
+  if (frontmatterEl.value) resizeObserver.observe(frontmatterEl.value)
+  if (navEl.value) resizeObserver.observe(navEl.value)
   growthResizeObserver = new ResizeObserver(() => {
     updateGrowthLine()
     updateHeadingHighlights()
@@ -306,14 +344,18 @@ onUnmounted(() => {
 <template>
   <div class="page-shell">
     <div
-      ref="mastheadEl"
-      class="masthead"
-      :style="{ transform: `translateY(-${hiddenOffset}px)` }"
+      ref="frontmatterEl"
+      class="masthead-frontmatter"
+      :style="{ transform: `translateY(-${frontmatterShift}px)` }"
     >
-      <div ref="frontmatterEl">
-        <FrontmatterBar />
-      </div>
-      <NavBar />
+      <FrontmatterBar />
+    </div>
+    <div
+      ref="navEl"
+      class="masthead-nav"
+      :style="{ transform: `translateY(${navTranslateY}px)` }"
+    >
+      <NavBar :scrolled-hidden="navShift > 0" />
     </div>
     <div class="masthead-spacer" :style="{ height: `${mastheadHeight}px` }" />
     <div ref="growthTrackEl" class="growth-track">
@@ -456,13 +498,31 @@ a:focus-visible {
   min-height: 100vh;
 }
 
-.masthead {
+.masthead-frontmatter {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 21;
+  background: var(--color-paper);
+}
+
+.masthead-nav {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 20;
   background: var(--color-paper);
+  /* Solid (unblurred) same-color shadow extends the visual edge a couple of
+     px above the measured box, so no sub-pixel rounding between this and
+     the frontmatter bar above it can ever reveal a hairline gap at rest.
+     Anchored here (extending up) rather than on the frontmatter bar
+     (extending down) because the nav bar's hidden position always clears
+     the viewport with room to spare (see navPeekBuffer) - so this shadow
+     stays off-screen too, instead of becoming its own visible sliver once
+     the frontmatter bar collapses to sit exactly at the very top. */
+  box-shadow: 0 -2px 0 0 var(--color-paper);
 }
 
 .page-content {
