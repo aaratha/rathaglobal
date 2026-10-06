@@ -66,7 +66,11 @@ const loadPost = async (slug: string) => {
   const date = d
     ? d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
     : ''
-  const html = await marked.parse(content)
+
+  const rawHtml = await marked.parse(content)
+
+  // Wrap the first letter of the first paragraph (only if the paragraph starts with a letter)
+  const html = rawHtml.replace(/<p>(\p{L})/u, '<p><span class="dropcap">$1</span>')
 
   const title = String(data.title ?? slug)
   const description = String(data.description ?? '')
@@ -444,17 +448,20 @@ watch(
   margin-top: 2rem;
 }
 
-.prose :deep(p:first-of-type)::first-letter {
+.prose :deep(.dropcap) {
   float: left;
-  margin: 0.15em 0.45rem -0.3rem 0.0rem;
-  padding: 0.13em 0.4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2em;            /* em is relative to this element's own font-size */
+  aspect-ratio: 1;
+  margin: 0.1em 0.5rem 0 0;
   font-family: 'Times New Roman', Times, serif;
   font-size: 2.6em;
-  line-height: 0.85;
+  line-height: 1;
   color: var(--color-paper);
   background: var(--color-indigo);
 }
-
 .prose :deep(a) {
   color: var(--color-terracotta);
 }
