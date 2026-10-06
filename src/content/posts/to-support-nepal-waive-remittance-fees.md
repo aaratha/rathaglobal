@@ -2,6 +2,7 @@
 title: To Support Nepal, Waive Remittance Fees
 date: 2026-10-05
 description: To help Nepal move from rescue and relief toward reconstruction
+contributors: Ngozi Okonjo-Iweala and Dilip Ratha
 banner: https://upload.wikimedia.org/wikipedia/commons/e/e9/Nepal_flood_2026_before_after.webp?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original
 banner_alt: Satellite imagery before and after the 2026 Nepal floods
 banner_credit: European Space Agency
