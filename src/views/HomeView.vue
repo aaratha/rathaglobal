@@ -141,12 +141,12 @@ const featuredPostDate = featuredPostData.date
       <div class="split-column">
         <h2>CLIENTS</h2>
         <ul>
-          <li>Remittance and Payments Industry</li>
-          <li>Commercial Banks</li>
           <li>Governments</li>
-          <li>Multilateral Development Banks</li>
-          <li>International Financial Institutions</li>
-          <li>U.N. Agencies and International Organizations</li>
+          <li>Commercial banks and credit cooperatives </li>
+          <li>Remittance and payments industry</li>
+          <li>Investors</li>
+          <li>Multilateral development banks and financial institutions </li>
+          <li>UN agencies and international organizations</li>
         </ul>
       </div>
      </section>
