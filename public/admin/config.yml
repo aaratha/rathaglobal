@@ -16,6 +16,12 @@ backend:
   base_url: https://decap-proxy.aseemratha.workers.dev
   auth_endpoint: /auth
 
+# Saves go to draft branches (cms/<slug>) with a draft -> in review -> ready
+# workflow instead of committing straight to main, so unpublished entries can
+# be viewed/edited from the "Editorial Workflow" board in the CMS before
+# they're published.
+publish_mode: editorial_workflow
+
 # Where uploaded images are stored in the repo and served from
 media_folder: public/images/blog
 public_folder: /images/blog
