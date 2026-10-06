@@ -69,6 +69,14 @@ collections:
         required: false
         hint: "Optional photo credit/attribution shown beneath the banner image."
 
+      - name: pdf
+        label: Print PDF
+        widget: file
+        required: false
+        media_folder: /public/documents
+        public_folder: /documents
+        hint: "Optional print-ready PDF opened when users click Print."
+
       - name: body
         label: Body
         widget: markdown
