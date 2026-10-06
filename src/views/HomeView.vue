@@ -118,7 +118,7 @@ const featuredPostDate = featuredPostData.date
           <h2 id="featured-post-title">{{ featuredPostData.title }}</h2>
           <p class="featured-post-description">{{ featuredPostData.description }}</p>
           <p v-if="featuredPostData.contributors" class="featured-post-contributors">
-            Contributors: {{ featuredPostData.contributors }}
+            By {{ featuredPostData.contributors }}
           </p>
           <span class="featured-post-cta">Read &rarr;</span>
         </div>
@@ -313,10 +313,26 @@ const featuredPostDate = featuredPostData.date
   background: rgba(36, 59, 83, 0.12);
 }
 
+.featured-post-card h2 {
+  margin-bottom: 0.4rem;
+}
+
 .featured-post-description,
 .featured-post:hover .featured-post-description,
 .featured-post:focus-visible .featured-post-description {
+  margin-top: 0.4rem;
+  margin-bottom: 0;
   color: var(--color-ink);
+}
+
+.featured-post-contributors {
+  margin-top: 0.4rem;
+  margin-bottom: 0;
+  font-style: italic;
+}
+
+.featured-post-contributors + .featured-post-cta {
+  margin-top: 2rem;
 }
 
 .featured-post-cta {

@@ -26,6 +26,7 @@ interface PostData {
   title: string
   date: string
   description: string
+  contributors: string
   html: string
   pdf: string
   banner: string
@@ -74,12 +75,14 @@ const loadPost = async (slug: string) => {
 
   const title = String(data.title ?? slug)
   const description = String(data.description ?? '')
+  const contributors = String(data.contributors ?? '')
   const banner = String(data.banner ?? '')
 
   post.value = {
     title,
     date,
     description,
+    contributors,
     html,
     pdf: String(data.pdf ?? ''),
     banner,
@@ -160,7 +163,10 @@ watch(
         <div class="post-banner-overlay" />
         <div class="post-banner-overlay-content">
           <div class="post-container">
-            <p v-if="post.date" class="eyebrow post-date">{{ post.date }}</p>
+            <div v-if="post.date || post.contributors" class="post-meta-line">
+              <p v-if="post.date" class="eyebrow post-date">{{ post.date }}</p>
+              <p v-if="post.contributors" class="post-contributors">By {{ post.contributors }}</p>
+            </div>
             <h1>{{ post.title }}</h1>
             <p v-if="post.description" class="post-description">{{ post.description }}</p>
           </div>
@@ -214,11 +220,15 @@ watch(
 
         <article v-else-if="post">
           <header v-if="!post.banner">
-            <p v-if="post.date" class="eyebrow post-date">{{ post.date }}</p>
+            <div v-if="post.date || post.contributors" class="post-meta-line">
+              <p v-if="post.date" class="eyebrow post-date">{{ post.date }}</p>
+              <p v-if="post.contributors" class="post-contributors">By {{ post.contributors }}</p>
+            </div>
             <h1>{{ post.title }}</h1>
             <p v-if="post.description" class="post-description">{{ post.description }}</p>
           </header>
-
+          <!-- eslint-disable-next-line vue/no-v-html -->
+          <!-- eslint-disable-next-line vue/no-v-html -->
           <!-- eslint-disable-next-line vue/no-v-html -->
           <div class="prose" v-html="post.html" />
         </article>
@@ -306,6 +316,10 @@ watch(
   color: #fff;
 }
 
+.post-banner-overlay-content .post-contributors {
+  color: #fff;
+}
+
 .post-banner-caption {
   display: flex;
   flex-wrap: wrap;
@@ -356,6 +370,26 @@ watch(
   color: var(--color-moss);
 }
 
+.post-contributors {
+  font-style: italic;
+}
+
+.post-meta-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.post-meta-line p {
+  margin: 0;
+}
+
+.post-meta-line .post-contributors {
+  text-align: right;
+}
+
 .post-date {
   color: var(--color-terracotta);
 }
@@ -379,7 +413,7 @@ watch(
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .post-divider span {

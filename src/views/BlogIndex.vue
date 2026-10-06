@@ -83,7 +83,7 @@ const posts = computed<Post[]>(() =>
             <h2 class="publication-title">{{ post.title }}</h2>
             <p v-if="post.description">{{ post.description }}</p>
             <p v-if="post.contributors" class="post-contributors">
-              Contributors: {{ post.contributors }}
+              By {{ post.contributors }}
             </p>
             <span class="featured-entry-cta">Read&nbsp;&rarr;</span>
           </RouterLink>
@@ -153,6 +153,23 @@ const posts = computed<Post[]>(() =>
 .featured-entry:hover,
 .featured-entry:focus-visible {
   background: rgba(36, 59, 83, 0.12);
+}
+
+.featured-entry .publication-title {
+  margin-bottom: 0.4rem;
+}
+
+.featured-entry > p:not(.eyebrow) {
+  margin-top: 0.4rem;
+  margin-bottom: 0;
+}
+
+.featured-entry .post-contributors {
+  font-style: italic;
+}
+
+.featured-entry .post-contributors + .featured-entry-cta {
+  margin-top: 2rem;
 }
 
 .featured-entry-cta {
