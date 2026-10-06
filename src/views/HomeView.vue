@@ -66,7 +66,7 @@ function parseFrontmatter(raw: string): Record<string, string> {
 }
 
 const featuredPostSlug =
-  'an-appeal-to-money-transfer-operators-and-payment-service-providers-serving-nepal'
+  'to-support-nepal-waive-remittance-fees'
 const featuredPostRaw = import.meta.glob('../content/posts/*.md', {
   eager: true,
   query: '?raw',
@@ -117,6 +117,9 @@ const featuredPostDate = featuredPostData.date
           </p>
           <h2 id="featured-post-title">{{ featuredPostData.title }}</h2>
           <p class="featured-post-description">{{ featuredPostData.description }}</p>
+          <p v-if="featuredPostData.contributors" class="featured-post-contributors">
+            Contributors: {{ featuredPostData.contributors }}
+          </p>
           <span class="featured-post-cta">Read &rarr;</span>
         </div>
       </section>

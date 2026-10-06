@@ -30,6 +30,7 @@ interface Post {
   date: string
   rawDate: number
   description: string
+  contributors: string
 }
 
 const posts = computed<Post[]>(() =>
@@ -46,6 +47,7 @@ const posts = computed<Post[]>(() =>
           ? d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
           : '',
         description: String(data.description ?? ''),
+          contributors: String(data.contributors ?? ''),
       }
     })
     .sort((a, b) => b.rawDate - a.rawDate),
@@ -80,6 +82,9 @@ const posts = computed<Post[]>(() =>
             </p>
             <h2 class="publication-title">{{ post.title }}</h2>
             <p v-if="post.description">{{ post.description }}</p>
+            <p v-if="post.contributors" class="post-contributors">
+              Contributors: {{ post.contributors }}
+            </p>
             <span class="featured-entry-cta">Read&nbsp;&rarr;</span>
           </RouterLink>
         </li>

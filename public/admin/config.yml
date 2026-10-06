@@ -51,6 +51,12 @@ collections:
         widget: string
         hint: "A one-sentence summary shown on the blog index and in search results."
 
+      - name: contributors
+        label: Contributors
+        widget: string
+        required: false
+        hint: "Names of the contributors to this publication."
+
       - name: banner
         label: Banner Photo
         widget: image
