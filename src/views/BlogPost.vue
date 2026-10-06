@@ -349,6 +349,15 @@ watch(
     max-height: 28rem;
   }
 
+  .post-banner-overlay-content .post-meta-line {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .post-banner-overlay-content .post-meta-line .post-contributors {
+    text-align: left;
+  }
+
   .post-banner-caption {
     flex-direction: column;
     align-items: flex-start;
