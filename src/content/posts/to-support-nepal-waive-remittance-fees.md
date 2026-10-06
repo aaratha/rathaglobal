@@ -7,6 +7,7 @@ description: To help Nepal move from rescue and relief toward reconstruction,
   totaling several times more than what a recent emergency appeal by the United
   Nations generated.
 banner: https://upload.wikimedia.org/wikipedia/commons/e/e9/Nepal_flood_2026_before_after.webp?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original
+banner_alt: Satellite imagery before and after the 2026 Nepal floods
 banner_credit: European Space Agency
 ---
 GENEVA—The flash floods that struck Nepal on August 26 claimed more than a thousand lives and destroyed livelihoods, homes, farms, and public infrastructure. With reconstruction and the economic recovery now underway, support for the survivors can travel fastest through payment networks and family ties—as is usually the case when disasters strike developing countries.
