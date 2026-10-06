@@ -164,6 +164,7 @@ const featuredPostDate = featuredPostData.date
         <div class="help-featured">
           <h3>Data and analytics</h3>
           <p>We provide authoritative datasets on remittance flows and diaspora savings, including time-series and bilateral data for 200 countries. We also produce Global Finance Factsheets for all countries, and prepare reports, projections, and policy briefs tailored to clients&rsquo; needs.</p>
+          <img class="help-featured-graph" src="/rg_graph.png" alt="">
         </div>
       </div>
     </section>
@@ -366,7 +367,7 @@ const featuredPostDate = featuredPostData.date
 
 .help-layout {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
+  grid-template-columns: 1fr 1.2fr;
   gap: 2.5rem;
   align-items: stretch;
 }
@@ -398,6 +399,13 @@ const featuredPostDate = featuredPostData.date
   margin: 0;
   color: var(--color-ink);
   line-height: 1.6;
+}
+
+.help-featured-graph {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 1.5rem;
 }
 
 @media (max-width: 640px) {
