@@ -571,13 +571,13 @@ a:focus-visible {
 
 section {
   margin: 0;
-  padding: 3.5rem 10% 3.5rem 20%;
+  padding: 2.75rem 10% 2.75rem 20%;
 }
 
 @media (min-width: 1440px) {
   section {
-    padding-top: 4.5rem;
-    padding-bottom: 4.5rem;
+    padding-top: 3.75rem;
+    padding-bottom: 3.75rem;
   }
 
   section h2 {

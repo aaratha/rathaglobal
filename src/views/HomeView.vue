@@ -111,7 +111,7 @@ const featuredPostDate = featuredPostData.date
       <section class="featured-post-section">
         <div class="featured-post-card">
           <p class="eyebrow">
-            Open Letter
+            Opinion
             <span v-if="featuredPostDate" class="eyebrow-divider">&middot;</span>
             {{ featuredPostDate }}
           </p>
@@ -151,18 +151,30 @@ const featuredPostDate = featuredPostData.date
       </div>
      </section>
 
+    <section>
+      <h2>HOW WE CAN HELP</h2>
+      <div class="help-layout">
+        <ul class="help-bullets">
+          <li><strong>Capital market access:</strong> where, when and how to issue, register and list bonds</li>
+          <li><strong>Stronger credit profiles:</strong> leveraging predictable cash flows such as remittances</li>
+          <li><strong>Credit enhancement:</strong> diaspora bonds, future-flow securitization and guarantees, blended finance, and co-funding</li>
+          <li><strong>Sovereign ratings:</strong> models to estimate shadow sovereign ratings where none exist or are outdated</li>
+          <li><strong>Partnerships:</strong> a global network of central banks, money transfer operators, investors and fintechs</li>
+        </ul>
+        <div class="help-featured">
+          <h3>Data and analytics</h3>
+          <p>We provide authoritative datasets on remittance flows and diaspora savings, including time-series and bilateral data for 200 countries. We also produce Global Finance Factsheets for all countries, and prepare reports, projections, and policy briefs tailored to clients&rsquo; needs.</p>
+        </div>
+      </div>
+    </section>
 
     <section>
       <h2>WHO WE ARE</h2>
       <div class="who-we-are-layout">
         <div class="who-we-are-text">
           <p>
-            Ratha Global is a global development finance advisory and research firm
-            dedicated to mobilizing finance for emerging and developing economies. We
-            combine original research, authoritative global data, deep market
-            experience, and a worldwide network to develop innovative financing
-            solutions and partnerships for governments, financial institutions, development agencies,
-            investors, and fintech companies.
+            <!-- Ratha Global is a global development finance advisory and research firm dedicated to mobilizing finance for emerging and developing economies. We combine original research, authoritative global data, deep market experience, and a worldwide network to develop innovative financing solutions and partnerships for governments, financial institutions, development agencies, investors, and fintech companies. -->
+            Ratha Global is an advisory and research firm dedicated to mobilizing financing for emerging and developing economies. We combine original research, authoritative data, deep market experience and a worldwide network to design innovative financing solutions and build effective partnerships.
           </p>
 
           <p>
@@ -255,14 +267,21 @@ const featuredPostDate = featuredPostData.date
           <span>Innovative Financing for Development</span>
         </a>
       </div>
-      <p class="resources-more-link">
+      <div class="resources-more-link">
         <a
           class="resources-more-cta"
           href="https://scholar.google.com/citations?user=9Y4tm18AAAAJ&hl=en"
           target="_blank"
           rel="noopener"
-        >Research and Policy Resources</a>
-      </p>
+        >
+          <img class="resources-more-icon" src="/scholar_thumb.png" alt="">
+          Research and Policy Resources
+        </a>
+        <RouterLink class="resources-more-cta" to="/blog">
+          <img class="resources-more-icon" src="/ratha_global_new_no_border.png" alt="">
+          Publications
+        </RouterLink>
+      </div>
     </section>
 
 
@@ -303,7 +322,7 @@ const featuredPostDate = featuredPostData.date
 }
 
 .featured-post-card {
-  padding: 3.5rem 10% 3.5rem 20%;
+  padding: 2.75rem 10% 2.75rem 20%;
   background: rgba(36, 59, 83, 0.05);
   transition: background 0.3s ease;
 }
@@ -343,6 +362,49 @@ const featuredPostDate = featuredPostData.date
 .featured-post:hover .featured-post-cta,
 .featured-post:focus-visible .featured-post-cta {
   transform: translateX(6px);
+}
+
+.help-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 2.5rem;
+  align-items: stretch;
+}
+
+.help-bullets {
+  margin: 0;
+}
+
+.help-bullets li {
+  margin-bottom: 1.1rem;
+  line-height: 1.6;
+  color: var(--color-ink);
+}
+
+.help-bullets strong {
+  color: var(--color-indigo);
+}
+
+.help-featured {
+  padding: 1.75rem 2rem;
+  background: rgba(36, 59, 83, 0.05);
+}
+
+.help-featured h3 {
+  margin: 0 0 0.5rem;
+}
+
+.help-featured p {
+  margin: 0;
+  color: var(--color-ink);
+  line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .help-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
 }
 
 .who-we-are-layout {
@@ -447,6 +509,7 @@ const featuredPostDate = featuredPostData.date
   justify-content: space-between;
   gap: 2rem;
   flex-wrap: wrap;
+  padding-top: 4.5rem;
   border-top: 1px solid rgba(168, 137, 88, 0.35);
 }
 
@@ -471,32 +534,42 @@ const featuredPostDate = featuredPostData.date
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 .resources-more-link {
-  margin-top: 1.25rem;
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.75rem;
 }
 
 .resources-more-cta {
-  display: inline-flex;
+  display: flex;
+  flex: 1 1 0;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.1rem 1.5rem;
   color: var(--color-indigo);
   text-decoration: none;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  transition: color 0.2s ease;
+  background: rgba(36, 59, 83, 0.05);
+  transition: background 0.3s ease, color 0.2s ease;
+}
+
+.resources-more-icon {
+  height: 1.5rem;
+  width: auto;
+}
+
+.resources-more-cta:hover,
+.resources-more-cta:focus-visible {
+  background: rgba(36, 59, 83, 0.12);
+  color: var(--color-terracotta);
 }
 
 .resources-more-cta::after {
   content: '\2192';
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.resources-more-cta:hover,
-.resources-more-cta:focus-visible {
-  color: var(--color-terracotta);
 }
 
 .resources-more-cta:hover::after,
@@ -628,6 +701,10 @@ const featuredPostDate = featuredPostData.date
   padding: 0 2rem;
 }
 
+.contact-column h3 {
+  margin-bottom: 0.35rem;
+}
+
 .contact-column:first-child {
   padding-left: 0;
 }
@@ -643,6 +720,11 @@ const featuredPostDate = featuredPostData.date
 @media (max-width: 900px) {
   .link-buttons {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .resources-more-link {
+    flex-direction: column;
     gap: 0.75rem;
   }
 
