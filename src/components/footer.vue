@@ -10,7 +10,7 @@ const year = new Date().getFullYear()
       <div class="footer-brand">
         <img src="/ratha_global_new_no_border.png" alt="Ratha Global logo">
         <div>
-          <p class="brand-name">Ratha Global</p>
+          <p class="brand-name">RATHA GLOBAL</p>
           <p class="tagline">Advice, analytics, and solutions for global development finance.</p>
         </div>
       </div>
