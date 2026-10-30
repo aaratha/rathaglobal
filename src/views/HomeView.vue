@@ -141,8 +141,8 @@ const featuredPostDate = featuredPostData.date
       <div class="split-column">
         <h2>CLIENTS</h2>
         <ul>
-          <li>Governments</li>
-          <li>Commercial banks and credit cooperatives </li>
+          <li>Governments and central banks</li>
+          <li>Commercial banks, investment banks, and credit cooperatives</li>
           <li>Remittance and payments industry</li>
           <li>Investors</li>
           <li>Multilateral development banks and financial institutions </li>
@@ -155,9 +155,8 @@ const featuredPostDate = featuredPostData.date
       <h2>HOW WE CAN HELP</h2>
       <div class="help-layout">
         <ul class="help-bullets">
-          <li><strong>Capital market access:</strong> where, when and how to issue, register and list bonds</li>
-          <li><strong>Stronger credit profiles:</strong> leveraging predictable cash flows such as remittances</li>
-          <li><strong>Credit enhancement:</strong> diaspora bonds, future-flow securitization and guarantees, blended finance, and co-funding</li>
+          <li><strong>Facilitation of remittances and payments:</strong> data and analytics, Global Remittances Report and databases, supporting the remittances and payments industry</li>
+          <li><strong>Capital market access, stronger credit profiles, and credit enhancement:</strong> diaspora bonds, future-flow securitization and guarantees, blended finance, and co-funding; leveraging predictable cash flows such as remittances; where, when and how to issue, register and list bonds</li>
           <li><strong>Sovereign ratings:</strong> models to estimate shadow sovereign ratings where none exist or are outdated</li>
           <li><strong>Partnerships:</strong> a global network of central banks, money transfer operators, investors and fintechs</li>
         </ul>
