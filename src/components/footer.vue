@@ -18,6 +18,7 @@ const year = new Date().getFullYear()
       <nav aria-label="Footer navigation">
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/blog">Publications</RouterLink>
+        <RouterLink to="/media">Media</RouterLink>
         <a href="/#contact">Contact</a>
         <a href="mailto:contact@rathaglobal.com">contact@rathaglobal.com</a>
       </nav>

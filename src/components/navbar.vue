@@ -45,6 +45,7 @@ watch(
       >
         <RouterLink to="/" aria-label="home" @click="closeMenu">HOME</RouterLink>
         <RouterLink to="/blog" @click="closeMenu">PUBLICATIONS</RouterLink>
+        <RouterLink to="/media" @click="closeMenu">MEDIA</RouterLink>
         <a href="/#contact" @click="closeMenu">CONTACT</a>
       </nav>
     </div>

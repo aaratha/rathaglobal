@@ -102,6 +102,64 @@ const featuredPostDate = featuredPostData.date
       </div>
     </section>
 
+    <section id="grr" class="grr-section" aria-labelledby="grr-title">
+      <div class="grr-card">
+        <p class="eyebrow grr-eyebrow">
+          Coming November 2026
+          <span class="eyebrow-divider">&middot;</span>
+          First edition
+        </p>
+        <h2 id="grr-title">Global Remittances Report &amp; Database</h2>
+        <p class="grr-lede">
+          An independent, authoritative account of remittance flows worldwide, published every
+          May and November: the latest estimates for every country, a nowcast for 2026 and a
+          forecast for 2027.
+        </p>
+
+        <dl class="grr-stats">
+          <div>
+            <dt>~200</dt>
+            <dd>countries, inward and outward flows</dd>
+          </div>
+          <div>
+            <dt>2000&ndash;2027</dt>
+            <dd>annual series, with a 2026 nowcast and 2027 forecast</dd>
+          </div>
+          <div>
+            <dt>10,600+</dt>
+            <dd>corridors in the bilateral remittance matrix</dd>
+          </div>
+        </dl>
+
+        <p class="grr-author">
+          Led by Dilip Ratha, who compiled the first global tally of remittances and created the
+          bilateral remittance matrix.
+        </p>
+
+        <ul class="grr-calendar">
+          <li><strong>November 2026:</strong> report and country data</li>
+          <li><strong>December 2026:</strong> bilateral remittance matrix</li>
+        </ul>
+
+        <div class="grr-actions">
+          <RouterLink class="button grr-button" to="/subscribe">Subscribe</RouterLink>
+          <a
+            class="button grr-concept-note"
+            href="/documents/grr-concept-note.pdf"
+            target="_blank"
+            rel="noopener"
+          >
+            <img class="grr-concept-note-logo" src="/ratha_global_new_no_border.png" alt="">
+            Concept note
+          </a>
+        </div>
+
+        <p class="grr-disclaimer">
+          Ratha Global is an independent firm. The Global Remittances Report is not affiliated
+          with or endorsed by the World Bank or KNOMAD.
+        </p>
+      </div>
+    </section>
 
     <RouterLink
       :to="`/blog/${featuredPostSlug}`"
@@ -313,6 +371,146 @@ const featuredPostDate = featuredPostData.date
 </template>
 
 <style scoped>
+.grr-section {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 0;
+}
+
+.grr-card {
+  position: relative;
+  z-index: 1;
+  padding: 3.25rem 10% 3rem 20%;
+  background: var(--color-indigo);
+  color: var(--color-paper);
+}
+
+.grr-card .grr-eyebrow {
+  margin: 0 0 0.75rem;
+  color: var(--color-saffron);
+  font-weight: 700;
+}
+
+.grr-card .eyebrow-divider {
+  color: rgba(211, 154, 58, 0.5);
+}
+
+.grr-card h2 {
+  color: var(--color-paper);
+}
+
+.grr-card h2::after {
+  background: var(--color-saffron);
+}
+
+.grr-card p {
+  color: rgba(243, 239, 230, 0.88);
+}
+
+.grr-lede {
+  max-width: 44rem;
+}
+
+.grr-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 2.25rem 0;
+  padding: 1.75rem 0;
+  border-top: 1px solid rgba(243, 239, 230, 0.2);
+  border-bottom: 1px solid rgba(243, 239, 230, 0.2);
+}
+
+.grr-stats dt {
+  font-family: var(--font-serif);
+  font-size: 2.4rem;
+  line-height: 1.1;
+  color: var(--color-saffron);
+}
+
+.grr-stats dd {
+  margin: 0.4rem 0 0;
+  line-height: 1.5;
+  color: rgba(243, 239, 230, 0.88);
+}
+
+.grr-calendar {
+  list-style: none;
+  padding-left: 0;
+  margin: 1.25rem 0 2rem;
+  color: rgba(243, 239, 230, 0.88);
+}
+
+.grr-calendar strong {
+  color: var(--color-paper);
+}
+
+.grr-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+}
+
+.grr-button {
+  border-color: var(--color-saffron);
+  background: var(--color-saffron);
+  color: var(--color-indigo);
+  font-weight: 700;
+}
+
+.grr-button:hover,
+.grr-button:focus-visible {
+  color: var(--color-indigo);
+  background: #e0ab4f;
+}
+
+.grr-concept-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  border-color: rgba(243, 239, 230, 0.5);
+  background: transparent;
+  color: var(--color-paper);
+}
+
+.grr-concept-note:hover,
+.grr-concept-note:focus-visible {
+  border-color: var(--color-paper);
+  color: var(--color-paper);
+}
+
+/* The logo is black; invert it so it reads on the indigo band. */
+.grr-concept-note-logo {
+  height: 1.3rem;
+  width: auto;
+  filter: invert(0.95);
+}
+
+.grr-card .grr-disclaimer {
+  margin: 2rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: rgba(243, 239, 230, 0.6);
+}
+
+@media (max-width: 640px) {
+  .grr-card {
+    padding: 2.75rem 1.25rem;
+  }
+
+  .grr-stats {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .grr-stats dt {
+    font-size: 2rem;
+  }
+}
+
 .featured-post-section {
   width: 100vw;
   max-width: 100vw;
