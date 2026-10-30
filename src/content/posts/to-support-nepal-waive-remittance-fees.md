@@ -10,8 +10,6 @@ pdf: /documents/projectsyndicate.pdf
 ---
 *To help Nepal move from rescue and relief toward reconstruction, money-transfer companies and banks ought to waive fees on remittances sent to the country for at least two months. Doing so could provide additional relief totaling several times more than what a recent emergency appeal by the United Nations generated.*
 
-
-
 GENEVA—The flash floods that struck Nepal on August 26 claimed more than a thousand lives and destroyed livelihoods, homes, farms, and public infrastructure. With reconstruction and the economic recovery now underway, support for the survivors can travel fastest through payment networks and family ties—as is usually the case when disasters strike developing countries.
 
 By waiving fees on these remittances for at least two months, money-transfer companies and banks could help Nepal move from rescue and relief toward reconstruction. Struggling Nepali families would receive more than two and a half times the [$49.6 million](https://www.unocha.org/publications/report/nepal/nepal-floods-un-and-partners-launch-496-million-emergency-appeal) that the United Nations is trying to raise through its emergency appeal.
@@ -30,10 +28,8 @@ In addition to being several times greater than the UN’s appeal to raise nearl
 
 The cost borne by money-transfer companies and banks that choose to help Nepalis in their time of need is entirely manageable. In fact, the revenue forgone in the near term by waiving fees could bring new customers, increase transfers through formal channels, and earn lasting goodwill from families rebuilding homes, farms, and livelihoods. After a disaster of this scale, keeping more of every remittance in the hands of Nepali families is the right thing to do—and sound business.
 
-**\*[Ngozi Okonjo-Iweala](https://www.project-syndicate.org/columnist/ngozi-okonjo-iweala)**, a former foreign and finance minister of Nigeria, is Director-General of the World Trade Organization.*
+***[Ngozi Okonjo-Iweala](https://www.project-syndicate.org/columnist/ngozi-okonjo-iweala)**, a former foreign and finance minister of Nigeria, is Director-General of the World Trade Organization.*
 
-**\*[Dilip Ratha](https://www.project-syndicate.org/columnist/dilip-ratha)** is CEO of Ratha Global, an advisory and analytical services firm that specializes in remittances, cross-border payments, diaspora bonds, and development finance.*
-
-
+***[Dilip Ratha](https://www.project-syndicate.org/columnist/dilip-ratha)** is CEO of Ratha Global, an advisory and analytical services firm that specializes in remittances, cross-border payments, diaspora bonds, and development finance.*
 
 *Copyright: Project Syndicate, 2026. [www.project-syndicate.org](https://www.project-syndicate.org)*
