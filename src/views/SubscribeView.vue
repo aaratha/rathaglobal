@@ -2,14 +2,17 @@
 interface Offer {
   product: string
   detail: string
-  // Paid offers show a "Request pricing" button instead of a price.
-  paid: boolean
+  // Individually priced offers show their own "Request pricing" button;
+  // quoteName names the product in the request email's subject line.
+  quoteName?: string
 }
 
 interface Tier {
   name: string
   audience: string
   offers: Offer[]
+  // Bundles are priced as a whole: one "Request pricing" button for the tier.
+  bundle?: boolean
 }
 
 const tiers: Tier[] = [
@@ -17,36 +20,45 @@ const tiers: Tier[] = [
     name: 'Open Access',
     audience: 'Free for everyone*',
     offers: [
-      { product: 'Report', detail: 'Free', paid: false },
-      { product: 'Country time series', detail: 'Free, 2000–2024 only', paid: false },
-      { product: 'Bilateral matrix', detail: 'Not included', paid: false },
-      { product: 'Report & Data Bundle', detail: 'Not included', paid: false },
+      { product: 'Report', detail: 'Summary report†' },
+      { product: 'Country time series', detail: '2000–2024' },
     ],
   },
   {
-    name: 'Professional',
+    name: 'One-Time Purchases',
+    audience: 'Buy individually · November edition',
+    offers: [
+      { product: 'Report', detail: 'Full report', quoteName: 'Full report (one-time purchase)' },
+      {
+        product: 'Country time series',
+        detail: '2000–2025',
+        quoteName: 'Country time series 2000–2025 (one-time purchase)',
+      },
+    ],
+  },
+  {
+    name: 'Professional Bundle',
     audience: '1 named user · November edition',
+    bundle: true,
     offers: [
-      { product: 'Report', detail: 'Summary report†', paid: true },
-      { product: 'Country time series', detail: '2000–2025 only', paid: true },
-      { product: 'Bilateral matrix', detail: 'Not included', paid: false },
-      { product: 'Report & Data Bundle', detail: '', paid: true },
+      { product: 'Report', detail: 'Full report' },
+      { product: 'Country time series', detail: '2000–2025, 2026 estimate, 2027 forecast' },
     ],
   },
   {
-    name: 'Enterprise',
+    name: 'Enterprise Bundle',
     audience: 'Unlimited users · November and May editions',
+    bundle: true,
     offers: [
-      { product: 'Report', detail: 'Full report', paid: true },
-      { product: 'Country time series', detail: '2000–2025, 2026 estimate, 2027 forecast', paid: true },
-      { product: 'Bilateral matrix', detail: '10,600+ corridors', paid: true },
-      { product: 'Report & Data Bundle', detail: '', paid: true },
+      { product: 'Report', detail: 'Full report' },
+      { product: 'Country time series', detail: '2000–2025, 2026 estimate, 2027 forecast' },
+      { product: 'Bilateral matrix', detail: '10,600+ corridors' },
     ],
   },
 ]
 
-function pricingMailto(tier: string, product: string) {
-  const subject = `Global Remittances Report pricing: ${tier} – ${product}`
+function pricingMailto(item: string) {
+  const subject = `Requesting price quote for ${item} – Global Remittances Report`
   return `mailto:contact@rathaglobal.com?subject=${encodeURIComponent(subject)}`
 }
 </script>
@@ -70,16 +82,17 @@ function pricingMailto(tier: string, product: string) {
           <dl class="tier-offers">
             <div v-for="offer in tier.offers" :key="offer.product" class="tier-offer">
               <dt>{{ offer.product }}</dt>
-              <dd v-if="offer.detail" :class="{ 'not-included': offer.detail === 'Not included' }">
-                {{ offer.detail }}
-              </dd>
-              <dd v-if="offer.paid">
-                <a class="request-pricing" :href="pricingMailto(tier.name, offer.product)">
+              <dd>{{ offer.detail }}</dd>
+              <dd v-if="offer.quoteName">
+                <a class="request-pricing" :href="pricingMailto(offer.quoteName)">
                   Request pricing
                 </a>
               </dd>
             </div>
           </dl>
+          <a v-if="tier.bundle" class="request-pricing" :href="pricingMailto(tier.name)">
+            Request pricing
+          </a>
         </article>
       </div>
 
@@ -132,7 +145,7 @@ function pricingMailto(tier: string, product: string) {
 
 .tiers {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.25rem;
 }
 
@@ -184,10 +197,6 @@ function pricingMailto(tier: string, product: string) {
   line-height: 1.5;
 }
 
-.not-included {
-  color: rgba(23, 33, 31, 0.45);
-}
-
 .request-pricing {
   display: inline-block;
   margin-top: 0.4rem;
@@ -222,7 +231,13 @@ function pricingMailto(tier: string, product: string) {
   font-size: 0.82rem;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
+  .tiers {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
   .tiers {
     grid-template-columns: 1fr;
   }
