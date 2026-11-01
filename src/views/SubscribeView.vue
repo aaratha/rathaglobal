@@ -1,59 +1,48 @@
 <script setup lang="ts">
-interface Offer {
-  product: string
-  detail: string
-  // Individually priced offers show their own "Request pricing" button;
-  // quoteName names the product in the request email's subject line.
-  quoteName?: string
-}
-
-interface Tier {
+interface Column {
   name: string
   audience: string
-  offers: Offer[]
+  // One entry per row in featureRows, aligned by index. '—' means not included.
+  features: string[]
   // Bundles are priced as a whole: one "Request pricing" button for the tier.
-  bundle?: boolean
+  // Open Access has none (it's free).
+  requestPricingName?: string
 }
 
-const tiers: Tier[] = [
+const featureRows = ['Report', 'Country time series', 'Bilateral matrix']
+
+const columns: Column[] = [
   {
     name: 'Open Access',
     audience: 'Free for everyone*',
-    offers: [
-      { product: 'Report', detail: 'Summary report†' },
-      { product: 'Country time series', detail: '2000–2024' },
-    ],
+    features: ['Summary report†', '2000–2024', '—'],
   },
   {
-    name: 'One-Time Purchases',
-    audience: 'Buy individually · November edition',
-    offers: [
-      { product: 'Report', detail: 'Full report', quoteName: 'Full report (one-time purchase)' },
-      {
-        product: 'Country time series',
-        detail: '2000–2025',
-        quoteName: 'Country time series 2000–2025 (one-time purchase)',
-      },
-    ],
-  },
-  {
-    name: 'Professional Bundle',
+    name: 'Professional',
     audience: '1 named user · November edition',
-    bundle: true,
-    offers: [
-      { product: 'Report', detail: 'Full report' },
-      { product: 'Country time series', detail: '2000–2025, 2026 estimate, 2027 forecast' },
-    ],
+    features: ['Full report', '2000–2025, 2026 estimate, 2027 forecast', '—'],
+    requestPricingName: 'Professional Bundle',
   },
   {
-    name: 'Enterprise Bundle',
+    name: 'Enterprise',
     audience: 'Unlimited users · November and May editions',
-    bundle: true,
-    offers: [
-      { product: 'Report', detail: 'Full report' },
-      { product: 'Country time series', detail: '2000–2025, 2026 estimate, 2027 forecast' },
-      { product: 'Bilateral matrix', detail: '10,600+ corridors' },
-    ],
+    features: ['Full report', '2000–2025, 2026 estimate, 2027 forecast', '10,600+ corridors'],
+    requestPricingName: 'Enterprise Bundle',
+  },
+]
+
+interface OneTimePurchase {
+  label: string
+  detail: string
+  quoteName: string
+}
+
+const oneTimePurchases: OneTimePurchase[] = [
+  { label: 'Report', detail: 'Full report', quoteName: 'Full report (one-time purchase)' },
+  {
+    label: 'Country time series',
+    detail: '2000–2025',
+    quoteName: 'Country time series 2000–2025 (one-time purchase)',
   },
 ]
 
@@ -66,7 +55,11 @@ function pricingMailto(item: string) {
 <template>
   <main class="page-content">
     <section class="subscribe-intro" aria-labelledby="subscribe-title">
-      <p class="eyebrow">First edition · November 2026</p>
+      <p class="eyebrow">
+        First edition
+        <span class="eyebrow-divider">&middot;</span>
+        November 2026
+      </p>
       <h1 id="subscribe-title">Subscribe to the Global Remittances Report &amp; Database</h1>
       <p>
         Access to the November 2026 and May 2027 editions of the report, the country time series
@@ -75,25 +68,52 @@ function pricingMailto(item: string) {
     </section>
 
     <section class="tiers-section" aria-label="Access tiers">
-      <div class="tiers">
-        <article v-for="tier in tiers" :key="tier.name" class="tier">
-          <h2 class="tier-name">{{ tier.name }}</h2>
-          <p class="tier-audience">{{ tier.audience }}</p>
-          <dl class="tier-offers">
-            <div v-for="offer in tier.offers" :key="offer.product" class="tier-offer">
-              <dt>{{ offer.product }}</dt>
-              <dd>{{ offer.detail }}</dd>
-              <dd v-if="offer.quoteName">
-                <a class="request-pricing" :href="pricingMailto(offer.quoteName)">
-                  Request pricing
-                </a>
-              </dd>
-            </div>
-          </dl>
-          <a v-if="tier.bundle" class="request-pricing" :href="pricingMailto(tier.name)">
-            Request pricing
-          </a>
-        </article>
+      <div class="feature-chart-wrap">
+        <table class="feature-chart">
+          <thead>
+            <tr>
+              <th scope="col" />
+              <th v-for="column in columns" :key="column.name" scope="col">
+                <span class="tier-name">{{ column.name }}</span>
+                <span class="tier-audience">{{ column.audience }}</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(row, i) in featureRows" :key="row">
+              <th scope="row">{{ row }}</th>
+              <td v-for="column in columns" :key="column.name">{{ column.features[i] }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td />
+              <td v-for="column in columns" :key="column.name">
+                <a
+                  v-if="column.requestPricingName"
+                  class="button request-pricing"
+                  :href="pricingMailto(column.requestPricingName)"
+                >Request pricing</a>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div class="one-time-note">
+        <p class="one-time-note-label">
+          Prefer to buy once?
+          <span class="eyebrow-divider">&middot;</span>
+          November edition
+        </p>
+        <div class="one-time-buttons">
+          <a
+            v-for="item in oneTimePurchases"
+            :key="item.label"
+            class="button request-pricing"
+            :href="pricingMailto(item.quoteName)"
+          >{{ item.label }} ({{ item.detail }})</a>
+        </div>
       </div>
 
       <div class="tier-notes">
@@ -127,7 +147,7 @@ function pricingMailto(item: string) {
 }
 
 #subscribe-title {
-  font-size: 2.4rem;
+  font-size: 2.6rem;
   line-height: 1.2;
 }
 
@@ -143,75 +163,115 @@ function pricingMailto(item: string) {
   padding-top: 0.5rem;
 }
 
-.tiers {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem;
+.feature-chart-wrap {
+  overflow-x: auto;
 }
 
-.tier {
-  padding: 1.75rem 1.5rem;
+.feature-chart {
+  width: 100%;
+  min-width: 36rem;
+  border-collapse: collapse;
   background: rgba(36, 59, 83, 0.05);
-  border-top: 3px solid var(--color-brass);
 }
 
-.tier:last-child {
-  border-top-color: var(--color-terracotta);
+.feature-chart th,
+.feature-chart td {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 400;
 }
 
-/* Tier names are card headings, not section headings - no underline. */
-.tier-name {
-  display: block;
-  padding-bottom: 0;
-  margin-bottom: 0.25rem;
-  font-size: 1.5rem;
+.feature-chart thead th {
+  padding-bottom: 1.25rem;
+  border-bottom: 2px solid var(--color-brass);
 }
 
-.tier-name::after {
-  display: none;
-}
-
-.tier .tier-audience {
-  margin: 0 0 1.25rem;
-  color: var(--color-moss);
-  font-size: 0.92rem;
-  line-height: 1.5;
-}
-
-.tier-offers {
-  margin: 0;
-}
-
-.tier-offer {
-  padding: 0.9rem 0;
+.feature-chart tbody tr,
+.feature-chart tfoot tr {
   border-top: 1px solid rgba(168, 137, 88, 0.35);
 }
 
-.tier-offer dt {
+.feature-chart tbody th {
   font-weight: 700;
   color: var(--color-indigo);
 }
 
-.tier-offer dd {
-  margin: 0.2rem 0 0;
-  line-height: 1.5;
+/* The row-label column (feature names, top-left corner) isn't a tier - keep
+   it narrow and let the three tier columns share the rest evenly. */
+.feature-chart th:first-child,
+.feature-chart td:first-child {
+  width: 11rem;
+}
+
+.feature-chart .tier-name {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--color-indigo);
+}
+
+.feature-chart .tier-audience {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--color-ink);
+}
+
+/* Enterprise (the last column) is the premium tier - give it the same
+   terracotta accent the old card design used to flag the top tier. */
+.feature-chart tr > :last-child {
+  background: rgba(184, 92, 69, 0.07);
+}
+
+.feature-chart thead tr > :last-child {
+  border-bottom-color: var(--color-terracotta);
+}
+
+.feature-chart tfoot td {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.one-time-note {
+  margin-top: 1.75rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(168, 137, 88, 0.35);
+  text-align: center;
+}
+
+.one-time-note-label {
+  margin: 0 0 0.9rem;
+  color: var(--color-moss);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.85rem;
+}
+
+.one-time-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .request-pricing {
-  display: inline-block;
-  margin-top: 0.4rem;
-  padding: 0.3rem 0.8rem;
-  border: 1px solid var(--color-terracotta);
-  color: var(--color-terracotta);
-  font-size: 0.88rem;
-  text-decoration: none;
-  transition: background 0.2s ease, color 0.2s ease;
+  margin-top: 0.6rem;
+  border-color: var(--color-terracotta);
+  background: var(--color-terracotta);
+  color: var(--color-paper);
+  font-weight: 700;
+}
+
+.one-time-buttons .request-pricing {
+  margin-top: 0;
 }
 
 .request-pricing:hover,
 .request-pricing:focus-visible {
-  background: var(--color-terracotta);
   color: var(--color-paper);
+  background: #a24e38;
 }
 
 .tier-notes {
@@ -227,25 +287,13 @@ function pricingMailto(item: string) {
 
 .tier-notes .tier-disclaimer {
   margin-top: 1.25rem;
-  color: var(--color-moss);
-  font-size: 0.82rem;
-}
-
-@media (max-width: 1200px) {
-  .tiers {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 700px) {
-  .tiers {
-    grid-template-columns: 1fr;
-  }
+  color: var(--color-brass);
+  font-size: 0.95rem;
 }
 
 @media (max-width: 640px) {
   #subscribe-title {
-    font-size: 1.9rem;
+    font-size: 2rem;
   }
 }
 </style>
