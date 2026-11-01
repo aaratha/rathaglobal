@@ -256,10 +256,19 @@ function updateHeadingHighlights() {
   const centerY = viewportHeight / 2
   const headings = Array.from(document.querySelectorAll<HTMLElement>('.page-content section h2'))
 
+  // Headings sharing a `data-heading-group` (e.g. side-by-side cards whose
+  // titles don't happen to land at the same pixel row) are grouped
+  // explicitly, regardless of position; everything else still falls back to
+  // the same-row proximity check.
   const groups: HTMLElement[][] = []
   headings.forEach((h2) => {
+    const groupKey = h2.dataset.headingGroup
     const top = h2.getBoundingClientRect().top
-    const group = groups.find((g) => Math.abs(g[0]!.getBoundingClientRect().top - top) < 4)
+    const group = groups.find((g) => {
+      const gKey = g[0]!.dataset.headingGroup
+      if (groupKey && gKey && groupKey === gKey) return true
+      return Math.abs(g[0]!.getBoundingClientRect().top - top) < 4
+    })
     if (group) group.push(h2)
     else groups.push([h2])
   })
@@ -267,8 +276,10 @@ function updateHeadingHighlights() {
   let closestGroup: HTMLElement[] | null = null
   let closestDistance = Infinity
   groups.forEach((group) => {
-    const rect = group[0]!.getBoundingClientRect()
-    const distance = Math.abs(rect.top + rect.height / 2 - centerY)
+    const rects = group.map((h2) => h2.getBoundingClientRect())
+    const top = Math.min(...rects.map((r) => r.top))
+    const bottom = Math.max(...rects.map((r) => r.bottom))
+    const distance = Math.abs((top + bottom) / 2 - centerY)
     if (distance < closestDistance) {
       closestDistance = distance
       closestGroup = group
@@ -612,13 +623,6 @@ section h2::after {
 
 section h2.heading-centered::after {
   width: 100%;
-}
-
-/* Featured post heading sits in its own unique card layout, not a regular
-   section heading - grow to double the resting width instead of the full
-   100% every other heading expands to. */
-#featured-post-title.heading-centered::after {
-  width: 6rem;
 }
 
 @media (prefers-reduced-motion: reduce) {

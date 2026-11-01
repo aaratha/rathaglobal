@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
+import GrrSection from '../components/grr-section.vue'
 
 const heroEl = ref<HTMLElement | null>(null)
 const heroBgEl = ref<HTMLElement | null>(null)
@@ -102,86 +103,29 @@ const featuredPostDate = featuredPostData.date
       </div>
     </section>
 
-    <section id="grr" class="grr-section" aria-labelledby="grr-title">
-      <div class="grr-card">
-        <p class="eyebrow grr-eyebrow">
-          Coming November 2026
-          <span class="eyebrow-divider">&middot;</span>
-          First edition
-        </p>
-        <h2 id="grr-title">Global Remittances Report &amp; Database</h2>
-        <p class="grr-lede">
-          An independent, authoritative account of remittance flows worldwide, published every
-          May and November: the latest estimates for every country, a nowcast for 2026 and a
-          forecast for 2027.
-        </p>
+    <section class="highlights-section" aria-label="Highlights">
+      <div class="highlights-grid">
+        <GrrSection />
 
-        <dl class="grr-stats">
-          <div>
-            <dt>~200</dt>
-            <dd>countries, inward and outward flows</dd>
-          </div>
-          <div>
-            <dt>2000&ndash;2027</dt>
-            <dd>annual series, with a 2026 nowcast and 2027 forecast</dd>
-          </div>
-          <div>
-            <dt>10,600+</dt>
-            <dd>corridors in the bilateral remittance matrix</dd>
-          </div>
-        </dl>
-
-        <p class="grr-author">
-          Led by Dilip Ratha, who compiled the first global tally of remittances and created the
-          bilateral remittance matrix.
-        </p>
-
-        <ul class="grr-calendar">
-          <li><strong>November 2026:</strong> report and country data</li>
-          <li><strong>December 2026:</strong> bilateral remittance matrix</li>
-        </ul>
-
-        <div class="grr-actions">
-          <RouterLink class="button grr-button" to="/subscribe">Subscribe</RouterLink>
-          <a
-            class="button grr-concept-note"
-            href="/documents/grr-concept-note.pdf"
-            target="_blank"
-            rel="noopener"
-          >
-            <img class="grr-concept-note-logo" src="/ratha_global_new_no_border.png" alt="">
-            Concept note
-          </a>
-        </div>
-
-        <p class="grr-disclaimer">
-          Ratha Global is an independent firm. The Global Remittances Report is not affiliated
-          with or endorsed by the World Bank or KNOMAD.
-        </p>
-      </div>
-    </section>
-
-    <RouterLink
-      :to="`/blog/${featuredPostSlug}`"
-      class="card-link featured-post"
-      aria-labelledby="featured-post-title"
-    >
-      <section class="featured-post-section">
-        <div class="featured-post-card">
+        <RouterLink
+          :to="`/blog/${featuredPostSlug}`"
+          class="card-link featured-post-card"
+          aria-labelledby="featured-post-title"
+        >
           <p class="eyebrow">
             Opinion
             <span v-if="featuredPostDate" class="eyebrow-divider">&middot;</span>
             {{ featuredPostDate }}
           </p>
-          <h2 id="featured-post-title">{{ featuredPostData.title }}</h2>
+          <h2 id="featured-post-title" data-heading-group="highlights">{{ featuredPostData.title }}</h2>
           <p class="featured-post-description">{{ featuredPostData.description }}</p>
           <p v-if="featuredPostData.contributors" class="featured-post-contributors">
             By {{ featuredPostData.contributors }}
           </p>
           <span class="featured-post-cta">Read &rarr;</span>
-        </div>
-      </section>
-    </RouterLink>
+        </RouterLink>
+      </div>
+    </section>
 
     <section class="split-section">
      <div class="split-column">
@@ -371,172 +315,80 @@ const featuredPostDate = featuredPostData.date
 </template>
 
 <style scoped>
-.grr-section {
-  width: 100vw;
-  max-width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  padding: 0;
-}
-
-.grr-card {
+.highlights-section {
   position: relative;
   z-index: 1;
-  padding: 3.25rem 10% 3rem 20%;
-  background: var(--color-indigo);
-  color: var(--color-paper);
-}
-
-.grr-card .grr-eyebrow {
-  margin: 0 0 0.75rem;
-  color: var(--color-saffron);
-  font-weight: 700;
-}
-
-.grr-card .eyebrow-divider {
-  color: rgba(211, 154, 58, 0.5);
-}
-
-.grr-card h2 {
-  color: var(--color-paper);
-}
-
-.grr-card h2::after {
-  background: var(--color-saffron);
-}
-
-.grr-card p {
-  color: rgba(243, 239, 230, 0.88);
-}
-
-.grr-lede {
-  max-width: 44rem;
-}
-
-.grr-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  margin: 2.25rem 0;
-  padding: 1.75rem 0;
-  border-top: 1px solid rgba(243, 239, 230, 0.2);
-  border-bottom: 1px solid rgba(243, 239, 230, 0.2);
-}
-
-.grr-stats dt {
-  font-family: var(--font-serif);
-  font-size: 2.4rem;
-  line-height: 1.1;
-  color: var(--color-saffron);
-}
-
-.grr-stats dd {
-  margin: 0.4rem 0 0;
-  line-height: 1.5;
-  color: rgba(243, 239, 230, 0.88);
-}
-
-.grr-calendar {
-  list-style: none;
-  padding-left: 0;
-  margin: 1.25rem 0 2rem;
-  color: rgba(243, 239, 230, 0.88);
-}
-
-.grr-calendar strong {
-  color: var(--color-paper);
-}
-
-.grr-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem 1.5rem;
-}
-
-.grr-button {
-  border-color: var(--color-saffron);
-  background: var(--color-saffron);
-  color: var(--color-indigo);
-  font-weight: 700;
-}
-
-.grr-button:hover,
-.grr-button:focus-visible {
-  color: var(--color-indigo);
-  background: #e0ab4f;
-}
-
-.grr-concept-note {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  border-color: rgba(243, 239, 230, 0.5);
-  background: transparent;
-  color: var(--color-paper);
-}
-
-.grr-concept-note:hover,
-.grr-concept-note:focus-visible {
-  border-color: var(--color-paper);
-  color: var(--color-paper);
-}
-
-/* The logo is black; invert it so it reads on the indigo band. */
-.grr-concept-note-logo {
-  height: 1.3rem;
-  width: auto;
-  filter: invert(0.95);
-}
-
-.grr-card .grr-disclaimer {
-  margin: 2rem 0 0;
-  font-size: 0.82rem;
-  line-height: 1.5;
-  color: rgba(243, 239, 230, 0.6);
-}
-
-@media (max-width: 640px) {
-  .grr-card {
-    padding: 2.75rem 1.25rem;
-  }
-
-  .grr-stats {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-
-  .grr-stats dt {
-    font-size: 2rem;
-  }
-}
-
-.featured-post-section {
   width: 100vw;
   max-width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
   padding: 0;
+  /* Opaque (not the usual translucent indigo wash) so it fully covers the
+     growth vine passing behind it, instead of just tinting it - letting the
+     section use the space the vine would otherwise need as a gutter. */
+  background: #e9e6df;
+  border-bottom: 2px solid var(--color-moss);
+  /* The outer (viewport-edge-facing) inset for both cards. Padding lives on
+     the cards themselves, not this grid, so each card's own box - and so
+     its hover highlight and divider border - reaches the section's true
+     edges instead of stopping at an outer wrapper's padding. Only one step
+     up from here (at 1440px) so the value changes monotonically with width
+     instead of dipping in between two separate breakpoints. */
+  --highlights-inset: 5vw;
+}
+
+@media (min-width: 1440px) {
+  .highlights-section {
+    --highlights-inset: 6vw;
+  }
+}
+
+.highlights-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: stretch;
+}
+
+.highlights-grid :deep(.grr-card) {
+  order: 1;
+  padding: 3.75rem calc(var(--highlights-inset) + 1.75rem);
 }
 
 .featured-post-card {
-  padding: 2.75rem 10% 2.75rem 20%;
-  background: rgba(36, 59, 83, 0.05);
+  display: flex;
+  flex-direction: column;
+  order: 2;
+  padding: 3.75rem calc(var(--highlights-inset) + 1.75rem);
   transition: background 0.3s ease;
 }
 
-.featured-post:hover .featured-post-card,
-.featured-post:focus-visible .featured-post-card {
+@media (min-width: 1025px) {
+  .highlights-grid :deep(.grr-card) {
+    padding-right: 2.5rem;
+  }
+
+  .featured-post-card {
+    padding-left: 2.5rem;
+    /* Pulled 1px into the GRR card (instead of just abutting it) so a
+       sub-pixel rounding gap between the two auto-sized grid items can
+       never leave a hairline sliver of undarkened background showing when
+       GRR, not this card, is the one being hovered. */
+    margin-left: -1px;
+    border-left: 1px solid rgba(168, 137, 88, 0.35);
+  }
+}
+
+.featured-post-card:hover,
+.featured-post-card:focus-visible {
   background: rgba(36, 59, 83, 0.12);
 }
 
 .featured-post-card h2 {
+  align-self: flex-start;
   margin-bottom: 0.4rem;
 }
 
-.featured-post-description,
-.featured-post:hover .featured-post-description,
-.featured-post:focus-visible .featured-post-description {
+.featured-post-description {
   margin-top: 0.4rem;
   margin-bottom: 0;
   color: var(--color-ink);
@@ -548,18 +400,30 @@ const featuredPostDate = featuredPostData.date
   font-style: italic;
 }
 
-.featured-post-contributors + .featured-post-cta {
-  margin-top: 2rem;
-}
-
 .featured-post-cta {
   display: inline-block;
+  margin-top: auto;
+  padding-top: 2rem;
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.featured-post:hover .featured-post-cta,
-.featured-post:focus-visible .featured-post-cta {
+.featured-post-card:hover .featured-post-cta,
+.featured-post-card:focus-visible .featured-post-cta {
   transform: translateX(6px);
+}
+
+@media (max-width: 1024px) {
+  .highlights-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-post-card {
+    /* See the matching comment on the desktop border-left: pulls the
+       divider up into GRR's box so no sub-pixel gap can show through. */
+    margin-top: -1px;
+    border-top: 1px solid rgba(168, 137, 88, 0.35);
+    padding-top: 1.5rem;
+  }
 }
 
 .help-layout {
@@ -703,10 +567,6 @@ const featuredPostDate = featuredPostData.date
     max-width: 260px;
     margin: 0 auto;
   }
-
-  .featured-post-card {
-    padding: 2.75rem 1.25rem;
-  }
 }
 
 .split-section {
@@ -714,8 +574,6 @@ const featuredPostDate = featuredPostData.date
   justify-content: space-between;
   gap: 2rem;
   flex-wrap: wrap;
-  padding-top: 4.5rem;
-  border-top: 1px solid rgba(168, 137, 88, 0.35);
 }
 
 .split-column {

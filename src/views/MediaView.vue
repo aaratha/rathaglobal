@@ -1,18 +1,39 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
-import { mediaItems } from '../content/media'
+import { parseFrontmatter } from '../content/parseFrontmatter'
 
-const items = [...mediaItems]
-  .sort((a, b) => b.date.localeCompare(a.date))
-  .map((item) => ({
-    ...item,
-    internal: item.url.startsWith('/'),
-    displayDate: new Date(`${item.date}T00:00:00`).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
+const rawMediaItems = import.meta.glob('../content/media/*.md', {
+  eager: true,
+  query: '?raw',
+  import: 'default',
+}) as Record<string, string>
+
+const items = computed(() =>
+  Object.values(rawMediaItems)
+    .map((raw) => parseFrontmatter(raw).data)
+    .sort((a, b) => String(b.date ?? '').localeCompare(String(a.date ?? '')))
+    .map((item) => {
+      const date = String(item.date ?? '')
+      const url = String(item.url ?? '')
+      return {
+        outlet: item.outlet,
+        title: item.title,
+        description: item.description,
+        cta: item.cta,
+        url,
+        thumbnail: item.thumbnail,
+        internal: url.startsWith('/'),
+        displayDate: date
+          ? new Date(`${date}T00:00:00`).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })
+          : '',
+      }
     }),
-  }))
+)
 </script>
 
 <template>
@@ -32,15 +53,25 @@ const items = [...mediaItems]
               ? { to: item.url }
               : { href: item.url, target: '_blank', rel: 'noopener' }"
             class="card-link media-entry"
+            :class="{ 'has-thumbnail': item.thumbnail }"
           >
-            <p class="eyebrow">
-              <span class="media-outlet">{{ item.outlet }}</span>
-              <span class="eyebrow-divider">&middot;</span>
-              {{ item.displayDate }}
-            </p>
-            <h2 v-if="item.title" class="media-title">{{ item.title }}</h2>
-            <p v-if="item.description" class="media-description">{{ item.description }}</p>
-            <span class="media-cta">{{ item.cta }}&nbsp;&rarr;</span>
+            <img
+              v-if="item.thumbnail"
+              class="media-thumbnail"
+              :src="item.thumbnail"
+              alt=""
+              loading="lazy"
+            >
+            <div class="media-body">
+              <p class="eyebrow">
+                <span class="media-outlet">{{ item.outlet }}</span>
+                <span class="eyebrow-divider">&middot;</span>
+                {{ item.displayDate }}
+              </p>
+              <h2 v-if="item.title" class="media-title">{{ item.title }}</h2>
+              <p v-if="item.description" class="media-description">{{ item.description }}</p>
+              <span class="media-cta">{{ item.cta }}&nbsp;&rarr;</span>
+            </div>
           </component>
         </li>
       </ul>
@@ -82,9 +113,30 @@ li + li {
 }
 
 .media-entry {
+  display: block;
   padding: 1.75rem;
   background: rgba(36, 59, 83, 0.05);
   transition: background 0.3s ease;
+}
+
+.media-entry.has-thumbnail {
+  display: flex;
+  align-items: stretch;
+  gap: 1.5rem;
+}
+
+.media-thumbnail {
+  flex-shrink: 0;
+  align-self: stretch;
+  width: 8.5rem;
+  min-height: 8.5rem;
+  max-height: 14rem;
+  object-fit: cover;
+  background: rgba(36, 59, 83, 0.08);
+}
+
+.media-body {
+  min-width: 0;
 }
 
 .media-entry:hover,
@@ -133,6 +185,16 @@ li + li {
 @media (max-width: 640px) {
   .media-entry {
     padding: 1.5rem 1.25rem;
+  }
+
+  .media-entry.has-thumbnail {
+    gap: 1rem;
+  }
+
+  .media-thumbnail {
+    width: 5rem;
+    min-height: 5rem;
+    max-height: 9rem;
   }
 
   .media-title {
