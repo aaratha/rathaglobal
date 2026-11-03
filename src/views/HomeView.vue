@@ -60,14 +60,16 @@ function parseFrontmatter(raw: string): Record<string, string> {
     const i = line.indexOf(':')
     if (i < 1) continue
     const key = line.slice(0, i).trim()
-    const value = line.slice(i + 1).trim().replace(/^['"]|['"]$/g, '')
+    const value = line
+      .slice(i + 1)
+      .trim()
+      .replace(/^['"]|['"]$/g, '')
     if (key) data[key] = value
   }
   return data
 }
 
-const featuredPostSlug =
-  'to-support-nepal-waive-remittance-fees'
+const featuredPostSlug = 'to-support-nepal-waive-remittance-fees'
 const featuredPostRaw = import.meta.glob('../content/posts/*.md', {
   eager: true,
   query: '?raw',
@@ -87,7 +89,6 @@ const featuredPostDate = featuredPostData.date
 
 <template>
   <main class="page-content">
-
     <section ref="heroEl" class="hero" aria-labelledby="hero-title">
       <div ref="heroBgEl" class="hero-bg" />
       <div class="hero-gradient" />
@@ -97,7 +98,8 @@ const featuredPostDate = featuredPostData.date
         </div>
         <div class="hero-box hero-box-text">
           <p>
-            Ratha Global supports public and private sector clients on Remittances, Diaspora Finances, Credit Enhancement, and Innovative Capital Solutions
+            Ratha Global supports public and private sector clients on Remittances, Diaspora
+            Finances, Credit Enhancement, and Innovative Capital Solutions
           </p>
         </div>
       </div>
@@ -117,7 +119,9 @@ const featuredPostDate = featuredPostData.date
             <span v-if="featuredPostDate" class="eyebrow-divider">&middot;</span>
             {{ featuredPostDate }}
           </p>
-          <h2 id="featured-post-title" data-heading-group="highlights">{{ featuredPostData.title }}</h2>
+          <h2 id="featured-post-title" data-heading-group="highlights">
+            {{ featuredPostData.title }}
+          </h2>
           <p class="featured-post-description">{{ featuredPostData.description }}</p>
           <p v-if="featuredPostData.contributors" class="featured-post-contributors">
             By {{ featuredPostData.contributors }}
@@ -127,15 +131,56 @@ const featuredPostDate = featuredPostData.date
       </div>
     </section>
 
+    <!-- Partnered-with section: holding off until there are more confirmed
+         partners to show.
+    <section class="partners-section" aria-label="Partnered with">
+      <div class="partners-panel">
+        <div class="partners-row">
+          <p class="partners-label">Partnered with</p>
+          <a
+            class="partner-link"
+            href="https://crosstechpayments.com"
+            target="_blank"
+            rel="noopener"
+          >
+            <img class="partner-logo" src="/crosstech-logo.png" alt="CrossTech" />
+          </a>
+          <a
+            class="partner-link partner-link-wordmark"
+            href="https://nexteraglobal.io"
+            target="_blank"
+            rel="noopener"
+            >NEXTERA</a
+          >
+        </div>
+      </div>
+    </section>
+    -->
+
     <section class="split-section">
-     <div class="split-column">
+      <div class="split-column">
         <h2>SERVICES</h2>
         <p>Strategic, advisory, analytic, growth and partnership services on:</p>
         <ul>
-          <li>Remittances, Payments, and Fintechs</li>
-          <li>Diaspora Finances</li>
+          <li>
+            <RouterLink to="/solutions/remittances">
+              Remittances, Payments, and Fintechs
+              <span class="split-link-arrow" aria-hidden="true">&rarr;</span>
+            </RouterLink>
+          </li>
+          <li>
+            <RouterLink to="/solutions/diaspora-finance">
+              Diaspora Finances
+              <span class="split-link-arrow" aria-hidden="true">&rarr;</span>
+            </RouterLink>
+          </li>
+          <li>
+            <RouterLink to="/solutions/structured-finance">
+              Structured Finance & Guarantees
+              <span class="split-link-arrow" aria-hidden="true">&rarr;</span>
+            </RouterLink>
+          </li>
           <li>Credit Ratings</li>
-          <li>Structured Finance & Guarantees</li>
           <li>Migration, Diasporas & Development</li>
         </ul>
       </div>
@@ -147,25 +192,46 @@ const featuredPostDate = featuredPostData.date
           <li>Commercial banks, investment banks, and credit cooperatives</li>
           <li>Remittance and payments industry</li>
           <li>Investors</li>
-          <li>Multilateral development banks and financial institutions </li>
+          <li>Multilateral development banks and financial institutions</li>
           <li>UN agencies and international organizations</li>
         </ul>
       </div>
-     </section>
+    </section>
 
     <section>
       <h2>HOW WE CAN HELP</h2>
       <div class="help-layout">
         <ul class="help-bullets">
-          <li><strong>Facilitation of remittances and payments:</strong> data and analytics, Global Remittances Report and databases, supporting the remittances and payments industry</li>
-          <li><strong>Capital market access, stronger credit profiles, and credit enhancement:</strong> diaspora bonds, future-flow securitization and guarantees, blended finance, and co-funding; leveraging predictable cash flows such as remittances; where, when and how to issue, register and list bonds</li>
-          <li><strong>Sovereign ratings:</strong> models to estimate shadow sovereign ratings where none exist or are outdated</li>
-          <li><strong>Partnerships:</strong> a global network of central banks, money transfer operators, investors and fintechs</li>
+          <li>
+            <strong>Facilitation of remittances and payments:</strong> data and analytics, Global
+            Remittances Report and databases, supporting the remittances and payments industry
+          </li>
+          <li>
+            <strong
+              >Capital market access, stronger credit profiles, and credit enhancement:</strong
+            >
+            diaspora bonds, future-flow securitization and guarantees, blended finance, and
+            co-funding; leveraging predictable cash flows such as remittances; where, when and how
+            to issue, register and list bonds
+          </li>
+          <li>
+            <strong>Sovereign ratings:</strong> models to estimate shadow sovereign ratings where
+            none exist or are outdated
+          </li>
+          <li>
+            <strong>Partnerships:</strong> a global network of central banks, money transfer
+            operators, investors and fintechs
+          </li>
         </ul>
         <div class="help-featured">
           <h3>Data and analytics</h3>
-          <p>We provide authoritative datasets on remittance flows and diaspora savings, including time-series and bilateral data for 200 countries. We also produce Global Finance Factsheets for all countries, and prepare reports, projections, and policy briefs tailored to clients&rsquo; needs.</p>
-          <img class="help-featured-graph" src="/rg_graph.png" alt="">
+          <p>
+            We provide authoritative datasets on remittance flows and diaspora savings, including
+            time-series and bilateral data for 200 countries. We also produce Global Finance
+            Factsheets for all countries, and prepare reports, projections, and policy briefs
+            tailored to clients&rsquo; needs.
+          </p>
+          <img class="help-featured-graph" src="/rg_graph.png" alt="" />
         </div>
       </div>
     </section>
@@ -176,48 +242,53 @@ const featuredPostDate = featuredPostData.date
         <div class="who-we-are-text">
           <p>
             <!-- Ratha Global is a global development finance advisory and research firm dedicated to mobilizing finance for emerging and developing economies. We combine original research, authoritative global data, deep market experience, and a worldwide network to develop innovative financing solutions and partnerships for governments, financial institutions, development agencies, investors, and fintech companies. -->
-            Ratha Global is an advisory and research firm dedicated to mobilizing financing for emerging and developing economies. We combine original research, authoritative data, deep market experience and a worldwide network to design innovative financing solutions and build effective partnerships.
+            Ratha Global is an advisory and research firm dedicated to mobilizing financing for
+            emerging and developing economies. We combine original research, authoritative data,
+            deep market experience and a worldwide network to design innovative financing solutions
+            and build effective partnerships.
           </p>
 
           <p>
-            Ratha Global builds on the pioneering work of its founder, <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/dilipratha/">Dilip Ratha</a>,
-            whose career spans more than three decades in the World Bank, MIGA,
-            investment banking, and academia. He helped mainstream remittances in
-            the global development agenda. He pioneered the implementation of
-            diaspora bonds and advocated future-flow securitization as a
-            market-based approach to mobilizing capital when conventional market
-            access is constrained, and was among the first to systematically estimate
-            South-South flows of foreign direct investment, remittances, and
-            migration. Recognizing the role credit ratings play in capital market
-            access, he has also built models to predict sovereign ratings for
-            countries that lack them or have outdated ones. He draws on his extensive
-            research on bond spreads to guide issuers where, when, and how to issue,
+            Ratha Global builds on the pioneering work of its founder,
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://www.linkedin.com/in/dilipratha/"
+              >Dilip Ratha</a
+            >, whose career spans more than three decades in the World Bank, MIGA, investment
+            banking, and academia. He helped mainstream remittances in the global development
+            agenda. He pioneered the implementation of diaspora bonds and advocated future-flow
+            securitization as a market-based approach to mobilizing capital when conventional market
+            access is constrained, and was among the first to systematically estimate South-South
+            flows of foreign direct investment, remittances, and migration. Recognizing the role
+            credit ratings play in capital market access, he has also built models to predict
+            sovereign ratings for countries that lack them or have outdated ones. He draws on his
+            extensive research on bond spreads to guide issuers where, when, and how to issue,
             register and list bonds.
           </p>
 
           <p>
-            Building on this foundation, Ratha Global advises clients on
-            remittances, diaspora bonds, structured finance, and guarantees. The firm
-            maintains authoritative datasets on remittance flows and diaspora
-            savings, including time-series and bilateral remittance data covering
-            some 200 countries, helping clients leverage predictable cash flows,
-            strengthen credit profiles, mitigate risk, and connect development
-            priorities with the requirements of international capital markets.
+            Building on this foundation, Ratha Global advises clients on remittances, diaspora
+            bonds, structured finance, and guarantees. The firm maintains authoritative datasets on
+            remittance flows and diaspora savings, including time-series and bilateral remittance
+            data covering some 200 countries, helping clients leverage predictable cash flows,
+            strengthen credit profiles, mitigate risk, and connect development priorities with the
+            requirements of international capital markets.
           </p>
 
           <p>
-            Ratha Global draws on an extensive global network of policymakers,
-            central banks, money transfer operators, investment bankers, investors,
-            development practitioners, and fintech innovators to bridge development
-            policy and private finance, turning knowledge and innovative ideas into
-            actionable financing and development solutions and international partnerships.
+            Ratha Global draws on an extensive global network of policymakers, central banks, money
+            transfer operators, investment bankers, investors, development practitioners, and
+            fintech innovators to bridge development policy and private finance, turning knowledge
+            and innovative ideas into actionable financing and development solutions and
+            international partnerships.
           </p>
         </div>
 
         <aside class="who-we-are-sidebar">
           <div class="who-we-are-portrait-wrap">
             <span class="who-we-are-portrait-caption">Founder & CEO Dilip Ratha</span>
-            <img class="who-we-are-portrait" src="/dilip_ratha_portrait.png" alt="Dilip Ratha">
+            <img class="who-we-are-portrait" src="/dilip_ratha_portrait.png" alt="Dilip Ratha" />
           </div>
           <a
             class="who-we-are-press"
@@ -226,12 +297,12 @@ const featuredPostDate = featuredPostData.date
             rel="noopener"
           >
             <span class="who-we-are-press-header">
-              <img class="who-we-are-press-logo" src="/nyt_logo.png" alt="The New York Times">
+              <img class="who-we-are-press-logo" src="/nyt_logo.png" alt="The New York Times" />
               <span class="who-we-are-press-title">World Banker and His Cash Return Home</span>
             </span>
             <span class="who-we-are-press-desc">
-              Jason DeParle's March 2008 profile on his work bringing remittances into
-              the global development agenda.
+              Jason DeParle's March 2008 profile on his work bringing remittances into the global
+              development agenda.
             </span>
           </a>
         </aside>
@@ -247,7 +318,7 @@ const featuredPostDate = featuredPostData.date
           target="_blank"
           rel="noopener"
         >
-          <img class="link-button-thumb" src="/ted_thumb.png" alt="TED">
+          <img class="link-button-thumb" src="/ted_thumb.png" alt="TED" />
           <span>TED Talk on Remittances and Diaspora Bonds</span>
         </a>
         <a
@@ -256,7 +327,7 @@ const featuredPostDate = featuredPostData.date
           target="_blank"
           rel="noopener"
         >
-          <img class="link-button-thumb" src="/miga_link.png" alt="MIGA">
+          <img class="link-button-thumb" src="/miga_link.png" alt="MIGA" />
           <span>Market Finance for Development</span>
         </a>
         <a
@@ -265,7 +336,7 @@ const featuredPostDate = featuredPostData.date
           target="_blank"
           rel="noopener"
         >
-          <img class="link-button-thumb" src="/innovative_financing.png" alt="">
+          <img class="link-button-thumb" src="/innovative_financing.png" alt="" />
           <span>Innovative Financing for Development</span>
         </a>
       </div>
@@ -276,28 +347,33 @@ const featuredPostDate = featuredPostData.date
           target="_blank"
           rel="noopener"
         >
-          <img class="resources-more-icon" src="/scholar_thumb.png" alt="">
+          <img class="resources-more-icon" src="/scholar_thumb.png" alt="" />
           Research and Policy Resources
         </a>
         <RouterLink class="resources-more-cta" to="/blog">
-          <img class="resources-more-icon" src="/ratha_global_new_no_border.png" alt="">
+          <img class="resources-more-icon" src="/ratha_global_new_no_border.png" alt="" />
           Publications
         </RouterLink>
       </div>
     </section>
 
-
     <section id="contact">
       <h2>CONTACT</h2>
       <div class="contact-columns">
         <div class="contact-column">
-          <h3>Book a consultation</h3>
-          <p>Reach out for advisory work on remittances, diaspora bonds, structured finance, and guarantees.</p>
+          <h3>Subscribe to data & reports</h3>
+          <p>
+            Regular and customized data, reports, analysis, projections and strategic briefs from
+            Ratha Global.
+          </p>
         </div>
 
         <div class="contact-column">
-          <h3>Subscribe to data & reports</h3>
-          <p>Regular and customized data, reports, analysis, projections and strategic briefs from Ratha Global.</p>
+          <h3>Book a consultation</h3>
+          <p>
+            Reach out for advisory work on remittances, diaspora bonds, structured finance, and
+            guarantees.
+          </p>
         </div>
 
         <div class="contact-column">
@@ -355,11 +431,15 @@ const featuredPostDate = featuredPostData.date
 }
 
 .featured-post-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   order: 2;
   padding: 3.75rem calc(var(--highlights-inset) + 1.75rem);
-  transition: background 0.3s ease;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 @media (min-width: 1025px) {
@@ -380,7 +460,12 @@ const featuredPostDate = featuredPostData.date
 
 .featured-post-card:hover,
 .featured-post-card:focus-visible {
+  z-index: 2;
   background: rgba(36, 59, 83, 0.12);
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.02),
+    0 3px 8px rgba(0, 0, 0, 0.04),
+    0 10px 20px rgba(0, 0, 0, 0.05);
 }
 
 .featured-post-card h2 {
@@ -569,17 +654,133 @@ const featuredPostDate = featuredPostData.date
   }
 }
 
+.partners-section {
+  padding-top: 4.5rem;
+  padding-bottom: 1rem;
+}
+
+.partners-panel {
+  padding: 1.75rem 2rem;
+  background: rgba(36, 59, 83, 0.05);
+}
+
+.partners-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem 2.5rem;
+}
+
+.partners-label {
+  margin: 0;
+  color: var(--color-moss);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.partner-link {
+  display: inline-flex;
+  align-items: center;
+  filter: grayscale(1);
+  opacity: 0.72;
+  transition:
+    filter 0.25s ease,
+    opacity 0.25s ease,
+    color 0.25s ease;
+}
+
+.partner-link:hover,
+.partner-link:focus-visible {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+.partner-logo {
+  display: block;
+  height: 2.2rem;
+  width: auto;
+}
+
+.partner-link-wordmark {
+  font-family: var(--font-serif);
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-indigo);
+  text-decoration: none;
+}
+
+.partner-link-wordmark:hover,
+.partner-link-wordmark:focus-visible {
+  color: var(--color-terracotta);
+}
+
 .split-section {
   display: flex;
   justify-content: space-between;
   gap: 2rem;
   flex-wrap: wrap;
+  padding-top: 7rem;
 }
 
 .split-column {
   flex: 0 1 auto;
   max-width: 46%;
   min-width: 220px;
+}
+
+/* A bare bullet list was the flattest spot on the page - a small solid dot
+   in a single accent color gives it rhythm without competing with the text
+   the way the rotating numbered badges did. */
+.split-column ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.split-column li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+}
+
+.split-column li::before {
+  content: '';
+  flex: 0 0 auto;
+  align-self: center;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--color-terracotta);
+}
+
+/* The three linked services get a quieter, editorial treatment - no
+   always-on browser underline, just a color shift and an underline that
+   grows in on hover, echoing the terracotta bullet dot beside them. */
+.split-column li a {
+  color: var(--color-indigo);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.split-column li a:hover,
+.split-column li a:focus-visible {
+  color: var(--color-terracotta);
+  border-bottom-color: var(--color-terracotta);
+}
+
+.split-link-arrow {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.split-column li a:hover .split-link-arrow,
+.split-column li a:focus-visible .split-link-arrow {
+  transform: translateX(4px);
 }
 
 @media (max-width: 640px) {
@@ -600,6 +801,10 @@ const featuredPostDate = featuredPostData.date
   margin-top: 0.5rem;
 }
 
+/* A 2-column grid (matching .link-buttons' approach above) rather than an
+   unstretched flex row - flex row with a capped basis left these two tiles
+   small and adrift in mostly-empty space, reading as an afterthought next
+   to the full-width card grid above instead of its natural continuation. */
 .resources-more-link {
   display: flex;
   gap: 1.5rem;
@@ -616,7 +821,9 @@ const featuredPostDate = featuredPostData.date
   color: var(--color-indigo);
   text-decoration: none;
   background: rgba(36, 59, 83, 0.05);
-  transition: background 0.3s ease, color 0.2s ease;
+  transition:
+    background 0.3s ease,
+    color 0.2s ease;
 }
 
 .resources-more-icon {
@@ -879,21 +1086,21 @@ const featuredPostDate = featuredPostData.date
   background-image:
     linear-gradient(
       90deg,
-      rgba(23, 33, 31, 0.80) 0%,
-      rgba(23, 33, 31, 0.50) 55%,
-      rgba(23, 33, 31, 0.0) 100%
+      rgba(23, 33, 31, 0.8) 0%,
+      rgba(23, 33, 31, 0.5) 55%,
+      rgba(23, 33, 31, 0) 100%
     ),
     linear-gradient(rgba(23, 33, 31, 0.3), rgba(23, 33, 31, 0.3));
   background-repeat: no-repeat, no-repeat;
   background-size:
     min(
-      100%,
-      calc(
-        max(var(--hero-left-inset), (100vw - 1rem - 90rem + var(--hero-left-inset)) / 2) +
-          var(--hero-text-width) + 5rem
+        100%,
+        calc(
+          max(var(--hero-left-inset), (100vw - 1rem - 90rem + var(--hero-left-inset)) / 2) +
+            var(--hero-text-width) + 5rem
+        )
       )
-    )
-    100%,
+      100%,
     100% 100%;
 }
 

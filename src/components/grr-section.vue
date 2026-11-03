@@ -4,8 +4,8 @@ import { RouterLink, useRouter } from 'vue-router'
 const router = useRouter()
 
 // Clicking the card itself acts as a shortcut to Subscribe, same as the
-// featured post card - but clicks on an actual link inside (Subscribe
-// itself, or Concept note) must keep their own behavior, not be hijacked.
+// featured post card - but a click on the Learn more link itself must keep
+// its own behavior, not be hijacked.
 function onCardClick(event: MouseEvent) {
   if ((event.target as HTMLElement).closest('a')) return
   router.push('/subscribe')
@@ -21,9 +21,8 @@ function onCardClick(event: MouseEvent) {
     </p>
     <h2 id="grr-title" data-heading-group="highlights">Global Remittances Report &amp; Database</h2>
     <p class="grr-lede">
-      An independent, authoritative account of remittance flows worldwide, published every
-      May and November: the latest estimates for every country, a nowcast for 2026 and a
-      forecast for 2027.
+      An independent, authoritative account of remittance flows worldwide, published every May and
+      November: the latest estimates for every country, a nowcast for 2026 and a forecast for 2027.
     </p>
     <p class="grr-author">
       Led by Dilip Ratha, who compiled the first global tally of remittances and created the
@@ -31,35 +30,36 @@ function onCardClick(event: MouseEvent) {
     </p>
 
     <div class="grr-actions">
-      <RouterLink class="button grr-button" to="/subscribe">Subscribe</RouterLink>
-      <a
-        class="grr-concept-note"
-        href="/documents/grr-concept-note.pdf"
-        target="_blank"
-        rel="noopener"
-      >Concept note &rarr;</a>
+      <RouterLink class="button grr-button" to="/subscribe">
+        Learn more
+        <span class="grr-button-arrow" aria-hidden="true">&rarr;</span>
+      </RouterLink>
     </div>
-
-    <p class="grr-disclaimer">
-      Ratha Global is an independent firm. The Global Remittances Report is not affiliated
-      with or endorsed by the World Bank or KNOMAD.
-    </p>
   </div>
 </template>
 
 <style scoped>
 .grr-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   cursor: pointer;
   padding: 2rem 1.75rem;
   background: transparent;
-  transition: background 0.3s ease;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .grr-card:hover,
 .grr-card:focus-within {
+  z-index: 2;
   background: rgba(36, 59, 83, 0.12);
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.02),
+    0 3px 8px rgba(0, 0, 0, 0.04),
+    0 10px 20px rgba(0, 0, 0, 0.05);
 }
 
 /* Flex items stretch to the container's full width by default; without this
@@ -96,10 +96,17 @@ function onCardClick(event: MouseEvent) {
 }
 
 .grr-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   border-color: var(--color-terracotta);
   background: var(--color-terracotta);
   color: var(--color-paper);
   font-weight: 700;
+}
+
+.grr-button-arrow {
+  transition: transform 0.2s ease;
 }
 
 .grr-button:hover,
@@ -108,22 +115,18 @@ function onCardClick(event: MouseEvent) {
 .grr-card:focus-within .grr-button {
   color: var(--color-paper);
   background: #a24e38;
-  transform: translateY(-2px);
+  transform: scale(1.05);
   box-shadow:
     0 1px 1px rgba(0, 0, 0, 0.02),
     0 3px 8px rgba(0, 0, 0, 0.04),
     0 10px 20px rgba(0, 0, 0, 0.05);
 }
 
-.grr-concept-note {
-  color: var(--color-ink);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.grr-concept-note:hover,
-.grr-concept-note:focus-visible {
-  color: var(--color-terracotta);
+.grr-button:hover .grr-button-arrow,
+.grr-button:focus-visible .grr-button-arrow,
+.grr-card:hover .grr-button-arrow,
+.grr-card:focus-within .grr-button-arrow {
+  transform: translateX(3px);
 }
 
 .grr-disclaimer {

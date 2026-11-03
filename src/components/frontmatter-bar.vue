@@ -2,7 +2,7 @@
   <div class="frontmatter-bar">
     <RouterLink to="/" class="site-title" aria-label="Ratha Global home">
       <img src="/ratha_global_new_no_border.png" alt="" class="site-title-logo" >
-      RATHA GLOBAL
+      <span class="site-title-text">RATHA GLOBAL</span>
     </RouterLink>
     <div class="eyebrow-marquee">
       <div class="eyebrow-track">
@@ -26,10 +26,10 @@
 <style scoped>
 .frontmatter-bar {
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 0.35rem;
-  padding: 2rem 0rem 0rem 0rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 2rem 0rem 1rem 0rem;
 }
 
 .frontmatter-bar p {
@@ -38,20 +38,26 @@
 
 .site-title {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
-  justify-content: center;
   gap: 0.75rem;
+  margin-left: 2rem;
   font-family: var(--font-serif);
   font-size: 2.8rem;
   line-height: 1;
   color: #000;
   text-decoration: none;
-  text-align: center;
 }
 
 .site-title-logo {
   height: 3.6rem;
   width: auto;
+  transform-origin: top left;
+  transform: translate(var(--logo-dx, 0px), var(--logo-dy, 0px)) scale(var(--logo-scale, 1));
+}
+
+.site-title-text {
+  opacity: var(--logo-text-opacity, 1);
 }
 
 .site-title:hover,
@@ -60,9 +66,7 @@
 }
 
 .eyebrow-marquee {
-  width: 100%;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
+  flex: 1 1 auto;
   min-width: 0;
   overflow: hidden;
   -webkit-mask-image: linear-gradient(
@@ -108,13 +112,26 @@
 }
 
 @media (max-width: 640px) {
+  .frontmatter-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
+  }
+
   .site-title {
+    justify-content: center;
+    margin-left: 0;
     font-size: 2.1rem;
     gap: 0.5rem;
   }
 
   .site-title-logo {
     height: 2.6rem;
+  }
+
+  .eyebrow-marquee {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
   }
 
   .frontmatter-bar .eyebrow {

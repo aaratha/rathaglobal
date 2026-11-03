@@ -43,14 +43,18 @@ const router = createRouter({
       path: '/subscribe',
       component: () => import('../views/SubscribeView.vue'),
       meta: {
-        title: 'Subscribe: Global Remittances Report & Database | Ratha Global',
+        title: 'Global Remittances Report & Database | Ratha Global',
         description:
-          'Access tiers for the Global Remittances Report and Database: country time series for about 200 countries and a bilateral matrix of more than 10,600 remittance corridors.',
+          'An independent, biannual account of remittance flows worldwide: coverage, the underlying database, methodology, release schedule, and access tiers for the Global Remittances Report.',
       },
     },
     {
       path: '/blog/:slug',
       component: () => import('../views/BlogPost.vue'),
+    },
+    {
+      path: '/solutions/:slug',
+      component: () => import('../views/SolutionView.vue'),
     },
     {
       path: '/:pathMatch(.*)*',
