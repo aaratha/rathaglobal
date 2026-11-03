@@ -31,6 +31,55 @@ const navTranslateY = computed(
 // see navbar.vue) fully clears the viewport along with the nav bar itself.
 const navPeekBuffer = 4
 
+// Logo morph: as the frontmatter bar collapses, its big logo visually
+// "becomes" the nav bar's small logo instead of just sliding away with the
+// rest of the bar. logoDeltaX/Y and logoScaleTarget capture the one-time,
+// layout-dependent gap between the two logos' resting positions (measured,
+// not scroll-driven); logoTransform turns that fixed gap plus the live
+// scroll state into the extra per-frame transform the frontmatter logo needs
+// on top of the bar's own ambient translateY, so it still lands exactly on
+// the nav logo (and keeps tracking it through the nav's own hide/show) no
+// matter how far the morph has progressed.
+const logoDeltaX = ref(0)
+const logoDeltaY = ref(0)
+const logoScaleTarget = ref(1)
+
+function measureLogoMorph() {
+  const fmLogo = frontmatterEl.value?.querySelector<HTMLElement>('.site-title-logo')
+  const navLogo = navEl.value?.querySelector<HTMLElement>('.brand img')
+  if (!fmLogo || !navLogo) return
+  const fmRect = fmLogo.getBoundingClientRect()
+  const navRect = navLogo.getBoundingClientRect()
+  // measure() (and so this) can re-run mid-scroll, e.g. a window resize
+  // while partway down the page - at that point the logo already has its
+  // own extra dx/dy/scale applied on top of the bar's ambient shift, so its
+  // raw rect isn't its rest position. Snapshot the currently-applied extra
+  // transform (computed from the refs this function is about to overwrite)
+  // and back it out below, so every measurement here is the same rest-state
+  // geometry regardless of when it's taken.
+  const prev = logoTransform.value
+  const trueFmTop = fmRect.top + frontmatterShift.value - prev.dy
+  const trueFmLeft = fmRect.left - prev.dx
+  const trueFmHeight = fmRect.height / (prev.scale || 1)
+  const navLocalTop = navRect.top - navTranslateY.value
+  logoDeltaX.value = navRect.left - trueFmLeft
+  logoDeltaY.value = navLocalTop - trueFmTop
+  logoScaleTarget.value = trueFmHeight > 0 ? navRect.height / trueFmHeight : 1
+}
+
+const logoTransform = computed(() => {
+  const h = frontmatterHeight.value
+  const s = frontmatterShift.value
+  const f = h > 0 ? s / h : 0
+  const dy = h > 0 ? s * (1 + (logoDeltaY.value + navTranslateY.value) / h) : 0
+  return {
+    dx: f * logoDeltaX.value,
+    dy,
+    scale: 1 + f * (logoScaleTarget.value - 1),
+    textOpacity: Math.max(0, 1 - f * 1.5),
+  }
+})
+
 const growthTrackEl = ref<HTMLElement | null>(null)
 const growthFillHeight = ref(0)
 const growthTrackHeight = ref(0)
@@ -210,14 +259,9 @@ function measure() {
   frontmatterHeight.value = Math.ceil(frontmatterEl.value?.getBoundingClientRect().height ?? 0)
   navHeight.value = Math.ceil(navEl.value?.getBoundingClientRect().height ?? 0)
   mastheadHeight.value = frontmatterHeight.value + navHeight.value
-  document.documentElement.style.setProperty(
-    '--frontmatter-height',
-    `${frontmatterHeight.value}px`,
-  )
-  document.documentElement.style.setProperty(
-    '--nav-height',
-    `${navHeight.value}px`,
-  )
+  document.documentElement.style.setProperty('--frontmatter-height', `${frontmatterHeight.value}px`)
+  document.documentElement.style.setProperty('--nav-height', `${navHeight.value}px`)
+  measureLogoMorph()
 }
 
 function updateGrowthLine() {
@@ -254,12 +298,25 @@ function updateGrowthLine() {
 function updateHeadingHighlights() {
   const viewportHeight = window.innerHeight
   const centerY = viewportHeight / 2
-  const headings = Array.from(document.querySelectorAll<HTMLElement>('.page-content section h2'))
+  const headings = Array.from(
+    document.querySelectorAll<HTMLElement>(
+      '.page-content section h2, .page-content #subscribe-title, .page-content .solution-title',
+    ),
+  )
 
+  // Headings sharing a `data-heading-group` (e.g. side-by-side cards whose
+  // titles don't happen to land at the same pixel row) are grouped
+  // explicitly, regardless of position; everything else still falls back to
+  // the same-row proximity check.
   const groups: HTMLElement[][] = []
   headings.forEach((h2) => {
+    const groupKey = h2.dataset.headingGroup
     const top = h2.getBoundingClientRect().top
-    const group = groups.find((g) => Math.abs(g[0]!.getBoundingClientRect().top - top) < 4)
+    const group = groups.find((g) => {
+      const gKey = g[0]!.dataset.headingGroup
+      if (groupKey && gKey && groupKey === gKey) return true
+      return Math.abs(g[0]!.getBoundingClientRect().top - top) < 4
+    })
     if (group) group.push(h2)
     else groups.push([h2])
   })
@@ -267,8 +324,10 @@ function updateHeadingHighlights() {
   let closestGroup: HTMLElement[] | null = null
   let closestDistance = Infinity
   groups.forEach((group) => {
-    const rect = group[0]!.getBoundingClientRect()
-    const distance = Math.abs(rect.top + rect.height / 2 - centerY)
+    const rects = group.map((h2) => h2.getBoundingClientRect())
+    const top = Math.min(...rects.map((r) => r.top))
+    const bottom = Math.max(...rects.map((r) => r.bottom))
+    const distance = Math.abs((top + bottom) / 2 - centerY)
     if (distance < closestDistance) {
       closestDistance = distance
       closestGroup = group
@@ -298,7 +357,10 @@ function handleScroll() {
       // peek in the exact same continuous motion as the nav bar itself,
       // rather than needing a separate hidden/shown toggle that can't stay
       // perfectly in sync with the nav bar's own scroll-driven position.
-      navShift.value = Math.max(0, Math.min(navHeight.value + navPeekBuffer, navShift.value + delta))
+      navShift.value = Math.max(
+        0,
+        Math.min(navHeight.value + navPeekBuffer, navShift.value + delta),
+      )
     } else {
       navShift.value = 0
     }
@@ -346,15 +408,17 @@ onUnmounted(() => {
     <div
       ref="frontmatterEl"
       class="masthead-frontmatter"
-      :style="{ transform: `translateY(-${frontmatterShift}px)` }"
+      :style="{
+        transform: `translateY(-${frontmatterShift}px)`,
+        '--logo-dx': `${logoTransform.dx}px`,
+        '--logo-dy': `${logoTransform.dy}px`,
+        '--logo-scale': logoTransform.scale,
+        '--logo-text-opacity': logoTransform.textOpacity,
+      }"
     >
       <FrontmatterBar />
     </div>
-    <div
-      ref="navEl"
-      class="masthead-nav"
-      :style="{ transform: `translateY(${navTranslateY}px)` }"
-    >
+    <div ref="navEl" class="masthead-nav" :style="{ transform: `translateY(${navTranslateY}px)` }">
       <NavBar :scrolled-hidden="navShift > 0" />
     </div>
     <div class="masthead-spacer" :style="{ height: `${mastheadHeight}px` }" />
@@ -422,7 +486,7 @@ h3,
 h4 {
   font-family: var(--font-serif);
   color: var(--color-indigo);
-    margin: 0 0 0.5rem 0;
+  margin: 0 0 0.5rem 0;
   padding: 0;
 }
 
@@ -479,7 +543,10 @@ a:focus-visible {
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
-  transition: box-shadow 0.25s ease, transform 0.25s ease, color 0.2s ease;
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease,
+    color 0.2s ease;
 }
 
 .button:hover,
@@ -556,7 +623,9 @@ a:focus-visible {
   height: 20px;
   margin-top: -10px;
   color: var(--color-moss);
-  transition: opacity 0.15s linear, transform 0.15s linear;
+  transition:
+    opacity 0.15s linear,
+    transform 0.15s linear;
   pointer-events: none;
   z-index: 0;
 }
@@ -614,13 +683,6 @@ section h2.heading-centered::after {
   width: 100%;
 }
 
-/* Featured post heading sits in its own unique card layout, not a regular
-   section heading - grow to double the resting width instead of the full
-   100% every other heading expands to. */
-#featured-post-title.heading-centered::after {
-  width: 6rem;
-}
-
 @media (prefers-reduced-motion: reduce) {
   section h2::after {
     width: 100%;
@@ -646,8 +708,8 @@ section p + p {
 }
 
 ul {
-    padding: 0;
-    padding-left: 1.75rem;
+  padding: 0;
+  padding-left: 1.75rem;
   margin: 0;
 }
 

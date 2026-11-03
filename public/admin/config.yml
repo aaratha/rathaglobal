@@ -16,6 +16,10 @@ backend:
   base_url: https://decap-proxy.aseemratha.workers.dev
   auth_endpoint: /auth
 
+# Lets the CMS skip GitHub OAuth and talk to a local proxy (run `npx decap-server`)
+# when the admin panel is loaded from localhost. Has no effect in production.
+local_backend: true
+
 # Saves go to draft branches (cms/<slug>) with a draft -> in review -> ready
 # workflow instead of committing straight to main, so unpublished entries can
 # be viewed/edited from the "Editorial Workflow" board in the CMS before
@@ -86,3 +90,53 @@ collections:
       - name: body
         label: Body
         widget: markdown
+
+  - name: media
+    label: In the Media
+    label_singular: Media mention
+    folder: src/content/media
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{fields.outlet}}"
+    identifier_field: outlet
+    sortable_fields: ['date', 'outlet']
+    fields:
+      - name: outlet
+        label: Outlet
+        widget: string
+        hint: "e.g. 'BBC World Service · Business Daily'"
+
+      - name: date
+        label: Date
+        widget: datetime
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        format: "YYYY-MM-DD"
+
+      - name: title
+        label: Title
+        widget: string
+        required: false
+
+      - name: description
+        label: Description
+        widget: string
+        required: false
+
+      - name: cta
+        label: Call to Action
+        widget: select
+        options: ['Listen', 'Read', 'Watch']
+        default: Read
+
+      - name: url
+        label: URL
+        widget: string
+        hint: "External links open in a new tab. A path starting with '/' (e.g. /blog/my-post) stays on site."
+
+      - name: thumbnail
+        label: Thumbnail
+        widget: image
+        required: false
+        media_folder: /public/images/media
+        public_folder: /images/media
+        hint: "Optional. Leave blank to automatically use the linked article's own thumbnail image at build time."

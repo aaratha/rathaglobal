@@ -31,8 +31,30 @@ const router = createRouter({
       },
     },
     {
+      path: '/media',
+      component: () => import('../views/MediaView.vue'),
+      meta: {
+        title: 'In the Media | Ratha Global',
+        description:
+          'Interviews and commentary by Dilip Ratha on remittances, migration, and development finance, including BBC World Service, Bloomberg, and The Daily Star.',
+      },
+    },
+    {
+      path: '/subscribe',
+      component: () => import('../views/SubscribeView.vue'),
+      meta: {
+        title: 'Global Remittances Report & Database | Ratha Global',
+        description:
+          'An independent, biannual account of remittance flows worldwide: coverage, the underlying database, methodology, release schedule, and access tiers for the Global Remittances Report.',
+      },
+    },
+    {
       path: '/blog/:slug',
       component: () => import('../views/BlogPost.vue'),
+    },
+    {
+      path: '/solutions/:slug',
+      component: () => import('../views/SolutionView.vue'),
     },
     {
       path: '/:pathMatch(.*)*',
