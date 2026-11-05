@@ -31,53 +31,21 @@ const navTranslateY = computed(
 // see navbar.vue) fully clears the viewport along with the nav bar itself.
 const navPeekBuffer = 4
 
-// Logo morph: as the frontmatter bar collapses, its big logo visually
-// "becomes" the nav bar's small logo instead of just sliding away with the
-// rest of the bar. logoDeltaX/Y and logoScaleTarget capture the one-time,
-// layout-dependent gap between the two logos' resting positions (measured,
-// not scroll-driven); logoTransform turns that fixed gap plus the live
-// scroll state into the extra per-frame transform the frontmatter logo needs
-// on top of the bar's own ambient translateY, so it still lands exactly on
-// the nav logo (and keeps tracking it through the nav's own hide/show) no
-// matter how far the morph has progressed.
-const logoDeltaX = ref(0)
-const logoDeltaY = ref(0)
-const logoScaleTarget = ref(1)
-
-function measureLogoMorph() {
-  const fmLogo = frontmatterEl.value?.querySelector<HTMLElement>('.site-title-logo')
-  const navLogo = navEl.value?.querySelector<HTMLElement>('.brand img')
-  if (!fmLogo || !navLogo) return
-  const fmRect = fmLogo.getBoundingClientRect()
-  const navRect = navLogo.getBoundingClientRect()
-  // measure() (and so this) can re-run mid-scroll, e.g. a window resize
-  // while partway down the page - at that point the logo already has its
-  // own extra dx/dy/scale applied on top of the bar's ambient shift, so its
-  // raw rect isn't its rest position. Snapshot the currently-applied extra
-  // transform (computed from the refs this function is about to overwrite)
-  // and back it out below, so every measurement here is the same rest-state
-  // geometry regardless of when it's taken.
-  const prev = logoTransform.value
-  const trueFmTop = fmRect.top + frontmatterShift.value - prev.dy
-  const trueFmLeft = fmRect.left - prev.dx
-  const trueFmHeight = fmRect.height / (prev.scale || 1)
-  const navLocalTop = navRect.top - navTranslateY.value
-  logoDeltaX.value = navRect.left - trueFmLeft
-  logoDeltaY.value = navLocalTop - trueFmTop
-  logoScaleTarget.value = trueFmHeight > 0 ? navRect.height / trueFmHeight : 1
+// Eases a linear 0-1 progress value so motion driven directly by scroll
+// position (as opposed to a time-based CSS transition, which would lag
+// behind the scroll instead of tracking it exactly) still reads as smooth
+// rather than mechanical - gentle at both ends, quickest through the middle.
+function easeInOutCubic(t: number) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
 }
 
-const logoTransform = computed(() => {
-  const h = frontmatterHeight.value
-  const s = frontmatterShift.value
-  const f = h > 0 ? s / h : 0
-  const dy = h > 0 ? s * (1 + (logoDeltaY.value + navTranslateY.value) / h) : 0
-  return {
-    dx: f * logoDeltaX.value,
-    dy,
-    scale: 1 + f * (logoScaleTarget.value - 1),
-    textOpacity: Math.max(0, 1 - f * 1.5),
-  }
+// Nav logo reveal: the nav bar's own logo fades in in step with how far the
+// frontmatter bar has collapsed, reaching full opacity exactly as the
+// frontmatter bar finishes collapsing (and the nav bar settles into its
+// resting spot at the top), rather than snapping in at a fixed point.
+const navLogoReveal = computed(() => {
+  const raw = frontmatterHeight.value > 0 ? frontmatterShift.value / frontmatterHeight.value : 0
+  return easeInOutCubic(Math.max(0, Math.min(1, raw)))
 })
 
 const growthTrackEl = ref<HTMLElement | null>(null)
@@ -261,7 +229,6 @@ function measure() {
   mastheadHeight.value = frontmatterHeight.value + navHeight.value
   document.documentElement.style.setProperty('--frontmatter-height', `${frontmatterHeight.value}px`)
   document.documentElement.style.setProperty('--nav-height', `${navHeight.value}px`)
-  measureLogoMorph()
 }
 
 function updateGrowthLine() {
@@ -408,18 +375,12 @@ onUnmounted(() => {
     <div
       ref="frontmatterEl"
       class="masthead-frontmatter"
-      :style="{
-        transform: `translateY(-${frontmatterShift}px)`,
-        '--logo-dx': `${logoTransform.dx}px`,
-        '--logo-dy': `${logoTransform.dy}px`,
-        '--logo-scale': logoTransform.scale,
-        '--logo-text-opacity': logoTransform.textOpacity,
-      }"
+      :style="{ transform: `translateY(-${frontmatterShift}px)` }"
     >
       <FrontmatterBar />
     </div>
     <div ref="navEl" class="masthead-nav" :style="{ transform: `translateY(${navTranslateY}px)` }">
-      <NavBar :scrolled-hidden="navShift > 0" />
+      <NavBar :scrolled-hidden="navShift > 0" :logo-reveal="navLogoReveal" />
     </div>
     <div class="masthead-spacer" :style="{ height: `${mastheadHeight}px` }" />
     <div ref="growthTrackEl" class="growth-track">
@@ -694,7 +655,9 @@ section h2.heading-centered::after {
   }
 }
 
-#contact {
+#contact,
+#highlights,
+#services {
   scroll-margin-top: 6rem;
 }
 

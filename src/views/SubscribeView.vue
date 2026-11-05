@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { onMounted, onUnmounted, ref } from 'vue'
+
 interface Column {
   name: string
   audience: string
@@ -51,6 +53,30 @@ function pricingMailto(item: string) {
   const body = `Hi Ratha Global team,\n\nI'm interested in the ${item} for the Global Remittances Report & Database. Could you send pricing and access details?\n\nThanks,`
   return `mailto:contact@rathaglobal.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
 }
+
+// The FAB's job is to jump the reader down to pricing. Once that section is
+// actually on screen, a fixed bottom-right button has nothing left to do and,
+// on narrow viewports where content runs edge to edge, sits on top of the
+// section's own trailing text (e.g. the disclaimer) instead - so it hides
+// itself once #pricing-title is in view.
+const pricingTitleEl = ref<HTMLElement | null>(null)
+const showPricingFab = ref(true)
+let pricingTitleObserver: IntersectionObserver | null = null
+
+onMounted(() => {
+  if (!pricingTitleEl.value) return
+  pricingTitleObserver = new IntersectionObserver(
+    ([entry]) => {
+      showPricingFab.value = !entry!.isIntersecting
+    },
+    { threshold: 0 },
+  )
+  pricingTitleObserver.observe(pricingTitleEl.value)
+})
+
+onUnmounted(() => {
+  pricingTitleObserver?.disconnect()
+})
 </script>
 
 <template>
@@ -165,12 +191,6 @@ function pricingMailto(item: string) {
               and the World Bank in debt sustainability analysis and by Moody's, Fitch and S&amp;P
               in sovereign credit ratings.
             </p>
-            <p class="author-note">
-              Ratha Global is an independent firm with no affiliation with any government,
-              international organization or remittance company. It supports public and private
-              sector clients in the areas of remittances, diaspora finance, credit enhancement, and
-              innovative capital solutions.
-            </p>
           </div>
         </div>
       </div>
@@ -178,7 +198,7 @@ function pricingMailto(item: string) {
 
     <section class="tiers-section" aria-labelledby="pricing-title">
       <div class="content-container">
-        <h2 id="pricing-title">Pricing and access</h2>
+        <h2 id="pricing-title" ref="pricingTitleEl">Pricing and access</h2>
         <p>
           Access to the November 2026 and May 2027 editions of the report, the country time series
           for about 200 countries, and the bilateral remittance matrix of more than 10,600
@@ -265,14 +285,21 @@ function pricingMailto(item: string) {
           </p>
 
           <p class="tier-disclaimer">
-            Ratha Global is an independent firm. The Global Remittances Report is not affiliated
-            with or endorsed by the World Bank or KNOMAD.
+            Ratha Global is an independent firm with no affiliation with any government,
+            international organization or remittance company. It supports public and private sector
+            clients in the areas of remittances, diaspora finance, credit enhancement, and
+            innovative capital solutions.
           </p>
         </div>
       </div>
     </section>
 
-    <a href="#pricing-title" class="pricing-fab" aria-label="Jump to pricing and access">
+    <a
+      v-if="showPricingFab"
+      href="#pricing-title"
+      class="pricing-fab"
+      aria-label="Jump to pricing and access"
+    >
       Pricing <span aria-hidden="true">&darr;</span>
     </a>
   </main>
@@ -360,11 +387,6 @@ section {
   min-width: 0;
 }
 
-.author-note {
-  font-size: 0.92rem;
-  color: var(--color-brass);
-}
-
 @media (max-width: 640px) {
   .author-layout {
     flex-direction: column;
@@ -377,9 +399,35 @@ section {
   padding-top: 2.75rem;
 }
 
+/* Scroll-shadow trick: two "cover" gradients (attachment: local, so they
+   scroll along with the table itself) sit exactly over two "shadow"
+   gradients (attachment: scroll, so they stay pinned to the wrap's own
+   edges). At rest, scrolled to the start, the left cover exactly hides the
+   left shadow - nothing to indicate, since there's nothing to scroll back
+   to. Scroll right and the cover moves away with the content while the
+   shadow stays docked at the edge, revealing it - a cue that there's more
+   off to that side. Same in reverse for the right edge. No JS needed; it
+   falls out of how the two attachment modes interact. */
 .feature-chart-wrap {
   overflow-x: auto;
   margin-top: 1.5rem;
+  background-image:
+    linear-gradient(to right, var(--color-paper), rgba(243, 239, 230, 0)),
+    linear-gradient(to left, var(--color-paper), rgba(243, 239, 230, 0)),
+    radial-gradient(farthest-side at 0% 50%, rgba(23, 33, 31, 0.2), rgba(23, 33, 31, 0)),
+    radial-gradient(farthest-side at 100% 50%, rgba(23, 33, 31, 0.2), rgba(23, 33, 31, 0));
+  background-repeat: no-repeat;
+  background-size:
+    2.5rem 100%,
+    2.5rem 100%,
+    1rem 100%,
+    1rem 100%;
+  background-position:
+    left top,
+    right top,
+    left top,
+    right top;
+  background-attachment: local, local, scroll, scroll;
 }
 
 .feature-chart {

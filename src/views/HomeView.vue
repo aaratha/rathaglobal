@@ -105,7 +105,7 @@ const featuredPostDate = featuredPostData.date
       </div>
     </section>
 
-    <section class="highlights-section" aria-label="Highlights">
+    <section id="highlights" class="highlights-section" aria-label="Highlights">
       <div class="highlights-grid">
         <GrrSection />
 
@@ -157,7 +157,7 @@ const featuredPostDate = featuredPostData.date
     </section>
     -->
 
-    <section class="split-section">
+    <section id="services" class="split-section">
       <div class="split-column">
         <h2>SERVICES</h2>
         <p>Strategic, advisory, analytic, growth and partnership services on:</p>
@@ -463,9 +463,9 @@ const featuredPostDate = featuredPostData.date
   z-index: 2;
   background: rgba(36, 59, 83, 0.12);
   box-shadow:
-    0 1px 1px rgba(0, 0, 0, 0.02),
-    0 3px 8px rgba(0, 0, 0, 0.04),
-    0 10px 20px rgba(0, 0, 0, 0.05);
+    0 1px 1px rgba(0, 0, 0, 0.04),
+    0 3px 8px rgba(0, 0, 0, 0.07),
+    0 10px 20px rgba(0, 0, 0, 0.09);
 }
 
 .featured-post-card h2 {

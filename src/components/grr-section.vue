@@ -57,9 +57,9 @@ function onCardClick(event: MouseEvent) {
   z-index: 2;
   background: rgba(36, 59, 83, 0.12);
   box-shadow:
-    0 1px 1px rgba(0, 0, 0, 0.02),
-    0 3px 8px rgba(0, 0, 0, 0.04),
-    0 10px 20px rgba(0, 0, 0, 0.05);
+    0 1px 1px rgba(0, 0, 0, 0.04),
+    0 3px 8px rgba(0, 0, 0, 0.07),
+    0 10px 20px rgba(0, 0, 0, 0.09);
 }
 
 /* Flex items stretch to the container's full width by default; without this
