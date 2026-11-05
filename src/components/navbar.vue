@@ -129,6 +129,7 @@ header {
 }
 
 .brand {
+  position: relative;
   display: inline-flex;
   flex-shrink: 0;
   align-items: center;
@@ -138,6 +139,32 @@ header {
 .brand img {
   height: 38px;
   width: auto;
+}
+
+/* Logo is a flat black PNG, not text, so it can't take a `color` change
+   like the other nav links (.nav-drawer a below) do. Instead this masks the
+   same image into a terracotta-filled overlay, sized to match the img
+   exactly (.brand has no padding, so its box equals the img's box), and
+   snaps it in on hover with no transition - same instant swap as those
+   links, which also have none. */
+.brand::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-terracotta);
+  -webkit-mask-image: url('/ratha_global_new_no_border.png');
+  mask-image: url('/ratha_global_new_no_border.png');
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.brand:hover::after,
+.brand:focus-visible::after {
+  opacity: 1;
 }
 
 .nav-right {
