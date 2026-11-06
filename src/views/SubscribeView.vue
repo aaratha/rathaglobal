@@ -1,11 +1,24 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
 
+// A plain string, or text plus a superscript footnote marker (rendered
+// smaller than body size - see .footnote-mark - since symbols like † and §
+// come in noticeably larger than * at normal text size).
+type Feature = string | { text: string; marker: string }
+
+function featureText(f: Feature): string {
+  return typeof f === 'string' ? f : f.text
+}
+
+function featureMarker(f: Feature): string | undefined {
+  return typeof f === 'string' ? undefined : f.marker
+}
+
 interface Column {
   name: string
   audience: string
   // One entry per row in featureRows, aligned by index. '—' means not included.
-  features: string[]
+  features: Feature[]
   // Bundles are priced as a whole: one "Request pricing" button for the tier.
   // Open Access has none (it's free).
   requestPricingName?: string
@@ -17,7 +30,7 @@ const columns: Column[] = [
   {
     name: 'Open Access',
     audience: 'Free for everyone*',
-    features: ['Summary report†', '2000–2024', '—'],
+    features: [{ text: 'Summary report', marker: '†' }, '2000–2024', '—'],
   },
   {
     name: 'Professional',
@@ -35,7 +48,7 @@ const columns: Column[] = [
 
 interface OneTimePurchase {
   label: string
-  detail?: string
+  marker?: string
   quoteName: string
 }
 
@@ -43,7 +56,7 @@ const oneTimePurchases: OneTimePurchase[] = [
   { label: 'Full report', quoteName: 'Full report (one-time purchase)' },
   {
     label: 'Country time series',
-    detail: '2000–2025‡',
+    marker: '§',
     quoteName: 'Country time series 2000–2025 (one-time purchase)',
   },
 ]
@@ -219,7 +232,12 @@ onUnmounted(() => {
             <tbody>
               <tr v-for="(row, i) in featureRows" :key="row">
                 <th scope="row">{{ row }}</th>
-                <td v-for="column in columns" :key="column.name">{{ column.features[i] }}</td>
+                <td v-for="column in columns" :key="column.name"
+                  >{{ featureText(column.features[i]!)
+                  }}<sup v-if="featureMarker(column.features[i]!)" class="footnote-mark">{{
+                    featureMarker(column.features[i]!)
+                  }}</sup></td
+                >
               </tr>
             </tbody>
             <tfoot>
@@ -250,7 +268,9 @@ onUnmounted(() => {
               :key="item.label"
               class="button request-pricing"
               :href="pricingMailto(item.quoteName)"
-              >{{ item.label }}<template v-if="item.detail"> ({{ item.detail }})</template></a
+              >{{ item.label }}<sup v-if="item.marker" class="footnote-mark">{{
+                item.marker
+              }}</sup></a
             >
           </div>
         </div>
@@ -258,8 +278,14 @@ onUnmounted(() => {
         <div class="tier-notes">
           <div class="tier-footnotes">
             <p>* Open Access: citation required when quoting from the report or data.</p>
-            <p>† Summary report: executive summary, 5 key charts and 1 summary table.</p>
-            <p>‡ Country time series: includes the 2026 estimate and 2027 forecast.</p>
+            <p>
+              <sup class="footnote-mark">†</sup> Summary report: executive summary, 5 key charts
+              and 1 summary table.
+            </p>
+            <p>
+              <sup class="footnote-mark">§</sup> Country time series: 2000–2025, includes the
+              2026 estimate and 2027 forecast.
+            </p>
             <p>
               <a href="https://nexteraglobal.io/" target="_blank" rel="noopener"
                 >Nextera Global Association</a
@@ -559,6 +585,13 @@ section {
 
 .tier-footnotes p:last-child {
   margin-bottom: 0;
+}
+
+/* § renders noticeably larger than * and † at body size, so it's set as a
+   shrunk superscript everywhere it appears (button label and footnote)
+   rather than sized once and drifting out of sync between the two. */
+.footnote-mark {
+  font-size: 0.7em;
 }
 
 /* "Custom work" is a real offering, not a footnote - a tinted panel (same

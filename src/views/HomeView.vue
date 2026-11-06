@@ -194,6 +194,7 @@ const featuredPostDate = featuredPostData.date
           <li>Investors</li>
           <li>Multilateral development banks and financial institutions</li>
           <li>UN agencies and international organizations</li>
+          <li>Foundations and philanthropic organizations</li>
         </ul>
       </div>
     </section>
@@ -361,7 +362,9 @@ const featuredPostDate = featuredPostData.date
       <h2>CONTACT</h2>
       <div class="contact-columns">
         <div class="contact-column">
-          <h3>Subscribe to data & reports</h3>
+          <h3>
+            <RouterLink to="/subscribe#pricing-title">Subscribe to data & reports</RouterLink>
+          </h3>
           <p>
             Regular and customized data, reports, analysis, projections and strategic briefs from
             Ratha Global.
@@ -973,6 +976,21 @@ const featuredPostDate = featuredPostData.date
 
 .contact-column h3 {
   margin-bottom: 0.35rem;
+}
+
+.contact-column h3 a {
+  color: var(--color-indigo);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.contact-column h3 a:hover,
+.contact-column h3 a:focus-visible {
+  color: var(--color-terracotta);
+  border-bottom-color: var(--color-terracotta);
 }
 
 .contact-column:first-child {
