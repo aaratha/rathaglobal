@@ -486,9 +486,12 @@ const latestPostDate = latestPostData.date
   order: 2;
 }
 
-/* Both halves carry the full horizontal padding themselves (same as the
-   single featured card did before the split) - the column adds none of
-   its own, so the two never stack their padding on top of each other. */
+/* Both halves carry the full padding themselves (same as the single
+   featured card did before the split) - the column adds none of its
+   own, so the two never stack their padding on top of each other. Top
+   and bottom padding match each other on each card (and between the
+   two cards), rather than the outer edges and the shared inner edge
+   using different values. */
 .latest-post-card,
 .featured-post-card {
   position: relative;
@@ -501,7 +504,7 @@ const latestPostDate = latestPostData.date
      that this shouldn't clip anything in normal use. */
   min-height: 0;
   overflow: hidden;
-  padding: 0 calc(var(--highlights-inset) + 1.75rem);
+  padding: 1.75rem calc(var(--highlights-inset) + 1.75rem);
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   transition:
     background 0.3s ease,
@@ -511,22 +514,14 @@ const latestPostDate = latestPostData.date
 /* Latest publication sits above the existing featured card and claims
    3/5 of the column's total height, leaving the featured card the
    remaining 2/5 (flex-grow 3:2 on a shared zero basis + min-height: 0
-   above). The outer 2.5rem top/bottom padding matches the GRR card's,
-   so the whole row stays shorter; the shared inner edge is tightened
-   further to a plain 1rem/1rem gap with a divider, so this still reads
-   as one card frame split in two rather than two separate stacked
-   cards. */
+   above). */
 .latest-post-card {
   flex: 3 1 0%;
-  padding-top: 2.5rem;
-  padding-bottom: 1rem;
   border-bottom: 1px solid rgba(168, 137, 88, 0.35);
 }
 
 .featured-post-card {
   flex: 2 1 0%;
-  padding-top: 1rem;
-  padding-bottom: 2.5rem;
 }
 
 @media (min-width: 1025px) {
