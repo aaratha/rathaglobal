@@ -34,13 +34,13 @@ const columns: Column[] = [
   },
   {
     name: 'Professional',
-    audience: '1 named user · November edition',
+    audience: '1 named user · December edition',
     features: ['Full report', '2000–2025, 2026 estimate, 2027 forecast', '—'],
     requestPricingName: 'Professional Bundle',
   },
   {
     name: 'Enterprise',
-    audience: 'Unlimited users · November and May editions',
+    audience: 'Unlimited users · December and May editions',
     features: ['Full report', '2000–2025, 2026 estimate, 2027 forecast', '10,600+ corridors'],
     requestPricingName: 'Enterprise Bundle',
   },
@@ -99,15 +99,15 @@ onUnmounted(() => {
         <p class="eyebrow">
           First edition
           <span class="eyebrow-divider">&middot;</span>
-          November 2026
+          December 2026
         </p>
         <h1 id="subscribe-title">Global Remittances Report &amp; Database</h1>
         <p>
-          The Global Remittances Report (GRR) provides, twice a year in May and November, an
+          The Global Remittances Report (GRR) provides, twice a year in May and December, an
           independent and authoritative account of remittance flows worldwide. Each edition updates
           the latest estimates for every country, reviews the developments that have shaped flows
           since the previous edition, and presents a nowcast for the current year and a forecast for
-          the next. The first edition, in November 2026, covers flows through 2025, a nowcast for
+          the next. The first edition, in December 2026, covers flows through 2025, a nowcast for
           2026 and a forecast for 2027.
         </p>
         <p>
@@ -152,7 +152,7 @@ onUnmounted(() => {
           refreshed with every edition, months before official balance-of-payments data for the most
           recent year become available. Its bilateral remittance matrix estimates flows for more
           than 10,600 corridors across 214 countries and territories and is updated once a year with
-          the November edition, giving the most detailed picture available of where remittances come
+          the December edition, giving the most detailed picture available of where remittances come
           from and where they go.
         </p>
       </div>
@@ -171,9 +171,9 @@ onUnmounted(() => {
           finance; and <strong>researchers, foundations and diaspora organizations</strong>.
         </p>
         <p>
-          The first edition will be released in November 2026 with the country time series, and the
-          bilateral matrix will follow in December 2026. Subsequent editions will appear every May
-          and November, each with a launch webinar and publication on rathaglobal.com.
+          The first edition will be released in December 2026 with the country time series, and the
+          bilateral matrix will follow shortly after. Subsequent editions will appear every May
+          and December, each with a launch webinar and publication on rathaglobal.com.
         </p>
         <p>
           Access ranges from a free open-access tier to enterprise licenses &mdash; see pricing
@@ -213,7 +213,7 @@ onUnmounted(() => {
       <div class="content-container">
         <h2 id="pricing-title" ref="pricingTitleEl">Pricing and access</h2>
         <p>
-          Access to the November 2026 and May 2027 editions of the report, the country time series
+          Access to the December 2026 and May 2027 editions of the report, the country time series
           for about 200 countries, and the bilateral remittance matrix of more than 10,600
           corridors.
         </p>
@@ -260,7 +260,7 @@ onUnmounted(() => {
           <p class="one-time-note-label">
             Prefer to buy once?
             <span class="eyebrow-divider">&middot;</span>
-            November edition
+            December edition
           </p>
           <div class="one-time-buttons">
             <a

@@ -15,14 +15,14 @@ function onCardClick(event: MouseEvent) {
 <template>
   <div id="grr" class="grr-card" aria-labelledby="grr-title" @click="onCardClick">
     <p class="eyebrow grr-eyebrow">
-      Coming November 2026
+      Coming December 2026
       <span class="eyebrow-divider">&middot;</span>
       First edition
     </p>
     <h2 id="grr-title" data-heading-group="highlights">Global Remittances Report &amp; Database</h2>
     <p class="grr-lede">
       An independent, authoritative account of remittance flows worldwide, published every May and
-      November: the latest estimates for every country, a nowcast for 2026 and a forecast for 2027.
+      December: the latest estimates for every country, a nowcast for 2026 and a forecast for 2027.
     </p>
     <p class="grr-author">
       Led by Dilip Ratha, who compiled the first global tally of remittances and created the
