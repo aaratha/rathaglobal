@@ -170,6 +170,9 @@ const latestPostDate = latestPostData.date
             <h2 id="featured-post-title" data-heading-group="highlights">
               {{ featuredPostData.title }}
             </h2>
+            <p v-if="featuredPostData.contributors" class="featured-post-contributors">
+              By {{ featuredPostData.contributors }}
+            </p>
             <span class="featured-post-cta">Read &rarr;</span>
           </RouterLink>
         </div>
