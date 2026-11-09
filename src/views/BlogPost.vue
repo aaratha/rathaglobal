@@ -527,4 +527,58 @@ watch(
   border: none;
   border-top: 1px solid var(--color-brass);
 }
+
+.prose :deep(table) {
+  width: 100%;
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.prose :deep(th),
+.prose :deep(td) {
+  padding: 0.55rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(168, 137, 88, 0.3);
+}
+
+.prose :deep(th) {
+  color: var(--color-indigo);
+  font-family: var(--font-serif);
+  font-weight: 700;
+  border-bottom: 2px solid var(--color-brass);
+}
+
+.prose :deep(tr:last-child td) {
+  border-bottom: 2px solid var(--color-brass);
+}
+
+@media (max-width: 640px) {
+  .prose :deep(table) {
+    font-size: 0.82rem;
+  }
+
+  .prose :deep(th),
+  .prose :deep(td) {
+    padding: 0.45rem 0.5rem;
+  }
+}
+
+.prose :deep(.post-figure) {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.prose :deep(.post-figure img) {
+  width: 100%;
+  border: 1px solid rgba(168, 137, 88, 0.3);
+}
+
+.prose :deep(.post-figure figcaption) {
+  margin-top: 0.6rem;
+  color: var(--color-moss);
+  font-size: 0.85rem;
+  font-style: italic;
+}
 </style>
