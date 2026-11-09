@@ -150,6 +150,10 @@ const latestPostDate = latestPostData.date
             <h2 id="latest-post-title" data-heading-group="highlights">
               {{ latestPostData.title }}
             </h2>
+            <p class="featured-post-description">{{ latestPostData.description }}</p>
+            <p v-if="latestPostData.contributors" class="featured-post-contributors">
+              By {{ latestPostData.contributors }}
+            </p>
             <span class="featured-post-cta">Read &rarr;</span>
           </RouterLink>
 
@@ -484,12 +488,15 @@ const latestPostDate = latestPostData.date
   order: 2;
 }
 
+/* Both halves carry the full horizontal padding themselves (same as the
+   single featured card did before the split) - the column adds none of
+   its own, so the two never stack their padding on top of each other. */
 .latest-post-card,
 .featured-post-card {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 2.25rem calc(var(--highlights-inset) + 1.75rem);
+  padding: 0 calc(var(--highlights-inset) + 1.75rem);
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   transition:
     background 0.3s ease,
@@ -501,14 +508,22 @@ const latestPostDate = latestPostData.date
    natural content size (flex-grow 3:2 on a shared zero basis), leaving
    the featured card its remaining 2/5. Deliberately no min-height: 0
    override - each card still keeps its own content's natural minimum,
-   so a long description grows the column rather than getting clipped. */
+   so a long description grows the column rather than getting clipped.
+   The outer 3.75rem top/bottom padding matches what the single card
+   used to carry on both edges; only the shared inner edge is tightened
+   to a plain 1.5rem/1.5rem gap with a divider, so this still reads as
+   one card frame split in two rather than two separate stacked cards. */
 .latest-post-card {
   flex: 3 1 0%;
+  padding-top: 3.75rem;
+  padding-bottom: 1.5rem;
   border-bottom: 1px solid rgba(168, 137, 88, 0.35);
 }
 
 .featured-post-card {
   flex: 2 1 0%;
+  padding-top: 1.5rem;
+  padding-bottom: 3.75rem;
 }
 
 @media (min-width: 1025px) {
@@ -516,8 +531,12 @@ const latestPostDate = latestPostData.date
     padding-right: 2.5rem;
   }
 
-  .featured-column {
+  .latest-post-card,
+  .featured-post-card {
     padding-left: 2.5rem;
+  }
+
+  .featured-column {
     /* Pulled 1px into the GRR card (instead of just abutting it) so a
        sub-pixel rounding gap between the two auto-sized grid items can
        never leave a hairline sliver of undarkened background showing when
