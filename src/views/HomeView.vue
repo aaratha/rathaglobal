@@ -580,9 +580,13 @@ const latestPostDate = latestPostData.date
 }
 
 .featured-post-cta {
+  /* A fixed gap below the content, rather than margin-top: auto pushing
+     it all the way to the bottom of each card's allotted flex space -
+     that stretch was both over-widening the heading-to-button gap and
+     leaving the top card's button sitting flush against its bottom
+     edge. Any leftover vertical space now falls below the button. */
   display: inline-block;
-  margin-top: auto;
-  padding-top: 1.25rem;
+  margin-top: 0.85rem;
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
