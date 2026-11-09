@@ -92,7 +92,7 @@ function onCardClick(event: MouseEvent) {
   align-items: center;
   gap: 1rem 1.5rem;
   margin-top: auto;
-  padding-top: 2rem;
+  padding-top: 1.25rem;
 }
 
 .grr-button {

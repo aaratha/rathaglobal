@@ -477,7 +477,7 @@ const latestPostDate = latestPostData.date
 
 .highlights-grid :deep(.grr-card) {
   order: 1;
-  padding: 3.75rem calc(var(--highlights-inset) + 1.75rem);
+  padding: 2.5rem calc(var(--highlights-inset) + 1.75rem);
 }
 
 .featured-column {
@@ -511,22 +511,22 @@ const latestPostDate = latestPostData.date
 /* Latest publication sits above the existing featured card and claims
    3/5 of the column's total height, leaving the featured card the
    remaining 2/5 (flex-grow 3:2 on a shared zero basis + min-height: 0
-   above). The outer 3.75rem top/bottom padding matches what the single
-   card used to carry on both edges; only the shared inner edge is
-   tightened to a plain 1.5rem/1.5rem gap with a divider, so this still
-   reads as one card frame split in two rather than two separate stacked
+   above). The outer 2.5rem top/bottom padding matches the GRR card's,
+   so the whole row stays shorter; the shared inner edge is tightened
+   further to a plain 1rem/1rem gap with a divider, so this still reads
+   as one card frame split in two rather than two separate stacked
    cards. */
 .latest-post-card {
   flex: 3 1 0%;
-  padding-top: 3.75rem;
-  padding-bottom: 1.5rem;
+  padding-top: 2.5rem;
+  padding-bottom: 1rem;
   border-bottom: 1px solid rgba(168, 137, 88, 0.35);
 }
 
 .featured-post-card {
   flex: 2 1 0%;
-  padding-top: 1.5rem;
-  padding-bottom: 3.75rem;
+  padding-top: 1rem;
+  padding-bottom: 2.5rem;
 }
 
 @media (min-width: 1025px) {
@@ -582,7 +582,7 @@ const latestPostDate = latestPostData.date
 .featured-post-cta {
   display: inline-block;
   margin-top: auto;
-  padding-top: 2rem;
+  padding-top: 1.25rem;
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -606,7 +606,7 @@ const latestPostDate = latestPostData.date
   }
 
   .latest-post-card {
-    padding-top: 1.5rem;
+    padding-top: 1rem;
   }
 }
 
