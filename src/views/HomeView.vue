@@ -85,6 +85,33 @@ const featuredPostDate = featuredPostData.date
       day: 'numeric',
     })
   : ''
+
+// The most recently dated post, independent of the hand-picked
+// featuredPostSlug above, so new publications surface here automatically.
+const latestPost = Object.entries(featuredPostRaw)
+  .map(([path, raw]) => ({
+    slug: path.replace('../content/posts/', '').replace('.md', ''),
+    data: parseFrontmatter(raw),
+  }))
+  .reduce((latest, entry) => {
+    const entryTime = entry.data.date
+      ? new Date(`${entry.data.date}T00:00:00`).getTime()
+      : -Infinity
+    const latestTime = latest.data.date
+      ? new Date(`${latest.data.date}T00:00:00`).getTime()
+      : -Infinity
+    return entryTime > latestTime ? entry : latest
+  })
+
+const latestPostSlug = latestPost.slug
+const latestPostData = latestPost.data
+const latestPostDate = latestPostData.date
+  ? new Date(`${latestPostData.date}T00:00:00`).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    })
+  : ''
 </script>
 
 <template>
@@ -109,25 +136,43 @@ const featuredPostDate = featuredPostData.date
       <div class="highlights-grid">
         <GrrSection />
 
-        <RouterLink
-          :to="`/blog/${featuredPostSlug}`"
-          class="card-link featured-post-card"
-          aria-labelledby="featured-post-title"
-        >
-          <p class="eyebrow">
-            Opinion
-            <span v-if="featuredPostDate" class="eyebrow-divider">&middot;</span>
-            {{ featuredPostDate }}
-          </p>
-          <h2 id="featured-post-title" data-heading-group="highlights">
-            {{ featuredPostData.title }}
-          </h2>
-          <p class="featured-post-description">{{ featuredPostData.description }}</p>
-          <p v-if="featuredPostData.contributors" class="featured-post-contributors">
-            By {{ featuredPostData.contributors }}
-          </p>
-          <span class="featured-post-cta">Read &rarr;</span>
-        </RouterLink>
+        <div class="featured-column">
+          <RouterLink
+            :to="`/blog/${latestPostSlug}`"
+            class="card-link latest-post-card"
+            aria-labelledby="latest-post-title"
+          >
+            <p class="eyebrow">
+              Latest
+              <span v-if="latestPostDate" class="eyebrow-divider">&middot;</span>
+              {{ latestPostDate }}
+            </p>
+            <h2 id="latest-post-title" data-heading-group="highlights">
+              {{ latestPostData.title }}
+            </h2>
+            <span class="featured-post-cta">Read &rarr;</span>
+          </RouterLink>
+
+          <RouterLink
+            :to="`/blog/${featuredPostSlug}`"
+            class="card-link featured-post-card"
+            aria-labelledby="featured-post-title"
+          >
+            <p class="eyebrow">
+              Opinion
+              <span v-if="featuredPostDate" class="eyebrow-divider">&middot;</span>
+              {{ featuredPostDate }}
+            </p>
+            <h2 id="featured-post-title" data-heading-group="highlights">
+              {{ featuredPostData.title }}
+            </h2>
+            <p class="featured-post-description">{{ featuredPostData.description }}</p>
+            <p v-if="featuredPostData.contributors" class="featured-post-contributors">
+              By {{ featuredPostData.contributors }}
+            </p>
+            <span class="featured-post-cta">Read &rarr;</span>
+          </RouterLink>
+        </div>
       </div>
     </section>
 
@@ -433,16 +478,37 @@ const featuredPostDate = featuredPostData.date
   padding: 3.75rem calc(var(--highlights-inset) + 1.75rem);
 }
 
+.featured-column {
+  display: flex;
+  flex-direction: column;
+  order: 2;
+}
+
+.latest-post-card,
 .featured-post-card {
   position: relative;
   display: flex;
   flex-direction: column;
-  order: 2;
-  padding: 3.75rem calc(var(--highlights-inset) + 1.75rem);
+  padding: 2.25rem calc(var(--highlights-inset) + 1.75rem);
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   transition:
     background 0.3s ease,
     box-shadow 0.3s ease;
+}
+
+/* Latest publication sits above the existing featured card and claims
+   3/5 of whatever extra height the column has beyond its two cards'
+   natural content size (flex-grow 3:2 on a shared zero basis), leaving
+   the featured card its remaining 2/5. Deliberately no min-height: 0
+   override - each card still keeps its own content's natural minimum,
+   so a long description grows the column rather than getting clipped. */
+.latest-post-card {
+  flex: 3 1 0%;
+  border-bottom: 1px solid rgba(168, 137, 88, 0.35);
+}
+
+.featured-post-card {
+  flex: 2 1 0%;
 }
 
 @media (min-width: 1025px) {
@@ -450,17 +516,19 @@ const featuredPostDate = featuredPostData.date
     padding-right: 2.5rem;
   }
 
-  .featured-post-card {
+  .featured-column {
     padding-left: 2.5rem;
     /* Pulled 1px into the GRR card (instead of just abutting it) so a
        sub-pixel rounding gap between the two auto-sized grid items can
        never leave a hairline sliver of undarkened background showing when
-       GRR, not this card, is the one being hovered. */
+       GRR, not this column, is the one being hovered. */
     margin-left: -1px;
     border-left: 1px solid rgba(168, 137, 88, 0.35);
   }
 }
 
+.latest-post-card:hover,
+.latest-post-card:focus-visible,
 .featured-post-card:hover,
 .featured-post-card:focus-visible {
   z-index: 2;
@@ -471,6 +539,7 @@ const featuredPostDate = featuredPostData.date
     0 10px 20px rgba(0, 0, 0, 0.09);
 }
 
+.latest-post-card h2,
 .featured-post-card h2 {
   align-self: flex-start;
   margin-bottom: 0.4rem;
@@ -495,6 +564,8 @@ const featuredPostDate = featuredPostData.date
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.latest-post-card:hover .featured-post-cta,
+.latest-post-card:focus-visible .featured-post-cta,
 .featured-post-card:hover .featured-post-cta,
 .featured-post-card:focus-visible .featured-post-cta {
   transform: translateX(6px);
@@ -505,11 +576,14 @@ const featuredPostDate = featuredPostData.date
     grid-template-columns: 1fr;
   }
 
-  .featured-post-card {
+  .featured-column {
     /* See the matching comment on the desktop border-left: pulls the
        divider up into GRR's box so no sub-pixel gap can show through. */
     margin-top: -1px;
     border-top: 1px solid rgba(168, 137, 88, 0.35);
+  }
+
+  .latest-post-card {
     padding-top: 1.5rem;
   }
 }
