@@ -1,24 +1,11 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
 
-// A plain string, or text plus a superscript footnote marker (rendered
-// smaller than body size - see .footnote-mark - since a symbol like †
-// comes in noticeably larger than * at normal text size).
-type Feature = string | { text: string; marker: string }
-
-function featureText(f: Feature): string {
-  return typeof f === 'string' ? f : f.text
-}
-
-function featureMarker(f: Feature): string | undefined {
-  return typeof f === 'string' ? undefined : f.marker
-}
-
 interface Column {
   name: string
   audience: string
   // One entry per row in featureRows, aligned by index. '—' means not included.
-  features: Feature[]
+  features: string[]
   // Bundles are priced as a whole: one "Request pricing" button for the tier.
   // Open Access has none (it's free).
   requestPricingName?: string
@@ -30,30 +17,36 @@ const columns: Column[] = [
   {
     name: 'Open Access',
     audience: 'Free for everyone*',
-    features: [{ text: 'Summary report', marker: '†' }, '2000–2024', '—'],
+    features: ['Remittances Report', '2000–2024', '—'],
   },
   {
     name: 'Professional',
     audience: '1 named user · December edition',
-    features: ['Full report', '2000–2026', '—'],
+    features: ['Remittances Report + Insights + Regional Annexes', '2000–2026', '—'],
     requestPricingName: 'Professional Bundle',
   },
   {
     name: 'Enterprise',
     audience: 'Unlimited users · December and May editions',
-    features: ['Full report', '2000–2026, 2027 forecast', '10,600+ corridors'],
+    features: [
+      'Remittances Report + Insights + Regional Annexes',
+      '2000–2026, 2027 forecast',
+      '10,600+ corridors',
+    ],
     requestPricingName: 'Enterprise Bundle',
   },
 ]
 
 interface OneTimePurchase {
   label: string
-  marker?: string
   quoteName: string
 }
 
 const oneTimePurchases: OneTimePurchase[] = [
-  { label: 'Full report', quoteName: 'Full report (one-time purchase)' },
+  {
+    label: 'Remittances Report + Insights + Regional Annexes',
+    quoteName: 'Remittances Report + Insights + Regional Annexes (one-time purchase)',
+  },
   {
     label: 'Country time series',
     quoteName: 'Country time series 2000–2026 (one-time purchase)',
@@ -237,10 +230,7 @@ onUnmounted(() => {
               <tr v-for="(row, i) in featureRows" :key="row">
                 <th scope="row">{{ row }}</th>
                 <td v-for="column in columns" :key="column.name">
-                  {{ featureText(column.features[i]!)
-                  }}<sup v-if="featureMarker(column.features[i]!)" class="footnote-mark">{{
-                    featureMarker(column.features[i]!)
-                  }}</sup>
+                  {{ column.features[i] }}
                 </td>
               </tr>
             </tbody>
@@ -272,8 +262,7 @@ onUnmounted(() => {
               :key="item.label"
               class="button request-pricing"
               :href="pricingMailto(item.quoteName)"
-              >{{ item.label
-              }}<sup v-if="item.marker" class="footnote-mark">{{ item.marker }}</sup></a
+              >{{ item.label }}</a
             >
           </div>
         </div>
@@ -281,10 +270,6 @@ onUnmounted(() => {
         <div class="tier-notes">
           <div class="tier-footnotes">
             <p>* Open Access: citation required when quoting from the report or data.</p>
-            <p>
-              <sup class="footnote-mark">†</sup> Summary report: executive summary, 5 key charts and
-              1 summary table.
-            </p>
             <p>
               <a href="https://nexteraglobal.io/" target="_blank" rel="noopener"
                 >Nextera Global Association</a
@@ -573,8 +558,8 @@ section {
   border-top: 1px solid rgba(168, 137, 88, 0.35);
 }
 
-/* Actual footnotes (the * and † markers, plus the discount note) stay
-   small and quiet - they're asides, not content to read on their own. */
+/* Actual footnotes (the * marker, plus the discount note) stay small
+   and quiet - they're asides, not content to read on their own. */
 .tier-footnotes p {
   margin: 0 0 0.4rem;
   color: var(--color-moss);
@@ -584,13 +569,6 @@ section {
 
 .tier-footnotes p:last-child {
   margin-bottom: 0;
-}
-
-/* † renders noticeably larger than * at body size, so it's set as a
-   shrunk superscript everywhere it appears (button label and footnote)
-   rather than sized once and drifting out of sync between the two. */
-.footnote-mark {
-  font-size: 0.7em;
 }
 
 /* "Custom work" is a real offering, not a footnote - a tinted panel (same
