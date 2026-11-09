@@ -498,6 +498,13 @@ const latestPostDate = latestPostData.date
   position: relative;
   display: flex;
   flex-direction: column;
+  /* min-height: 0 overrides the flex default (an automatic minimum equal
+     to content size), which otherwise fights the flex-grow ratio below
+     and leaves both halves sized to their own content instead of an
+     actual 3:2 height split. Content here is short enough on both sides
+     that this shouldn't clip anything in normal use. */
+  min-height: 0;
+  overflow: hidden;
   padding: 0 calc(var(--highlights-inset) + 1.75rem);
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   transition:
@@ -506,15 +513,13 @@ const latestPostDate = latestPostData.date
 }
 
 /* Latest publication sits above the existing featured card and claims
-   3/5 of whatever extra height the column has beyond its two cards'
-   natural content size (flex-grow 3:2 on a shared zero basis), leaving
-   the featured card its remaining 2/5. Deliberately no min-height: 0
-   override - each card still keeps its own content's natural minimum,
-   so a long description grows the column rather than getting clipped.
-   The outer 3.75rem top/bottom padding matches what the single card
-   used to carry on both edges; only the shared inner edge is tightened
-   to a plain 1.5rem/1.5rem gap with a divider, so this still reads as
-   one card frame split in two rather than two separate stacked cards. */
+   3/5 of the column's total height, leaving the featured card the
+   remaining 2/5 (flex-grow 3:2 on a shared zero basis + min-height: 0
+   above). The outer 3.75rem top/bottom padding matches what the single
+   card used to carry on both edges; only the shared inner edge is
+   tightened to a plain 1.5rem/1.5rem gap with a divider, so this still
+   reads as one card frame split in two rather than two separate stacked
+   cards. */
 .latest-post-card {
   flex: 3 1 0%;
   padding-top: 3.75rem;
