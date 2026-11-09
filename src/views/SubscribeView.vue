@@ -67,13 +67,17 @@ function pricingMailto(item: string) {
   return `mailto:contact@rathaglobal.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
 }
 
-// The FAB's job is to jump the reader down to pricing. Once that section is
-// actually on screen, a fixed bottom-right button has nothing left to do and,
-// on narrow viewports where content runs edge to edge, sits on top of the
-// section's own trailing text (e.g. the disclaimer) instead - so it hides
-// itself once #pricing-title is in view.
+// The FAB's job is to jump the reader to pricing - down in the normal case,
+// but up if the reader has scrolled past #pricing-title and back out the
+// bottom of the page, so the arrow always points the direction the jump
+// actually goes. Once that section is actually on screen, a fixed
+// bottom-right button has nothing left to do and, on narrow viewports where
+// content runs edge to edge, sits on top of the section's own trailing text
+// (e.g. the disclaimer) instead - so it hides itself once #pricing-title is
+// in view.
 const pricingTitleEl = ref<HTMLElement | null>(null)
 const showPricingFab = ref(true)
+const pricingIsAbove = ref(false)
 let pricingTitleObserver: IntersectionObserver | null = null
 
 onMounted(() => {
@@ -81,6 +85,7 @@ onMounted(() => {
   pricingTitleObserver = new IntersectionObserver(
     ([entry]) => {
       showPricingFab.value = !entry!.isIntersecting
+      pricingIsAbove.value = entry!.boundingClientRect.top < 0
     },
     { threshold: 0 },
   )
@@ -172,8 +177,8 @@ onUnmounted(() => {
         </p>
         <p>
           The first edition will be released in December 2026 with the country time series, and the
-          bilateral matrix will follow shortly after. Subsequent editions will appear every May
-          and December, each with a launch webinar and publication on rathaglobal.com.
+          bilateral matrix will follow shortly after. Subsequent editions will appear every May and
+          December, each with a launch webinar and publication on rathaglobal.com.
         </p>
         <p>
           Access ranges from a free open-access tier to enterprise licenses &mdash; see pricing
@@ -232,12 +237,12 @@ onUnmounted(() => {
             <tbody>
               <tr v-for="(row, i) in featureRows" :key="row">
                 <th scope="row">{{ row }}</th>
-                <td v-for="column in columns" :key="column.name"
-                  >{{ featureText(column.features[i]!)
+                <td v-for="column in columns" :key="column.name">
+                  {{ featureText(column.features[i]!)
                   }}<sup v-if="featureMarker(column.features[i]!)" class="footnote-mark">{{
                     featureMarker(column.features[i]!)
-                  }}</sup></td
-                >
+                  }}</sup>
+                </td>
               </tr>
             </tbody>
             <tfoot>
@@ -268,9 +273,8 @@ onUnmounted(() => {
               :key="item.label"
               class="button request-pricing"
               :href="pricingMailto(item.quoteName)"
-              >{{ item.label }}<sup v-if="item.marker" class="footnote-mark">{{
-                item.marker
-              }}</sup></a
+              >{{ item.label
+              }}<sup v-if="item.marker" class="footnote-mark">{{ item.marker }}</sup></a
             >
           </div>
         </div>
@@ -279,12 +283,12 @@ onUnmounted(() => {
           <div class="tier-footnotes">
             <p>* Open Access: citation required when quoting from the report or data.</p>
             <p>
-              <sup class="footnote-mark">†</sup> Summary report: executive summary, 5 key charts
-              and 1 summary table.
+              <sup class="footnote-mark">†</sup> Summary report: executive summary, 5 key charts and
+              1 summary table.
             </p>
             <p>
-              <sup class="footnote-mark">§</sup> Country time series: 2000–2025, includes the
-              2026 estimate and 2027 forecast.
+              <sup class="footnote-mark">§</sup> Country time series: 2000–2025, includes the 2026
+              estimate and 2027 forecast.
             </p>
             <p>
               <a href="https://nexteraglobal.io/" target="_blank" rel="noopener"
@@ -326,7 +330,7 @@ onUnmounted(() => {
       class="pricing-fab"
       aria-label="Jump to pricing and access"
     >
-      Pricing <span aria-hidden="true">&darr;</span>
+      Pricing <span aria-hidden="true">{{ pricingIsAbove ? '↑' : '↓' }}</span>
     </a>
   </main>
 </template>
