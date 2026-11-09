@@ -163,7 +163,7 @@ const latestPostDate = latestPostData.date
             aria-labelledby="featured-post-title"
           >
             <p class="eyebrow">
-              Opinion
+              Featured
               <span v-if="featuredPostDate" class="eyebrow-divider">&middot;</span>
               {{ featuredPostDate }}
             </p>
