@@ -2,8 +2,8 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 
 // A plain string, or text plus a superscript footnote marker (rendered
-// smaller than body size - see .footnote-mark - since symbols like † and §
-// come in noticeably larger than * at normal text size).
+// smaller than body size - see .footnote-mark - since a symbol like †
+// comes in noticeably larger than * at normal text size).
 type Feature = string | { text: string; marker: string }
 
 function featureText(f: Feature): string {
@@ -35,13 +35,13 @@ const columns: Column[] = [
   {
     name: 'Professional',
     audience: '1 named user · December edition',
-    features: ['Full report', '2000–2025, 2026 estimate, 2027 forecast', '—'],
+    features: ['Full report', '2000–2026', '—'],
     requestPricingName: 'Professional Bundle',
   },
   {
     name: 'Enterprise',
     audience: 'Unlimited users · December and May editions',
-    features: ['Full report', '2000–2025, 2026 estimate, 2027 forecast', '10,600+ corridors'],
+    features: ['Full report', '2000–2026', '10,600+ corridors'],
     requestPricingName: 'Enterprise Bundle',
   },
 ]
@@ -56,8 +56,7 @@ const oneTimePurchases: OneTimePurchase[] = [
   { label: 'Full report', quoteName: 'Full report (one-time purchase)' },
   {
     label: 'Country time series',
-    marker: '§',
-    quoteName: 'Country time series 2000–2025 (one-time purchase)',
+    quoteName: 'Country time series 2000–2026 (one-time purchase)',
   },
 ]
 
@@ -285,10 +284,6 @@ onUnmounted(() => {
             <p>
               <sup class="footnote-mark">†</sup> Summary report: executive summary, 5 key charts and
               1 summary table.
-            </p>
-            <p>
-              <sup class="footnote-mark">§</sup> Country time series: 2000–2025, includes the 2026
-              estimate and 2027 forecast.
             </p>
             <p>
               <a href="https://nexteraglobal.io/" target="_blank" rel="noopener"
@@ -591,7 +586,7 @@ section {
   margin-bottom: 0;
 }
 
-/* § renders noticeably larger than * and † at body size, so it's set as a
+/* † renders noticeably larger than * at body size, so it's set as a
    shrunk superscript everywhere it appears (button label and footnote)
    rather than sized once and drifting out of sync between the two. */
 .footnote-mark {
