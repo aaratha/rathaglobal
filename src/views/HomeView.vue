@@ -474,8 +474,8 @@ const latestPostDate = latestPostData.date
 .highlights-grid {
   display: grid;
   /* highlights-section spans the full 100vw, so this ratio is directly
-     the two columns' share of the site's width: 3fr/5 : 2fr/5. */
-  grid-template-columns: 3fr 2fr;
+     the two columns' share of the site's width: 1/2 : 1/2. */
+  grid-template-columns: 1fr 1fr;
   align-items: stretch;
 }
 
