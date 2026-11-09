@@ -41,7 +41,7 @@ const columns: Column[] = [
   {
     name: 'Enterprise',
     audience: 'Unlimited users · December and May editions',
-    features: ['Full report', '2000–2026', '10,600+ corridors'],
+    features: ['Full report', '2000–2026, 2027 forecast', '10,600+ corridors'],
     requestPricingName: 'Enterprise Bundle',
   },
 ]
