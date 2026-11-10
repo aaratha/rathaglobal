@@ -56,6 +56,12 @@ const navShiftStyle = computed(() => ({
 // so starting it slightly later keeps the two reading as roughly in step
 // without the button visibly jumping the gun.
 const isSticky = computed(() => (props.logoReveal ?? 0) > 0.15)
+
+// Once logged in, ACCOUNT takes over the CTA slot SUBSCRIBE occupies when
+// logged out - there's no reason to ask an existing account holder to
+// subscribe, and ACCOUNT is the more useful destination for them.
+const ctaTo = computed(() => (user.value ? '/account' : '/subscribe'))
+const ctaLabel = computed(() => (user.value ? 'ACCOUNT' : 'SUBSCRIBE'))
 </script>
 
 <template>
@@ -72,11 +78,8 @@ const isSticky = computed(() => (props.logoReveal ?? 0) > 0.15)
       </RouterLink>
 
       <div class="nav-right">
-        <RouterLink
-          to="/subscribe"
-          class="nav-subscribe"
-          :class="{ 'nav-subscribe-sticky': isSticky }"
-          >SUBSCRIBE</RouterLink
+        <RouterLink :to="ctaTo" class="nav-subscribe" :class="{ 'nav-subscribe-sticky': isSticky }"
+          >{{ ctaLabel }}</RouterLink
         >
 
         <button
@@ -105,12 +108,10 @@ const isSticky = computed(() => (props.logoReveal ?? 0) > 0.15)
         <RouterLink to="/media" @click="closeMenu">MEDIA</RouterLink>
         <RouterLink to="/products" @click="closeMenu">PRODUCTS</RouterLink>
         <a href="/#contact" @click="closeMenu">CONTACT</a>
-        <RouterLink :to="user ? '/account' : '/login'" @click="closeMenu">{{
-          user ? 'ACCOUNT' : 'LOG IN'
+        <RouterLink v-if="!user" to="/login" @click="closeMenu">LOG IN</RouterLink>
+        <RouterLink :to="ctaTo" class="nav-drawer-subscribe" @click="closeMenu">{{
+          ctaLabel
         }}</RouterLink>
-        <RouterLink to="/subscribe" class="nav-drawer-subscribe" @click="closeMenu"
-          >SUBSCRIBE</RouterLink
-        >
       </nav>
     </div>
   </header>
