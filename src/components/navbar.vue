@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
+import { useAuth } from '../composables/useAuth'
 
 const props = defineProps<{ logoReveal?: number }>()
 
 const menuOpen = ref(false)
 const route = useRoute()
+const { user } = useAuth()
 
 function closeMenu() {
   menuOpen.value = false
@@ -101,7 +103,11 @@ const isSticky = computed(() => (props.logoReveal ?? 0) > 0.15)
       >
         <RouterLink to="/blog" @click="closeMenu">PUBLICATIONS</RouterLink>
         <RouterLink to="/media" @click="closeMenu">MEDIA</RouterLink>
+        <RouterLink to="/products" @click="closeMenu">PRODUCTS</RouterLink>
         <a href="/#contact" @click="closeMenu">CONTACT</a>
+        <RouterLink :to="user ? '/account' : '/login'" @click="closeMenu">{{
+          user ? 'ACCOUNT' : 'LOG IN'
+        }}</RouterLink>
         <RouterLink to="/subscribe" class="nav-drawer-subscribe" @click="closeMenu"
           >SUBSCRIBE</RouterLink
         >

@@ -1,11 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { setMeta } from '../composables/useMeta'
+import { useAuth } from '../composables/useAuth'
 
 declare module 'vue-router' {
   interface RouteMeta {
     title?: string
     description?: string
     noindex?: boolean
+    requiresAuth?: boolean
   }
 }
 
@@ -57,6 +59,63 @@ const router = createRouter({
       component: () => import('../views/SolutionView.vue'),
     },
     {
+      path: '/products',
+      component: () => import('../views/ProductsView.vue'),
+      meta: {
+        title: 'Products | Ratha Global',
+        description:
+          'Reports and data products from Ratha Global, including the Global Remittances Report and Database.',
+      },
+    },
+    {
+      path: '/login',
+      component: () => import('../views/LoginView.vue'),
+      meta: {
+        title: 'Log in | Ratha Global',
+        description: 'Log in to your Ratha Global account.',
+        noindex: true,
+      },
+    },
+    {
+      path: '/signup',
+      component: () => import('../views/SignupView.vue'),
+      meta: {
+        title: 'Create an account | Ratha Global',
+        description: 'Create a Ratha Global account to purchase and access reports and data.',
+        noindex: true,
+      },
+    },
+    {
+      path: '/account',
+      component: () => import('../views/AccountView.vue'),
+      meta: {
+        title: 'Account | Ratha Global',
+        description: 'Manage your Ratha Global account.',
+        noindex: true,
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/account/purchases',
+      component: () => import('../views/PurchaseHistoryView.vue'),
+      meta: {
+        title: 'Purchase history | Ratha Global',
+        description: 'Your Ratha Global purchase history.',
+        noindex: true,
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/account/owned',
+      component: () => import('../views/OwnedProductsView.vue'),
+      meta: {
+        title: 'Your products | Ratha Global',
+        description: 'Reports and data you own, ready to access.',
+        noindex: true,
+        requiresAuth: true,
+      },
+    },
+    {
       path: '/:pathMatch(.*)*',
       component: () => import('../views/NotFound.vue'),
       meta: {
@@ -71,6 +130,16 @@ const router = createRouter({
     if (to.hash) return { el: to.hash, behavior: 'smooth' }
     return { top: 0 }
   },
+})
+
+router.beforeEach(async (to) => {
+  if (!to.meta.requiresAuth) return true
+
+  const { ready, user } = useAuth()
+  await ready
+  if (user.value) return true
+
+  return { path: '/login', query: { redirect: to.fullPath } }
 })
 
 router.afterEach((to) => {
