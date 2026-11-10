@@ -49,8 +49,20 @@ async function signOut() {
   if (error) throw error
 }
 
+export type OAuthProvider = 'google' | 'azure'
+
+// Redirects to the provider's consent screen and back - there's no
+// client-side result to await, since the browser navigates away.
+async function signInWithOAuth(provider: OAuthProvider, redirectTo: string) {
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider,
+    options: { redirectTo: new URL(redirectTo, window.location.origin).toString() },
+  })
+  if (error) throw error
+}
+
 init()
 
 export function useAuth() {
-  return { session, user, ready, signUp, signIn, signOut }
+  return { session, user, ready, signUp, signIn, signInWithOAuth, signOut }
 }

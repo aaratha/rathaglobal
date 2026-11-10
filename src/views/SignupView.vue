@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
-import { useAuth } from '../composables/useAuth'
+import { useAuth, type OAuthProvider } from '../composables/useAuth'
 
 const router = useRouter()
-const { signUp } = useAuth()
+const { signUp, signInWithOAuth } = useAuth()
 
 const email = ref('')
 const password = ref('')
 const error = ref('')
 const submitting = ref(false)
 const confirmationSent = ref(false)
+const oauthPending = ref<OAuthProvider | null>(null)
 
 async function onSubmit() {
   error.value = ''
@@ -26,6 +27,17 @@ async function onSubmit() {
     error.value = e instanceof Error ? e.message : 'Could not create account.'
   } finally {
     submitting.value = false
+  }
+}
+
+async function onOAuth(provider: OAuthProvider) {
+  error.value = ''
+  oauthPending.value = provider
+  try {
+    await signInWithOAuth(provider, '/account')
+  } catch (e) {
+    error.value = e instanceof Error ? e.message : 'Could not create account.'
+    oauthPending.value = null
   }
 }
 </script>
@@ -45,6 +57,27 @@ async function onSubmit() {
         </template>
 
         <template v-else>
+          <div class="oauth-buttons">
+            <button
+              type="button"
+              class="button oauth-button"
+              :disabled="oauthPending !== null"
+              @click="onOAuth('google')"
+            >
+              {{ oauthPending === 'google' ? 'Redirecting…' : 'Continue with Google' }}
+            </button>
+            <button
+              type="button"
+              class="button oauth-button"
+              :disabled="oauthPending !== null"
+              @click="onOAuth('azure')"
+            >
+              {{ oauthPending === 'azure' ? 'Redirecting…' : 'Continue with Microsoft' }}
+            </button>
+          </div>
+
+          <p class="auth-divider"><span>or</span></p>
+
           <form class="auth-form" @submit.prevent="onSubmit">
             <label for="signup-email">Email</label>
             <input id="signup-email" v-model="email" type="email" required autocomplete="email" />
@@ -88,6 +121,41 @@ section {
 
 #signup-title {
   margin-bottom: 1.5rem;
+}
+
+.oauth-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.oauth-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.auth-divider {
+  position: relative;
+  margin: 1.5rem 0;
+  text-align: center;
+  color: var(--color-moss);
+  font-size: 0.85rem;
+}
+
+.auth-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  border-top: 1px solid rgba(168, 137, 88, 0.35);
+}
+
+.auth-divider span {
+  position: relative;
+  padding: 0 0.75rem;
+  background: var(--color-paper);
 }
 
 .auth-form {

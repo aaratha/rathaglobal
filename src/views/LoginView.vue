@@ -1,28 +1,41 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
-import { useAuth } from '../composables/useAuth'
+import { useAuth, type OAuthProvider } from '../composables/useAuth'
 
 const route = useRoute()
 const router = useRouter()
-const { signIn } = useAuth()
+const { signIn, signInWithOAuth } = useAuth()
 
 const email = ref('')
 const password = ref('')
 const error = ref('')
 const submitting = ref(false)
+const oauthPending = ref<OAuthProvider | null>(null)
+
+const redirectPath = typeof route.query.redirect === 'string' ? route.query.redirect : '/account'
 
 async function onSubmit() {
   error.value = ''
   submitting.value = true
   try {
     await signIn(email.value, password.value)
-    const redirect = typeof route.query.redirect === 'string' ? route.query.redirect : '/account'
-    router.push(redirect)
+    router.push(redirectPath)
   } catch (e) {
     error.value = e instanceof Error ? e.message : 'Could not log in.'
   } finally {
     submitting.value = false
+  }
+}
+
+async function onOAuth(provider: OAuthProvider) {
+  error.value = ''
+  oauthPending.value = provider
+  try {
+    await signInWithOAuth(provider, redirectPath)
+  } catch (e) {
+    error.value = e instanceof Error ? e.message : 'Could not log in.'
+    oauthPending.value = null
   }
 }
 </script>
@@ -33,6 +46,27 @@ async function onSubmit() {
       <div class="content-container">
         <p class="eyebrow">Account</p>
         <h1 id="login-title">Log in</h1>
+
+        <div class="oauth-buttons">
+          <button
+            type="button"
+            class="button oauth-button"
+            :disabled="oauthPending !== null"
+            @click="onOAuth('google')"
+          >
+            {{ oauthPending === 'google' ? 'Redirecting…' : 'Continue with Google' }}
+          </button>
+          <button
+            type="button"
+            class="button oauth-button"
+            :disabled="oauthPending !== null"
+            @click="onOAuth('azure')"
+          >
+            {{ oauthPending === 'azure' ? 'Redirecting…' : 'Continue with Microsoft' }}
+          </button>
+        </div>
+
+        <p class="auth-divider"><span>or</span></p>
 
         <form class="auth-form" @submit.prevent="onSubmit">
           <label for="login-email">Email</label>
@@ -75,6 +109,41 @@ section {
 
 #login-title {
   margin-bottom: 1.5rem;
+}
+
+.oauth-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.oauth-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.auth-divider {
+  position: relative;
+  margin: 1.5rem 0;
+  text-align: center;
+  color: var(--color-moss);
+  font-size: 0.85rem;
+}
+
+.auth-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  border-top: 1px solid rgba(168, 137, 88, 0.35);
+}
+
+.auth-divider span {
+  position: relative;
+  padding: 0 0.75rem;
+  background: var(--color-paper);
 }
 
 .auth-form {
