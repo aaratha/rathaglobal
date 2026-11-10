@@ -89,6 +89,9 @@ async function onOAuth(provider: OAuthProvider) {
         </form>
 
         <p class="auth-switch">
+          <RouterLink to="/forgot-password">Forgot your password?</RouterLink>
+        </p>
+        <p class="auth-switch">
           Don't have an account? <RouterLink to="/signup">Create one</RouterLink>
         </p>
       </div>

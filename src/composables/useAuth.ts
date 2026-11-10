@@ -49,6 +49,22 @@ async function signOut() {
   if (error) throw error
 }
 
+async function resetPasswordForEmail(email: string, redirectTo: string) {
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: new URL(redirectTo, window.location.origin).toString(),
+  })
+  if (error) throw error
+}
+
+// Only works while the user is in the short-lived "recovery" session that
+// Supabase establishes from the reset-password email link - see
+// ResetPasswordView, which relies on `ready` (above) to pick that session up
+// the same way it picks up a normal one.
+async function updatePassword(password: string) {
+  const { error } = await supabase.auth.updateUser({ password })
+  if (error) throw error
+}
+
 export type OAuthProvider = 'google' | 'azure'
 
 // Redirects to the provider's consent screen and back - there's no
@@ -64,5 +80,15 @@ async function signInWithOAuth(provider: OAuthProvider, redirectTo: string) {
 init()
 
 export function useAuth() {
-  return { session, user, ready, signUp, signIn, signInWithOAuth, signOut }
+  return {
+    session,
+    user,
+    ready,
+    signUp,
+    signIn,
+    signInWithOAuth,
+    signOut,
+    resetPasswordForEmail,
+    updatePassword,
+  }
 }

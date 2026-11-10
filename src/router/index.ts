@@ -86,6 +86,24 @@ const router = createRouter({
       },
     },
     {
+      path: '/forgot-password',
+      component: () => import('../views/ForgotPasswordView.vue'),
+      meta: {
+        title: 'Reset your password | Ratha Global',
+        description: 'Request a link to reset your Ratha Global account password.',
+        noindex: true,
+      },
+    },
+    {
+      path: '/reset-password',
+      component: () => import('../views/ResetPasswordView.vue'),
+      meta: {
+        title: 'Set a new password | Ratha Global',
+        description: 'Set a new password for your Ratha Global account.',
+        noindex: true,
+      },
+    },
+    {
       path: '/account',
       component: () => import('../views/AccountView.vue'),
       meta: {
