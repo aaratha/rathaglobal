@@ -106,7 +106,6 @@ const ctaLabel = computed(() => (user.value ? 'ACCOUNT' : 'SUBSCRIBE'))
       >
         <RouterLink to="/blog" @click="closeMenu">PUBLICATIONS</RouterLink>
         <RouterLink to="/media" @click="closeMenu">MEDIA</RouterLink>
-        <RouterLink to="/products" @click="closeMenu">PRODUCTS</RouterLink>
         <a href="/#contact" @click="closeMenu">CONTACT</a>
         <RouterLink v-if="!user" to="/login" @click="closeMenu">LOG IN</RouterLink>
         <RouterLink :to="ctaTo" class="nav-drawer-subscribe" @click="closeMenu">{{
